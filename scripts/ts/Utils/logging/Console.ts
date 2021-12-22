@@ -1,0 +1,22 @@
+import { Player } from "mojang-minecraft";
+
+export class Console {
+    static chat(s: string, player: Player) {
+        return `tellraw @a {"rawtext":[{"text":"<${player.name}> ${s}"}]}`;
+    }
+    static sudoChat(s:string, name:string,target:string) {
+        return `tellraw ${target} {"rawtext":[{"text":"<${name}> ${s}"}]}`;
+    }
+    static tellraw(s: string): string {
+        return `tellraw @a {"rawtext":[{"text":"${s}"}]}`;
+    }
+    static targettedTellraw(s: string, target: string): string {
+        return `tellraw ${target} {"rawtext":[{"text":"${s}"}]}`;
+    }
+    static say(s: string): string {
+        return `say ${s}`;
+    }
+    static sayPlayer(s: string, player: Player) {
+        return `execute @a [name="${player.name}"] ~~~ say ${s}`;
+    }
+}

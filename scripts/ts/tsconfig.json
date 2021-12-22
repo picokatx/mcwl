@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "module": "es2020",
+      "moduleResolution": "node",
+      "target": "es2020",
+      "noImplicitAny": true,
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "sourceMap": false,
+      "outDir": "../js",
+      "rootDir": "."
+    },
+    "devDependencies": {
+      "commonjs": "latest",
+      "requirejs": "latest"
+    }
+}
