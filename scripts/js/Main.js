@@ -8,7 +8,13 @@ import { blockstatsCmd } from "./Command/Commands/blockstatsCommand.js";
 import { sneakstatsCmd } from "./Command/Commands/sneakstatsCommand.js";
 import { Vec3 } from "./Utils/data/vec3.js";
 import { distmovedstatsCmd } from "./Command/Commands/distTravelledCommand.js";
-import { DataCheckHelper } from "./Utils/data/DataCheckHelper.js";
+import { DataHelper } from "./Utils/data/DataHelper.js";
+import { spawnCmd } from "./Command/Commands/spawnCommand.js";
+import { gotoCmd } from "./Command/Commands/gotoCommand.js";
+import { setblockCmd } from "./Command/Commands/setblockCommand.js";
+import { ascendCmd } from "./Command/Commands/ascendCommand.js";
+import { descendCmd } from "./Command/Commands/descendCommand.js";
+import { floorCmd } from "./Command/Commands/floorCommand.js";
 export let printStream = new PrintStream(world.getDimension("overworld"));
 export let playerBlockSelection = [];
 export let playerBlockStatDB = new Map();
@@ -24,10 +30,17 @@ let commands = [
     sudoCmd,
     blockstatsCmd,
     sneakstatsCmd,
-    distmovedstatsCmd
+    distmovedstatsCmd,
+    spawnCmd,
+    gotoCmd,
+    ascendCmd,
+    setblockCmd,
+    descendCmd,
+    floorCmd
 ];
-const cmdPrefix = ",";
+export const cmdPrefix = ",";
 world.events.playerJoin.subscribe((eventData) => {
+    PlayerTag.clearTags(eventData.player);
     if (!PlayerTag.hasTag(eventData.player, "dpm:sneakTime")) {
         playerCrouchTimeDB.set(eventData.player, 0);
     }
@@ -48,7 +61,7 @@ world.events.playerJoin.subscribe((eventData) => {
     }
 });
 world.events.beforeItemUseOn.subscribe((eventData) => {
-    printStream.println(DataCheckHelper.isContainerEmpty(eventData.source.dimension.getBlock(eventData.blockLocation)));
+    printStream.println(DataHelper.isContainerEmpty(eventData.source.dimension.getBlock(eventData.blockLocation)));
     eventData.source.dimension.getBlock(eventData.blockLocation).permutation.getAllProperties().forEach((p) => {
         printStream.println(p.name);
     });
@@ -83,7 +96,7 @@ world.events.beforeChat.subscribe((eventData) => {
         cmdHandler(eventData, operators[opIdx].permissionLevel);
     }
     else {
-        let rSudoData = PlayerTag.read(eventData.sender, "sudo");
+        let rSudoData = PlayerTag.read(eventData.sender, "dpm:sudo");
         if (rSudoData.data.sudoToggled == true) {
             printStream.sudoChat(eventData.message, rSudoData.data.sudoName, rSudoData.data.target);
         }

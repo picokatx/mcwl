@@ -10,7 +10,7 @@ import { Block, BlockLocation, BlockPermutation, BlockProperties, BlockRecordPla
 import { BlocksIntConditions } from "../../Utils/stats/BlocksIntConditions.js";
 import { ITEM_ANY } from "../../Utils/stats/BlocksIntDB.js";
 import { PotionData } from "../../Utils/constants/PotionID.js";
-import { DataCheckHelper } from "../../Utils/data/DataCheckHelper.js";
+import { DataHelper } from "../../Utils/data/DataHelper.js";
 
 export const blockIntNamespaces: Map<string, BlocksIntConditions> = new Map<string, BlocksIntConditions>([
     ["dpm:clean_armor", new BlocksIntConditions(
@@ -21,12 +21,12 @@ export const blockIntNamespaces: Map<string, BlocksIntConditions> = new Map<stri
             Items.get("minecraft:leather_leggings"),
             Items.get("minecraft:leather_boots")
         ],
-        DataCheckHelper.cauldronHasWater
+        DataHelper.cauldronHasWater
     )],
     ["dpm:clean_banner", new BlocksIntConditions(
         MinecraftBlockTypes.cauldron,
         Items.get("minecraft:banner"),
-        DataCheckHelper.cauldronHasWater
+        DataHelper.cauldronHasWater
     )],
     ["dpm:open_barrel", new BlocksIntConditions(MinecraftBlockTypes.barrel, ITEM_ANY)],
     ["dpm:bell_ring", new BlocksIntConditions(MinecraftBlockTypes.bell, ITEM_ANY)],
@@ -42,7 +42,7 @@ export const blockIntNamespaces: Map<string, BlocksIntConditions> = new Map<stri
             Items.get("minecraft:splash_potion")
         ],
         null,
-        DataCheckHelper.isPotion
+        DataHelper.isPotion
     )],
     ["dpm:open_chest", new BlocksIntConditions(MinecraftBlockTypes.chest, ITEM_ANY)],
     ["dpm:inspect_dispenser", new BlocksIntConditions(MinecraftBlockTypes.dispenser, ITEM_ANY)],
@@ -69,7 +69,7 @@ export const blockIntNamespaces: Map<string, BlocksIntConditions> = new Map<stri
             Items.get("minecraft:potatoes"),
             Items.get("minecraft:kelp")
         ],
-        DataCheckHelper.campfireIsLit
+        DataHelper.campfireIsLit
     )],
     ["dpm:interact_with_cartography_table", new BlocksIntConditions(MinecraftBlockTypes.cartographyTable, ITEM_ANY)],
     ["dpm:interact_with_crafting_table", new BlocksIntConditions(MinecraftBlockTypes.craftingTable, ITEM_ANY)],
@@ -78,12 +78,12 @@ export const blockIntNamespaces: Map<string, BlocksIntConditions> = new Map<stri
     ["dpm:place_book_on_lectern", new BlocksIntConditions(
         MinecraftBlockTypes.lectern,
         ITEM_ANY,
-        DataCheckHelper.isContainerEmpty
+        DataHelper.isContainerEmpty
     )],
     ["dpm:read_book_on_lectern", new BlocksIntConditions(
         MinecraftBlockTypes.lectern,
         ITEM_ANY,
-        DataCheckHelper.isContainerNotEmpty
+        DataHelper.isContainerNotEmpty
     )],
     ["dpm:interact_with_loom", new BlocksIntConditions(MinecraftBlockTypes.loom, ITEM_ANY)],
     ["dpm:interact_with_smithing_table", new BlocksIntConditions(MinecraftBlockTypes.smithingTable, ITEM_ANY)],
@@ -107,7 +107,7 @@ export const blockIntNamespaces: Map<string, BlocksIntConditions> = new Map<stri
             Items.get("minecraft:music_disc_wait"),
             Items.get("minecraft:music_disc_ward")
         ],
-        DataCheckHelper.isContainerEmpty
+        DataHelper.isContainerEmpty
     )],
     ["dpm:tune_noteblock", new BlocksIntConditions(MinecraftBlockTypes.noteblock, ITEM_ANY)],
     ["dpm:pot_flower", new BlocksIntConditions(
@@ -129,7 +129,7 @@ export const blockIntNamespaces: Map<string, BlocksIntConditions> = new Map<stri
             Items.get("minecraft:warped_fungus"),
             Items.get("minecraft:warped_roots")
         ],
-        DataCheckHelper.isContainerEmpty
+        DataHelper.isContainerEmpty
     )],
     ["dpm:clean_shulker_box", new BlocksIntConditions(
         MinecraftBlockTypes.cauldron,
@@ -137,14 +137,14 @@ export const blockIntNamespaces: Map<string, BlocksIntConditions> = new Map<stri
             Items.get("minecraft:shulker_box"),
             Items.get("minecraft:undyed_shulker_box")
         ],
-        DataCheckHelper.cauldronHasWater
+        DataHelper.cauldronHasWater
     )],
     ["dpm:open_shulker_box", new BlocksIntConditions([MinecraftBlockTypes.shulkerBox, MinecraftBlockTypes.undyedShulkerBox], ITEM_ANY)],
     ["dpm:trigger_trapped_chest", new BlocksIntConditions(MinecraftBlockTypes.trappedChest, ITEM_ANY)],
     ["dpm:use_cauldron", new BlocksIntConditions(
         MinecraftBlockTypes.cauldron,
         Items.get("minecraft:glass_bottle"),
-        DataCheckHelper.cauldronHasWater
+        DataHelper.cauldronHasWater
     )]
 ])
 function blocksint(

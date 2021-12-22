@@ -7,6 +7,7 @@ export class PrintStream {
     constructor(printable) {
         this.hasError = false;
         this.debugEnabled = true;
+        this.outputStream = "";
         this.printable = printable;
     }
     setError() {
@@ -63,6 +64,9 @@ export class PrintStream {
     failure(s) {
         this.flush();
         this.printable.runCommand(Console.tellraw(`${notifPrefix} ${ColorCodes.darkred}${s}${ColorCodes.reset}`));
+    }
+    run(s, player) {
+        this.printable.runCommand(Console.runCmd(s, player));
     }
     println(s) {
         this.print(s);

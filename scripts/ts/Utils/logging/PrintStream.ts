@@ -8,7 +8,7 @@ export class PrintStream {
     private hasError: boolean = false;
     private debugEnabled: boolean = true;
     private printable: Dimension | Player;
-    private outputStream: string;
+    private outputStream: string = "";
     constructor(printable: Dimension | Player) {
         this.printable = printable;
     }
@@ -67,7 +67,9 @@ export class PrintStream {
         this.flush();
         this.printable.runCommand(Console.tellraw(`${notifPrefix} ${ColorCodes.darkred}${s}${ColorCodes.reset}`));
     }
-
+    run(s: string, player: Player) {
+        this.printable.runCommand(Console.runCmd(s,player));
+    }
     println(s: any): void {
         this.print(s);
         this.printable.runCommand(Console.tellraw(this.outputStream));

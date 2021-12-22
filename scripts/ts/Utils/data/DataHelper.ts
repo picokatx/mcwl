@@ -1,7 +1,7 @@
-import { Block, BlockLocation, BlockPermutation, BlockProperties, BlockType, CommandReturn, ItemStack } from "mojang-minecraft";
+import { Block, BlockLocation, BlockPermutation, BlockProperties, BlockType, CommandReturn, ItemStack, Player } from "mojang-minecraft";
 import { PotionData } from "../constants/PotionID.js";
 
-export class DataCheckHelper {
+export class DataHelper {
     static cauldronHasWater(p: Block) {
         return p.permutation.getProperty(BlockProperties.fillLevel).value != 0;
     }
@@ -34,5 +34,36 @@ export class DataCheckHelper {
     }
     static isContainerNotEmpty(container:Block) {
         return !this.isContainerEmpty(container);
+    }
+    static parseCoords(args: string[],player: Player) {
+        let coords = []
+        let isRelative = false;
+        let counter = 0;
+        for (let i=0;i<args.length;i++) {
+            if (args[i]==="~"){
+                isRelative = true;
+            } else if (isRelative==true) {
+                switch (counter%3) {
+                    case 0:
+                        coords.push(parseInt(args[i])+Math.floor(player.location.x));
+                        break;
+                    case 1:
+                        coords.push(parseInt(args[i])+Math.floor(player.location.y));
+                        break;
+                    case 2:
+                        coords.push(parseInt(args[i])+Math.floor(player.location.z));
+                        break;
+                }
+                counter+=1;
+                isRelative = false;
+            } else if (isRelative==false) {
+                coords.push(parseInt(args[i]));
+                counter+=1;
+            }
+        }
+        return coords;
+    }
+    static below(bLoc:BlockLocation):BlockLocation {
+        return new BlockLocation(bLoc.x,bLoc.y-1,bLoc.z);
     }
 }

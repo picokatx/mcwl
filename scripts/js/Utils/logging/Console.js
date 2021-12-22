@@ -1,4 +1,7 @@
 export class Console {
+    static runCmd(s, player) {
+        return `execute @a[name=${player.name}] ~ ~ ~ ${s}`;
+    }
     static chat(s, player) {
         return `tellraw @a {"rawtext":[{"text":"<${player.name}> ${s}"}]}`;
     }

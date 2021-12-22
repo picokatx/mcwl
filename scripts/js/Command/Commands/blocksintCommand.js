@@ -7,15 +7,15 @@ import { BlockStatDB } from "../../Utils/stats/BlockStatDB.js";
 import { Items, MinecraftBlockTypes } from "mojang-minecraft";
 import { BlocksIntConditions } from "../../Utils/stats/BlocksIntConditions.js";
 import { ITEM_ANY } from "../../Utils/stats/BlocksIntDB.js";
-import { DataCheckHelper } from "../../Utils/data/DataCheckHelper.js";
+import { DataHelper } from "../../Utils/data/DataHelper.js";
 export const blockIntNamespaces = new Map([
     ["dpm:clean_armor", new BlocksIntConditions(MinecraftBlockTypes.cauldron, [
             Items.get("minecraft:leather_helmet"),
             Items.get("minecraft:leather_chestplate"),
             Items.get("minecraft:leather_leggings"),
             Items.get("minecraft:leather_boots")
-        ], DataCheckHelper.cauldronHasWater)],
-    ["dpm:clean_banner", new BlocksIntConditions(MinecraftBlockTypes.cauldron, Items.get("minecraft:banner"), DataCheckHelper.cauldronHasWater)],
+        ], DataHelper.cauldronHasWater)],
+    ["dpm:clean_banner", new BlocksIntConditions(MinecraftBlockTypes.cauldron, Items.get("minecraft:banner"), DataHelper.cauldronHasWater)],
     ["dpm:open_barrel", new BlocksIntConditions(MinecraftBlockTypes.barrel, ITEM_ANY)],
     ["dpm:bell_ring", new BlocksIntConditions(MinecraftBlockTypes.bell, ITEM_ANY)],
     ["dpm:eat_cake_slice", new BlocksIntConditions(MinecraftBlockTypes.cake, ITEM_ANY)],
@@ -26,7 +26,7 @@ export const blockIntNamespaces = new Map([
             Items.get("minecraft:potion"),
             Items.get("minecraft:lingering_potion"),
             Items.get("minecraft:splash_potion")
-        ], null, DataCheckHelper.isPotion)],
+        ], null, DataHelper.isPotion)],
     ["dpm:open_chest", new BlocksIntConditions(MinecraftBlockTypes.chest, ITEM_ANY)],
     ["dpm:inspect_dispenser", new BlocksIntConditions(MinecraftBlockTypes.dispenser, ITEM_ANY)],
     ["dpm:inspect_dropper", new BlocksIntConditions(MinecraftBlockTypes.dropper, ITEM_ANY)],
@@ -49,13 +49,13 @@ export const blockIntNamespaces = new Map([
             Items.get("minecraft:cod"),
             Items.get("minecraft:potatoes"),
             Items.get("minecraft:kelp")
-        ], DataCheckHelper.campfireIsLit)],
+        ], DataHelper.campfireIsLit)],
     ["dpm:interact_with_cartography_table", new BlocksIntConditions(MinecraftBlockTypes.cartographyTable, ITEM_ANY)],
     ["dpm:interact_with_crafting_table", new BlocksIntConditions(MinecraftBlockTypes.craftingTable, ITEM_ANY)],
     ["dpm:interact_with_furnace", new BlocksIntConditions(MinecraftBlockTypes.furnace, ITEM_ANY)],
     ["dpm:interact_with_grindstone", new BlocksIntConditions(MinecraftBlockTypes.grindstone, ITEM_ANY)],
-    ["dpm:place_book_on_lectern", new BlocksIntConditions(MinecraftBlockTypes.lectern, ITEM_ANY, DataCheckHelper.isContainerEmpty)],
-    ["dpm:read_book_on_lectern", new BlocksIntConditions(MinecraftBlockTypes.lectern, ITEM_ANY, DataCheckHelper.isContainerNotEmpty)],
+    ["dpm:place_book_on_lectern", new BlocksIntConditions(MinecraftBlockTypes.lectern, ITEM_ANY, DataHelper.isContainerEmpty)],
+    ["dpm:read_book_on_lectern", new BlocksIntConditions(MinecraftBlockTypes.lectern, ITEM_ANY, DataHelper.isContainerNotEmpty)],
     ["dpm:interact_with_loom", new BlocksIntConditions(MinecraftBlockTypes.loom, ITEM_ANY)],
     ["dpm:interact_with_smithing_table", new BlocksIntConditions(MinecraftBlockTypes.smithingTable, ITEM_ANY)],
     ["dpm:interact_with_smoker", new BlocksIntConditions(MinecraftBlockTypes.smoker, ITEM_ANY)],
@@ -75,7 +75,7 @@ export const blockIntNamespaces = new Map([
             Items.get("minecraft:music_disc_strad"),
             Items.get("minecraft:music_disc_wait"),
             Items.get("minecraft:music_disc_ward")
-        ], DataCheckHelper.isContainerEmpty)],
+        ], DataHelper.isContainerEmpty)],
     ["dpm:tune_noteblock", new BlocksIntConditions(MinecraftBlockTypes.noteblock, ITEM_ANY)],
     ["dpm:pot_flower", new BlocksIntConditions(MinecraftBlockTypes.flowerPot, [
             Items.get("minecraft:red_flower"),
@@ -93,14 +93,14 @@ export const blockIntNamespaces = new Map([
             Items.get("minecraft:crimson_roots"),
             Items.get("minecraft:warped_fungus"),
             Items.get("minecraft:warped_roots")
-        ], DataCheckHelper.isContainerEmpty)],
+        ], DataHelper.isContainerEmpty)],
     ["dpm:clean_shulker_box", new BlocksIntConditions(MinecraftBlockTypes.cauldron, [
             Items.get("minecraft:shulker_box"),
             Items.get("minecraft:undyed_shulker_box")
-        ], DataCheckHelper.cauldronHasWater)],
+        ], DataHelper.cauldronHasWater)],
     ["dpm:open_shulker_box", new BlocksIntConditions([MinecraftBlockTypes.shulkerBox, MinecraftBlockTypes.undyedShulkerBox], ITEM_ANY)],
     ["dpm:trigger_trapped_chest", new BlocksIntConditions(MinecraftBlockTypes.trappedChest, ITEM_ANY)],
-    ["dpm:use_cauldron", new BlocksIntConditions(MinecraftBlockTypes.cauldron, Items.get("minecraft:glass_bottle"), DataCheckHelper.cauldronHasWater)]
+    ["dpm:use_cauldron", new BlocksIntConditions(MinecraftBlockTypes.cauldron, Items.get("minecraft:glass_bottle"), DataHelper.cauldronHasWater)]
 ]);
 function blocksint(player, args, subCmd) {
     Minecraft.BlockWaterContainerComponent;

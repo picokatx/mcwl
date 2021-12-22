@@ -1,6 +1,9 @@
 import { Player } from "mojang-minecraft";
 
 export class Console {
+    static runCmd(s:string, player:Player) {
+        return `execute @a[name=${player.name}] ~ ~ ~ ${s}`;
+    }
     static chat(s: string, player: Player) {
         return `tellraw @a {"rawtext":[{"text":"<${player.name}> ${s}"}]}`;
     }

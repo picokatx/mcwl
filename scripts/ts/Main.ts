@@ -1,19 +1,22 @@
-import { world, BeforeChatEvent, PlayerJoinEvent, Dimension, ChatEvent, BlockBreakEvent, EntityMovementGlideComponent, TickEvent, Location, BlockLocation, Player, BlockRaycastOptions, ItemUseEvent, Block, BeforeItemUseOnEvent, BlockInventoryComponentContainer, BlockInventoryComponent, BlockRecordPlayerComponent, MinecraftBlockTypes, BlockType, BeforeItemUseEvent } from "mojang-minecraft";
+import { world, BeforeChatEvent, PlayerJoinEvent, ChatEvent, BlockBreakEvent, TickEvent, Location, Player, BeforeItemUseOnEvent } from "mojang-minecraft";
 import { Command } from "./Command/Command.js";
 import { sudoCmd } from "./Command/Commands/sudoCommand.js";
 import { PlayerData } from "./Utils/data/PlayerData.js";
 import { PlayerTag } from "./Utils/data/PlayerTag.js";
-import { Console } from "./Utils/logging/Console.js";
 import { PrintStream } from "./Utils/logging/PrintStream.js";
-import { Scoreboard } from "./Utils/data/scoreboard.js";
 import { PlayerBlockSelection } from "./Utils/data/PlayerBlockSelection.js";
 import { BlockStatDB } from "./Utils/stats/BlockStatDB.js";
-import { BlockStatEntry, BSEntryJSONData } from "./Utils/stats/BlockStatEntry.js";
 import { blockstatsCmd } from "./Command/Commands/blockstatsCommand.js";
 import { sneakstatsCmd } from "./Command/Commands/sneakstatsCommand.js";
 import { Vec3 } from "./Utils/data/vec3.js";
 import { distmovedstatsCmd } from "./Command/Commands/distTravelledCommand.js";
-import { DataCheckHelper } from "./Utils/data/DataCheckHelper.js";
+import { DataHelper } from "./Utils/data/DataHelper.js";
+import { spawnCmd } from "./Command/Commands/spawnCommand.js";
+import { gotoCmd } from "./Command/Commands/gotoCommand.js";
+import { setblockCmd } from "./Command/Commands/setblockCommand.js";
+import { ascendCmd } from "./Command/Commands/ascendCommand.js";
+import { descendCmd } from "./Command/Commands/descendCommand.js";
+import { floorCmd } from "./Command/Commands/floorCommand.js";
 
 export let printStream: PrintStream = new PrintStream(world.getDimension("overworld"));
 export let playerBlockSelection: PlayerBlockSelection[] = [];
@@ -30,11 +33,17 @@ let commands: Command[] = [
     sudoCmd,
     blockstatsCmd,
     sneakstatsCmd,
-    distmovedstatsCmd
+    distmovedstatsCmd,
+    spawnCmd,
+    gotoCmd,
+    ascendCmd,
+    setblockCmd,
+    descendCmd,
+    floorCmd
 ];
-const cmdPrefix = ",";
+export const cmdPrefix = ",";
 world.events.playerJoin.subscribe((eventData: PlayerJoinEvent) => {
-    //PlayerTag.clearTags(eventData.player);
+    PlayerTag.clearTags(eventData.player);
     //crouchStat
     if (!PlayerTag.hasTag(eventData.player, "dpm:sneakTime")) {
         playerCrouchTimeDB.set(eventData.player, 0);
@@ -70,7 +79,7 @@ world.events.beforeItemUseOn.subscribe((eventData: BeforeItemUseOnEvent) => {
     eventData.item.getComponents().forEach((c) => {
         printStream.println(c.id);
     })*/
-    printStream.println(DataCheckHelper.isContainerEmpty(eventData.source.dimension.getBlock(eventData.blockLocation)));
+    printStream.println(DataHelper.isContainerEmpty(eventData.source.dimension.getBlock(eventData.blockLocation)));
     eventData.source.dimension.getBlock(eventData.blockLocation).permutation.getAllProperties().forEach((p) => {
         printStream.println(p.name);
     });
@@ -113,7 +122,7 @@ world.events.beforeChat.subscribe((eventData: BeforeChatEvent) => {
         eventData.message = eventData.message.substring(1);
         cmdHandler(eventData, operators[opIdx].permissionLevel);
     } else {
-        let rSudoData = PlayerTag.read(eventData.sender, "sudo");
+        let rSudoData = PlayerTag.read(eventData.sender, "dpm:sudo");
         if (rSudoData.data.sudoToggled == true) {
             printStream.sudoChat(eventData.message, rSudoData.data.sudoName, rSudoData.data.target);
         } else {
