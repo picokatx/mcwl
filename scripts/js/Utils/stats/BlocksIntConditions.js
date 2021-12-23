@@ -1,14 +1,20 @@
-import { BlockPermutation, Items, ItemStack } from "mojang-minecraft";
-import { ITEM_ANY } from "./BlocksIntDB.js";
+import { BlockPermutation, ItemStack } from "mojang-minecraft";
 export class BlocksIntConditions {
     constructor(targetBlock, itemUsed, blockDataCheck, itemDataCheck) {
         this.targetBlock = [];
         this.itemUsed = [];
+        this.any = false;
         if (blockDataCheck != null) {
             this.blockDataCheck = blockDataCheck;
         }
+        else {
+            this.blockDataCheck = ((p) => { return true; });
+        }
         if (itemDataCheck != null) {
             this.itemDataCheck = itemDataCheck;
+        }
+        else {
+            this.itemDataCheck = ((p) => { return true; });
         }
         if (Array.isArray(targetBlock)) {
             for (let i of targetBlock) {
@@ -39,8 +45,8 @@ export class BlocksIntConditions {
             }
         }
         else {
-            if (itemUsed == ITEM_ANY) {
-                this.itemUsed.push(new ItemStack(Items.get("minecraft:air"), 1, 0));
+            if ((typeof itemUsed) == 'string') {
+                this.any = true;
             }
             else if (itemUsed instanceof ItemStack) {
                 this.itemUsed.push(itemUsed);

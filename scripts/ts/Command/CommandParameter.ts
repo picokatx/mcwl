@@ -1,3 +1,4 @@
+import { printStream } from "../Main.js";
 import {Expression} from "../Utils/data/expression.js";
 export const ARG_TYPE = {
     NUMBER: RegExp(/((?:-|)\d+)\s/),

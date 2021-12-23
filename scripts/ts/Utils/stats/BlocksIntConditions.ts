@@ -1,22 +1,26 @@
 import { Block, BlockPermutation, BlockType, Items, ItemStack, ItemType, MinecraftBlockTypes } from "mojang-minecraft";
-import { blockIntNamespaces } from "../../Command/Commands/blocksintCommand.js";
-import { ITEM_ANY } from "./BlocksIntDB.js";
+import { ITEM_ANY } from "./BlocksIntEntry.js";
 
 export class BlocksIntConditions {
     targetBlock: BlockPermutation[] = []
     itemUsed: ItemStack[] = []
+    any: boolean = false;
     blockDataCheck: (p:Block) => boolean
     itemDataCheck: (p:ItemStack) => boolean
     constructor(
         targetBlock: BlockType | BlockType[] | BlockPermutation | BlockPermutation[],
-        itemUsed: ItemType | ItemType[] | ItemStack | ItemStack[],
+        itemUsed: ItemType | ItemType[] | ItemStack | ItemStack[] | string,
         blockDataCheck?: (p:Block) => boolean,
         itemDataCheck?: (p:ItemStack) => boolean) {
         if (blockDataCheck!=null) {
             this.blockDataCheck = blockDataCheck;
+        } else {
+            this.blockDataCheck = ((p:Block)=>{return true});
         }
         if (itemDataCheck!=null) {
             this.itemDataCheck = itemDataCheck;
+        } else {
+            this.itemDataCheck = ((p:ItemStack)=>{return true});
         }
         if (Array.isArray(targetBlock)) {
             for (let i of targetBlock) {
@@ -42,12 +46,12 @@ export class BlocksIntConditions {
                 }
             }
         } else {
-            if (itemUsed==ITEM_ANY) {
-                this.itemUsed.push(new ItemStack(Items.get("minecraft:air"),1,0));
+            if ((typeof itemUsed)=='string') {
+                this.any = true;
             } else if (itemUsed instanceof ItemStack) {
                 this.itemUsed.push(itemUsed as ItemStack);
             } else {
-                this.itemUsed.push(new ItemStack(itemUsed, 1, 0));
+                this.itemUsed.push(new ItemStack(itemUsed as ItemType, 1, 0));
             }
         }
     }
@@ -69,4 +73,5 @@ export class BlocksIntConditions {
 export interface BlocksIntJSONData {
     targetBlock: BlockPermutation[]
     itemUsed: ItemStack[]
+    any: boolean
 }

@@ -1,4 +1,4 @@
-import { world } from "mojang-minecraft";
+import { world, Items } from "mojang-minecraft";
 import { sudoCmd } from "./Command/Commands/sudoCommand.js";
 import { PlayerData } from "./Utils/data/PlayerData.js";
 import { PlayerTag } from "./Utils/data/PlayerTag.js";
@@ -8,13 +8,14 @@ import { blockstatsCmd } from "./Command/Commands/blockstatsCommand.js";
 import { sneakstatsCmd } from "./Command/Commands/sneakstatsCommand.js";
 import { Vec3 } from "./Utils/data/vec3.js";
 import { distmovedstatsCmd } from "./Command/Commands/distTravelledCommand.js";
-import { DataHelper } from "./Utils/data/DataHelper.js";
 import { spawnCmd } from "./Command/Commands/spawnCommand.js";
 import { gotoCmd } from "./Command/Commands/gotoCommand.js";
 import { setblockCmd } from "./Command/Commands/setblockCommand.js";
 import { ascendCmd } from "./Command/Commands/ascendCommand.js";
 import { descendCmd } from "./Command/Commands/descendCommand.js";
 import { floorCmd } from "./Command/Commands/floorCommand.js";
+import { blockIntNamespaces, BlocksIntDB } from "./Utils/stats/BlocksIntDB.js";
+import { blocksintCmd } from "./Command/Commands/blocksintCommand.js";
 export let printStream = new PrintStream(world.getDimension("overworld"));
 export let playerBlockSelection = [];
 export let playerBlockStatDB = new Map();
@@ -36,7 +37,8 @@ let commands = [
     ascendCmd,
     setblockCmd,
     descendCmd,
-    floorCmd
+    floorCmd,
+    blocksintCmd
 ];
 export const cmdPrefix = ",";
 world.events.playerJoin.subscribe((eventData) => {
@@ -59,12 +61,63 @@ world.events.playerJoin.subscribe((eventData) => {
         let sudoTag = new PlayerTag(sudoData);
         sudoTag.write(eventData.player);
     }
+    if (!PlayerTag.hasTag(eventData.player, "dpm:block_interactions")) {
+        let bIntDB = new BlocksIntDB();
+        playerBlocksIntDB.set(eventData.player, bIntDB);
+        let bIntData = new PlayerData(bIntDB.db, "object", "dpm:block_interactions");
+        let bIntTag = new PlayerTag(bIntData);
+        bIntTag.write(eventData.player);
+    }
+    else {
+        playerBlocksIntDB.set(eventData.player, new BlocksIntDB(PlayerTag.read(eventData.player, "dpm:block_interactions").data));
+    }
 });
 world.events.beforeItemUseOn.subscribe((eventData) => {
-    printStream.println(DataHelper.isContainerEmpty(eventData.source.dimension.getBlock(eventData.blockLocation)));
-    eventData.source.dimension.getBlock(eventData.blockLocation).permutation.getAllProperties().forEach((p) => {
-        printStream.println(p.name);
-    });
+    if (eventData.source.id == "minecraft:player") {
+        let block = eventData.source.dimension.getBlock(eventData.blockLocation);
+        for (let i of blockIntNamespaces.entries()) {
+            let blockEquals = false;
+            let itemEquals = false;
+            let blockCheckEquals = false;
+            let itemCheckEquals = false;
+            for (let j of i[1].targetBlock) {
+                if (block.type == j.type) {
+                    blockEquals = true;
+                    break;
+                }
+            }
+            if (eventData.item != null) {
+                if (i[1].any == true) {
+                    itemEquals = true;
+                }
+                else {
+                    for (let j of i[1].itemUsed) {
+                        if (Items.get(eventData.item.id) == Items.get(j.id)) {
+                            itemEquals = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            else {
+                if (i[1].any == true) {
+                    itemEquals = true;
+                }
+            }
+            if (blockEquals) {
+                blockCheckEquals = i[1].blockDataCheck(block);
+            }
+            if (itemEquals) {
+                itemCheckEquals = i[1].itemDataCheck(eventData.item);
+            }
+            if (blockCheckEquals && itemCheckEquals) {
+                playerBlocksIntDB.get(eventData.source).add(i[0]);
+                let bIntData = new PlayerData(playerBlocksIntDB.get(eventData.source).db, "object", "dpm:block_interactions");
+                let bIntTag = new PlayerTag(bIntData);
+                bIntTag.write(eventData.source);
+            }
+        }
+    }
 });
 world.events.tick.subscribe((eventData) => {
     let pList = world.getPlayers();

@@ -1,4 +1,4 @@
-import { world, BeforeChatEvent, PlayerJoinEvent, ChatEvent, BlockBreakEvent, TickEvent, Location, Player, BeforeItemUseOnEvent } from "mojang-minecraft";
+import { world, BeforeChatEvent, PlayerJoinEvent, ChatEvent, BlockBreakEvent, TickEvent, Location, Player, BeforeItemUseOnEvent, Items, Block } from "mojang-minecraft";
 import { Command } from "./Command/Command.js";
 import { sudoCmd } from "./Command/Commands/sudoCommand.js";
 import { PlayerData } from "./Utils/data/PlayerData.js";
@@ -17,11 +17,15 @@ import { setblockCmd } from "./Command/Commands/setblockCommand.js";
 import { ascendCmd } from "./Command/Commands/ascendCommand.js";
 import { descendCmd } from "./Command/Commands/descendCommand.js";
 import { floorCmd } from "./Command/Commands/floorCommand.js";
+import { blockIntNamespaces, BlocksIntDB, defaultBlockIntDB } from "./Utils/stats/BlocksIntDB.js";
+import { ITEM_ANY } from "./Utils/stats/BlocksIntEntry.js";
+import { blocksintCmd } from "./Command/Commands/blocksintCommand.js";
+import { ARG_TYPE } from "./Command/CommandParameter.js";
 
 export let printStream: PrintStream = new PrintStream(world.getDimension("overworld"));
 export let playerBlockSelection: PlayerBlockSelection[] = [];
 export let playerBlockStatDB: Map<Player, BlockStatDB> = new Map<Player, BlockStatDB>();
-export let playerBlocksIntDB: Map<Player, BlockStatDB> = new Map<Player, BlockStatDB>();
+export let playerBlocksIntDB: Map<Player, BlocksIntDB> = new Map<Player, BlocksIntDB>();
 export let playerCrouchTimeDB: Map<Player, number> = new Map<Player, number>();
 export let playerDistTravelledDB: Map<Player, number> = new Map<Player, number>();
 export let playerPrevLocDB: Map<Player, Location> = new Map<Player, Location>();
@@ -39,7 +43,8 @@ let commands: Command[] = [
     ascendCmd,
     setblockCmd,
     descendCmd,
-    floorCmd
+    floorCmd,
+    blocksintCmd
 ];
 export const cmdPrefix = ",";
 world.events.playerJoin.subscribe((eventData: PlayerJoinEvent) => {
@@ -69,6 +74,16 @@ world.events.playerJoin.subscribe((eventData: PlayerJoinEvent) => {
     } else {
         playerBlockStatDB.set(eventData.player, new BlockStatDB((PlayerTag.read(eventData.player, "dpm:block_stats").data as BlockStatEntry[])));
     }*/
+    //blockIntStat
+    if (!PlayerTag.hasTag(eventData.player, "dpm:block_interactions")) {
+        let bIntDB: BlocksIntDB = new BlocksIntDB();
+        playerBlocksIntDB.set(eventData.player, bIntDB);
+        let bIntData: PlayerData = new PlayerData(bIntDB.db, "object", "dpm:block_interactions");
+        let bIntTag: PlayerTag = new PlayerTag(bIntData);
+        bIntTag.write(eventData.player);
+    } else {
+        playerBlocksIntDB.set(eventData.player, new BlocksIntDB(PlayerTag.read(eventData.player, "dpm:block_interactions").data));
+    }
 })
 world.events.beforeItemUseOn.subscribe((eventData: BeforeItemUseOnEvent) => {
     //world.getDimension("overworld").runCommand(`say ${}`)
@@ -79,10 +94,50 @@ world.events.beforeItemUseOn.subscribe((eventData: BeforeItemUseOnEvent) => {
     eventData.item.getComponents().forEach((c) => {
         printStream.println(c.id);
     })*/
-    printStream.println(DataHelper.isContainerEmpty(eventData.source.dimension.getBlock(eventData.blockLocation)));
-    eventData.source.dimension.getBlock(eventData.blockLocation).permutation.getAllProperties().forEach((p) => {
-        printStream.println(p.name);
-    });
+    if (eventData.source.id == "minecraft:player") {
+        let block: Block = eventData.source.dimension.getBlock(eventData.blockLocation);
+        for (let i of blockIntNamespaces.entries()) {
+            let blockEquals = false;
+            let itemEquals = false;
+            let blockCheckEquals = false;
+            let itemCheckEquals = false;
+            for (let j of i[1].targetBlock) {
+                if (block.type == j.type) {
+                    blockEquals = true;
+                    break;
+                }
+            }
+            if (eventData.item != null) {
+                if (i[1].any == true) {
+                    itemEquals = true;
+                } else {
+                    for (let j of i[1].itemUsed) {
+                        if (Items.get(eventData.item.id) == Items.get(j.id)) {
+                            itemEquals = true;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                if (i[1].any == true) {
+                    itemEquals = true;
+                }
+            }
+            if (blockEquals) {
+                blockCheckEquals = i[1].blockDataCheck(block);
+            }
+            if (itemEquals) {
+                itemCheckEquals = i[1].itemDataCheck(eventData.item);
+            }
+            if (blockCheckEquals && itemCheckEquals) {
+                playerBlocksIntDB.get(eventData.source as Player).add(i[0]);
+                let bIntData: PlayerData = new PlayerData(playerBlocksIntDB.get(eventData.source as Player).db, "object", "dpm:block_interactions");
+                let bIntTag: PlayerTag = new PlayerTag(bIntData);
+                bIntTag.write(eventData.source as Player);
+            }
+        }
+    }
+    //printStream.println(DataHelper.isContainerEmpty(eventData.source.dimension.getBlock(eventData.blockLocation)));
 })
 world.events.tick.subscribe((eventData: TickEvent) => {
     let pList: Player[] = world.getPlayers();
@@ -116,6 +171,7 @@ world.events.blockBreak.subscribe((eventData: BlockBreakEvent) => {
     blockTag.write(eventData.player);*/
 })
 world.events.beforeChat.subscribe((eventData: BeforeChatEvent) => {
+
     eventData.cancel = true;
     if (eventData.message[0] === cmdPrefix) {
         let opIdx = operators.map(a => a.name).indexOf(eventData.sender.name);

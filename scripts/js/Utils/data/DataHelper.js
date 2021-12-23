@@ -33,7 +33,7 @@ export class DataHelper {
         }
     }
     static isContainerNotEmpty(container) {
-        return !this.isContainerEmpty(container);
+        return !(DataHelper.isContainerEmpty(container));
     }
     static parseCoords(args, player) {
         let coords = [];
