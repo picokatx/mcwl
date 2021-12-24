@@ -7,13 +7,12 @@
 /* *****************************************************************************
    Copyright (c) Microsoft Corporation.
    ***************************************************************************** */
-import * as mojangminecraft from "mojang-minecraft";
-
-declare module "mojang-gametest" {
+declare module "gametest-mojang" {
+    import * as mojangminecraft from "mojang-minecraft";
     /**
- * Represents the type of fluid for use within a fluid
- * containing block, like a cauldron.
- */
+    * Represents the type of fluid for use within a fluid
+    * containing block, like a cauldron.
+    */
     export enum FluidType {
         /**
          * Represents water as a type of fluida.

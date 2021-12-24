@@ -75,9 +75,11 @@ export class PrintStream {
         this.printable.runCommand(Console.tellraw(this.outputStream));
         this.outputStream = "";
     }
-    chat(s: string, player: Player) {
+    chat(s: string, player: Player,targets:Player[]) {
         this.flush();
-        this.printable.runCommand(Console.chat(s,player));
+        for (let i of targets) {
+            this.printable.runCommand(Console.chat(s,player,i.name));
+        }
     }
     sudoChat(s:string, name:string,target:string) {
         this.flush();

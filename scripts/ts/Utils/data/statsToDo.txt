@@ -2,8 +2,6 @@ Completed Statistics:
 BLOCK_MINED
 TOTAL_DISTANCE_TRAVELLED
 minecraft:sneak_time
-
-equals() functions complete, data complete:
 minecraft:clean_armor
 minecraft:clean_banner
 minecraft:open_barrel
@@ -36,6 +34,14 @@ minecraft:clean_shulker_box
 minecraft:open_shulker_box
 minecraft:trigger_trapped_chest
 minecraft:use_cauldron
+
+In Progress:
+minecraft:leave_game
+minecraft:play_time
+
+minecraft:mob_kills
+minecraft:deaths
+minecraft:player_kills
 
 Not Implemented:
 BLOCK_PLACED
@@ -71,21 +77,15 @@ minecraft:minecart_one_cm
 minecraft:pig_one_cm
 minecraft:strider_one_cm
 minecraft:fish_caught
-minecraft:leave_game
 minecraft:drop
 minecraft:enchant_item
 minecraft:jump
-minecraft:mob_kills
-minecraft:deaths
-minecraft:player_kills
 minecraft:raid_trigger
 minecraft:raid_win
 minecraft:talked_to_villager
 minecraft:target_hit
-minecraft:play_time
 minecraft:time_since_death
 minecraft:time_since_rest
-minecraft:total_world_time
 minecraft:sleep_in_bed
 minecraft:traded_with_villager
 

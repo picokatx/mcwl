@@ -8,10 +8,12 @@
       "preserveConstEnums": true,
       "sourceMap": false,
       "outDir": "../js",
-      "rootDir": "."
+      "rootDir": ".",
+
     },
+    "include": ["Minecraft", "GameTest.d.ts"],
     "devDependencies": {
       "commonjs": "latest",
       "requirejs": "latest"
-    }
+    },
 }
