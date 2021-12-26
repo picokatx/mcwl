@@ -1,5 +1,5 @@
-import { world, BeforeChatEvent, PlayerJoinEvent, ChatEvent, BlockBreakEvent, TickEvent, Location, Player, BeforeItemUseOnEvent, Items, Block } from "mojang-minecraft";
-import {SimulatedPlayer} from "gametest-mojang"
+import { world, BeforeChatEvent, PlayerJoinEvent, ChatEvent, BlockBreakEvent, TickEvent, Location, Player, BeforeItemUseOnEvent, Items, Block, PlayerLeaveEvent } from "mojang-minecraft";
+import { SimulatedPlayer } from "gametest-mojang"
 
 import { Command } from "./Command/Command.js";
 import { sudoCmd } from "./Command/Commands/sudoCommand.js";
@@ -12,18 +12,18 @@ import { blockstatsCmd } from "./Command/Commands/blockstatsCommand.js";
 import { sneakstatsCmd } from "./Command/Commands/sneakstatsCommand.js";
 import { Vec3 } from "./Utils/data/vec3.js";
 import { distmovedstatsCmd } from "./Command/Commands/distTravelledCommand.js";
-import { DataHelper } from "./Utils/data/DataHelper.js";
 import { spawnCmd } from "./Command/Commands/spawnCommand.js";
 import { gotoCmd } from "./Command/Commands/gotoCommand.js";
 import { setblockCmd } from "./Command/Commands/setblockCommand.js";
 import { ascendCmd } from "./Command/Commands/ascendCommand.js";
 import { descendCmd } from "./Command/Commands/descendCommand.js";
 import { floorCmd } from "./Command/Commands/floorCommand.js";
-import { blockIntNamespaces, BlocksIntDB, defaultBlockIntDB } from "./Utils/stats/BlocksIntDB.js";
-import { ITEM_ANY } from "./Utils/stats/BlocksIntEntry.js";
+import { blockIntNamespaces, BlocksIntDB } from "./Utils/stats/BlocksIntDB.js";
 import { blocksintCmd } from "./Command/Commands/blocksintCommand.js";
-import { ARG_TYPE } from "./Command/CommandParameter.js";
-
+import { BaseTagDB } from "./Utils/stats/BaseTagDB.js";
+import { SudoEntry } from "./Utils/stats/SudoEntry.js";
+import { MCWLNamespaces } from "./Utils/constants/MCWLNamespaces.js";
+import {CustomCharID} from "./Utils/constants/CustomCharID.js";
 export let printStream: PrintStream = new PrintStream(world.getDimension("overworld"));
 export let playerBlockSelection: PlayerBlockSelection[] = [];
 export let playerBlockStatDB: Map<Player, BlockStatDB> = new Map<Player, BlockStatDB>();
@@ -32,6 +32,7 @@ export let playerCrouchTimeDB: Map<Player, number> = new Map<Player, number>();
 export let playerDistTravelledDB: Map<Player, number> = new Map<Player, number>();
 export let playerPrevLocDB: Map<Player, Location> = new Map<Player, Location>();
 export let playerPlaytimeDB: Map<Player, number> = new Map<Player, number>();
+export let playerSudoDB: Map<Player,SudoEntry> = new Map<Player,SudoEntry>();
 let operators = [
     { "name": "Rscraft388", "permissionLevel": 99 },
     { "name": "pico", "permissionLevel": 0 },
@@ -51,69 +52,60 @@ let commands: Command[] = [
     blocksintCmd
 ];
 export const cmdPrefix = ",";
-function saveDB(playerMap: Map<Player,any>, player:Player, tagName: string, defaultValue: any) {
+
+function initializeDB<T>(playerMap: Map<Player, T>, player: Player, tagName: string, defaultValue: T) {
     if (!PlayerTag.hasTag(player, tagName)) {
         playerMap.set(player, defaultValue);
-        let data: PlayerData = new PlayerData((playerMap as any).db, "object", "dpm:block_interactions");
+        let data: PlayerData;
+        if (typeof defaultValue == 'object') {
+            data = new PlayerData((defaultValue as unknown as BaseTagDB).db, "object", tagName);
+        } else {
+            data = new PlayerData(defaultValue, typeof defaultValue, tagName);
+        }
         let tag: PlayerTag = new PlayerTag(data);
         tag.write(player);
     } else {
-        playerMap.set(player, parseInt(PlayerTag.read(player, tagName).data));
+        if (typeof defaultValue == 'number') {
+            playerMap.set(player, parseInt(PlayerTag.read(player, tagName).data) as unknown as T);
+        } else if (typeof defaultValue == 'boolean') {
+            let b: any = PlayerTag.read(player, tagName).data;
+            if (b == "true") {
+                playerMap.set(player, true as unknown as T);
+            } else {
+                playerMap.set(player, false as unknown as T);
+            }
+        } else if (typeof defaultValue == 'object') {
+            playerMap.set(player, (defaultValue as unknown as object).constructor(player, (PlayerTag.read(player, tagName).data)));
+        } else if (typeof defaultValue == 'string') {
+            playerMap.set(player, PlayerTag.read(player, tagName).data);
+        }
     }
+}
+function saveDBToTag(db:any, player: Player,type:string,tagName:string) {
+    let data: PlayerData = new PlayerData(db, type, tagName);
+    let tag: PlayerTag = new PlayerTag(data);
+    tag.write(player);
 }
 world.events.playerJoin.subscribe((eventData: PlayerJoinEvent) => {
     PlayerTag.clearTags(eventData.player);
-    //crouchStat
-    if (!PlayerTag.hasTag(eventData.player, "dpm:sneakTime")) {
-        playerCrouchTimeDB.set(eventData.player, 0);
-    } else {
-        playerCrouchTimeDB.set(eventData.player, parseInt(PlayerTag.read(eventData.player, "dpm:sneakTime").data));
-    }
-    //playtime
-    if (!PlayerTag.hasTag(eventData.player, "dpm:playtime")) {
-        playerPlaytimeDB.set(eventData.player, 0);
-    } else {
-        playerPlaytimeDB.set(eventData.player, parseInt(PlayerTag.read(eventData.player, "dpm:playtime").data));
-    }
     playerPrevLocDB.set(eventData.player, eventData.player.location);
-    //distTravelledStat
-    if (!PlayerTag.hasTag(eventData.player, "dpm:distTravelled")) {
-        playerDistTravelledDB.set(eventData.player, 0);
-    } else {
-        playerDistTravelledDB.set(eventData.player, parseInt(PlayerTag.read(eventData.player, "dpm:distTravelled").data));
-    }
-    //sudo
-    if (!PlayerTag.hasTag(eventData.player, "dpm:sudo")) {
+    initializeDB<number>(playerCrouchTimeDB, eventData.player, MCWLNamespaces.sneakDuration, 0);
+    initializeDB<number>(playerDistTravelledDB, eventData.player, MCWLNamespaces.distanceTravelled, 0);
+    new BlocksIntDB().initialize(playerBlocksIntDB, eventData.player, new BlocksIntDB());
+    new SudoEntry(false,"pico","@a").initialize(playerSudoDB, eventData.player);
+    
+    /*if (!PlayerTag.hasTag(eventData.player, "dpm:sudo")) {
         let sudoData: PlayerData = new PlayerData({ "sudoToggled": false, "sudoName": "pico", "target": "@a" }, "object", "dpm:sudo");
         let sudoTag: PlayerTag = new PlayerTag(sudoData);
         sudoTag.write(eventData.player);
-    }
-    //blockStat
+    }*/
     /*if (!playerBlockStatDB.has(eventData.player)) {
         playerBlockStatDB.set(eventData.player, new BlockStatDB);
     } else {
         playerBlockStatDB.set(eventData.player, new BlockStatDB((PlayerTag.read(eventData.player, "dpm:block_stats").data as BlockStatEntry[])));
     }*/
-    //blockIntStat
-    if (!PlayerTag.hasTag(eventData.player, "dpm:block_interactions")) {
-        let bIntDB: BlocksIntDB = new BlocksIntDB();
-        playerBlocksIntDB.set(eventData.player, bIntDB);
-        let bIntData: PlayerData = new PlayerData(bIntDB.db, "object", "dpm:block_interactions");
-        let bIntTag: PlayerTag = new PlayerTag(bIntData);
-        bIntTag.write(eventData.player);
-    } else {
-        playerBlocksIntDB.set(eventData.player, new BlocksIntDB(PlayerTag.read(eventData.player, "dpm:block_interactions").data));
-    }
 })
 world.events.beforeItemUseOn.subscribe((eventData: BeforeItemUseOnEvent) => {
-    //world.getDimension("overworld").runCommand(`say ${}`)
-    /*let t:BlockType = eventData.source.dimension.getBlock(eventData.blockLocation).type;
-    eventData.source.dimension.getBlock(eventData.blockLocation).permutation
-    printStream.println(((eventData.source.dimension.getBlock(eventData.blockLocation).getComponent("inventory") as BlockInventoryComponent).container.emptySlotsCount));
-    eventData.source.dimension.getBlock(eventData.blockLocation).setType(t)
-    eventData.item.getComponents().forEach((c) => {
-        printStream.println(c.id);
-    })*/
     if (eventData.source.id == "minecraft:player") {
         let block: Block = eventData.source.dimension.getBlock(eventData.blockLocation);
         for (let i of blockIntNamespaces.entries()) {
@@ -150,37 +142,30 @@ world.events.beforeItemUseOn.subscribe((eventData: BeforeItemUseOnEvent) => {
                 itemCheckEquals = i[1].itemDataCheck(eventData.item);
             }
             if (blockCheckEquals && itemCheckEquals) {
-                playerBlocksIntDB.get(eventData.source as Player).add(i[0]);
-                let bIntData: PlayerData = new PlayerData(playerBlocksIntDB.get(eventData.source as Player).db, "object", "dpm:block_interactions");
-                let bIntTag: PlayerTag = new PlayerTag(bIntData);
-                bIntTag.write(eventData.source as Player);
+                let bInt: BlocksIntDB = playerBlocksIntDB.get(eventData.source as Player)
+                bInt.add(i[0]);
+                bInt.saveToTag(eventData.source as Player);
             }
         }
     }
-    //printStream.println(DataHelper.isContainerEmpty(eventData.source.dimension.getBlock(eventData.blockLocation)));
+})
+world.events.playerLeave.subscribe((eventData: PlayerLeaveEvent)=>{
+    
 })
 world.events.tick.subscribe((eventData: TickEvent) => {
     let pList: Player[] = world.getPlayers();
     for (let p of pList) {
-        //distTravelledStat
         if (!playerPrevLocDB.get(p).equals(p.location)) {
             let l: Location = playerPrevLocDB.get(p);
             playerDistTravelledDB.set(p, playerDistTravelledDB.get(p) + new Vec3(l.x, l.y, l.z).distanceTo(new Vec3(p.location.x, p.location.y, p.location.z)));
             playerPrevLocDB.set(p, p.location);
-            let distTravelledData: PlayerData = new PlayerData(playerDistTravelledDB.get(p), "number", "dpm:distTravelled");
-            let distTravelledTag: PlayerTag = new PlayerTag(distTravelledData);
-            distTravelledTag.write(p);
+            saveDBToTag(playerDistTravelledDB.get(p),p,"number", MCWLNamespaces.distanceTravelled);
         }
-        //crouchStat
         if (p.isSneaking == true) {
             playerCrouchTimeDB.set(p, playerCrouchTimeDB.get(p) + 1);
-            let blockData: PlayerData = new PlayerData(playerCrouchTimeDB.get(p), "number", "dpm:sneakTime");
-            let blockTag: PlayerTag = new PlayerTag(blockData);
-            blockTag.write(p);
+            saveDBToTag(playerCrouchTimeDB.get(p),p,"number", MCWLNamespaces.sneakDuration);
         }
-        //playtime
-        playerPlaytimeDB.set(p,playerPlaytimeDB.get(p) + 1);
-        
+        playerPlaytimeDB.set(p, playerPlaytimeDB.get(p) + 1);
         BlockStatDB.getBlockAtPointer(p);
     }
 })
@@ -191,36 +176,28 @@ world.events.blockBreak.subscribe((eventData: BlockBreakEvent) => {
     let blockTag:PlayerTag = new PlayerTag(blockData);
     blockTag.write(eventData.player);*/
 })
-
+//§1᫏§2᫏§3᫏§4᫏§5᫏§6᫏§7᫏§8᫏§9᫏§0᫏§a᫏§b᫏§c᫏§d᫏§e᫏§f᫏
+//1A, A9, AA
+//brightness -20, contrast -80, saturation -80
 world.events.beforeChat.subscribe((eventData: BeforeChatEvent) => {
-    eventData.cancel = true;
+    for (let i of Object.values(CustomCharID)) {
+        printStream.print(i.toString());
+    }
+    printStream.println("end");
+
     if (eventData.message[0] === cmdPrefix) {
         let opIdx = operators.map(a => a.name).indexOf(eventData.sender.name);
         eventData.message = eventData.message.substring(1);
         cmdHandler(eventData, operators[opIdx].permissionLevel);
     } else {
-        let rSudoData = PlayerTag.read(eventData.sender, "dpm:sudo");
-        if (rSudoData.data.sudoToggled == true) {
-            printStream.sudoChat(eventData.message, rSudoData.data.sudoName, rSudoData.data.target);
+        let rSudoData:SudoEntry = Object.assign(new SudoEntry(),PlayerTag.read(eventData.sender,MCWLNamespaces.sudo).data);
+        if (rSudoData.sudoToggled == true) {
+            printStream.sudoChat(eventData.message, rSudoData.sudoName, rSudoData.target);
         } else {
-            printStream.chat(eventData.message, eventData.sender,eventData.targets);
+            printStream.chat(eventData.message, eventData.sender, world.getPlayers());
         }
     }
-
-    //printStream.debugEnabled = false;
-    //printStream.debug("Chat Msg Sent");
-    //if (world.getPlayers().length != 0) {
-    //printStream.debug("Check for players");
-    //printStream.println(eventData.sender.name + " is online");
-    //printStream.println(eventData.sender);
-    //printStream.debug("Printed Results of Check");
-    //printStream.println("Is Piglin an objective: " + Scoreboard.hasObjective(eventData.sender,"piglin"));
-    //    let p: PlayerData = new PlayerData({ "Xcoord": 456, "Ycoord": 587, "Zcoord": 34 }, "object", "coords");
-    //    let tag: PlayerTag = new PlayerTag(p);
-    //    printStream.println(PlayerTag.read(eventData.sender, "sudo").data.sudoName);
-    //} else {
-    //    printStream.println("0 players online");
-    //}
+    eventData.cancel = true;
 });
 function cmdHandler(chatEvent: ChatEvent, opLevel: number) {
     const cmdBase = chatEvent.message.split(" ")[0];
