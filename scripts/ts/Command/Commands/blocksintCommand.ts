@@ -7,6 +7,7 @@ import { BlockStatEntry } from "../../Utils/stats/BlockStatEntry.js";
 import { BlockStatDB } from "../../Utils/stats/BlockStatDB.js";
 import { Player, world } from "mojang-minecraft";
 import { blockIntNamespaces, BlocksIntDB } from "../../Utils/stats/BlocksIntDB.js";
+import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 function blocksint(
     player: Player,
     args: Map<string, any>,
@@ -16,7 +17,7 @@ function blocksint(
             let players: Player[] = world.getPlayers()
             for (let i of players) {
                 if (i.name == args.get("target")) {
-                    let r: BlocksIntDB = new BlocksIntDB(PlayerTag.read(i, "dpm:block_interactions").data);
+                    let r: BlocksIntDB = new BlocksIntDB(PlayerTag.read(i, MCWLNamespaces.blockInteractions).data);
                     //printStream.println(r.db);
                     let entry = r.getEntryById(args.get("statType"));
                     return [`Username: ${args.get("target")}, [${entry.stat}] : ${entry.count}`, 0];

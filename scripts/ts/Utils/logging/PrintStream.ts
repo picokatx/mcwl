@@ -25,8 +25,10 @@ export class PrintStream {
         this.debugEnabled = b;
     }
     flush(): void {
-        this.printable.runCommand(Console.tellraw(this.outputStream));
-        this.outputStream = "";
+        if (this.outputStream!="") {
+            this.printable.runCommand(Console.tellraw(this.outputStream));
+            this.outputStream = "";
+        }
     }
     print(s: any): void {
         switch (typeof s) {

@@ -7,6 +7,7 @@ import { printStream } from "../../Main.js";
 import { BlockStatEntry, BSEntryJSONData } from "../../Utils/stats/BlockStatEntry.js";
 import { BlockStatDB } from "../../Utils/stats/BlockStatDB.js";
 import { Player } from "mojang-minecraft";
+import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 function sneakstats(
     player: Player,
     args: Map<string, any>,
@@ -16,7 +17,7 @@ function sneakstats(
             let players: Player[] = Minecraft.world.getPlayers()
             for (let i of players) {
                 if (i.name == args.get("target")) {
-                    let sneakTime: number = PlayerTag.read(i, "dpm:sneakTime").data;
+                    let sneakTime: number = PlayerTag.read(i, MCWLNamespaces.sneakDuration).data;
                     return [`${args.get("target")} has crouched a total of ${sneakTime} game ticks`, 0];
                 }
             }
@@ -35,7 +36,7 @@ function sneakstatsInfo(inf: string) {
     printStream.info(inf);
 }
 const sneakstatsCmd = new Command(
-    "sneakstats",
+    "crouchtime",
     "Displays sneak time of player in ticks",
     [
         new CommandFormat(

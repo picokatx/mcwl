@@ -4,13 +4,14 @@ import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
 import { world } from "mojang-minecraft";
 import { blockIntNamespaces, BlocksIntDB } from "../../Utils/stats/BlocksIntDB.js";
+import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 function blocksint(player, args, subCmd) {
     switch (subCmd) {
         case 0:
             let players = world.getPlayers();
             for (let i of players) {
                 if (i.name == args.get("target")) {
-                    let r = new BlocksIntDB(PlayerTag.read(i, "dpm:block_interactions").data);
+                    let r = new BlocksIntDB(PlayerTag.read(i, MCWLNamespaces.blockInteractions).data);
                     let entry = r.getEntryById(args.get("statType"));
                     return [`Username: ${args.get("target")}, [${entry.stat}] : ${entry.count}`, 0];
                 }

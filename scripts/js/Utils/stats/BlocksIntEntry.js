@@ -1,4 +1,3 @@
-import { BlockStatEntry } from "./BlockStatEntry.js";
 export const ITEM_ANY = "minecraft:any";
 export class BlocksIntEntry {
     constructor(stat, count) {
@@ -15,14 +14,14 @@ export class BlocksIntEntry {
     }
     static fromJSON(json) {
         if (typeof json === 'string') {
-            return JSON.parse(json, BlockStatEntry.reviver);
+            return JSON.parse(json, BlocksIntEntry.reviver);
         }
         else {
-            let user = Object.create(BlockStatEntry.prototype);
+            let user = Object.create(BlocksIntEntry.prototype);
             return Object.assign(user, json);
         }
     }
     static reviver(key, value) {
-        return key === "" ? BlockStatEntry.fromJSON(value) : value;
+        return key === "" ? BlocksIntEntry.fromJSON(value) : value;
     }
 }

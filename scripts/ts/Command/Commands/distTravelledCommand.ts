@@ -7,6 +7,7 @@ import { printStream } from "../../Main.js";
 import { BlockStatEntry, BSEntryJSONData } from "../../Utils/stats/BlockStatEntry.js";
 import { BlockStatDB } from "../../Utils/stats/BlockStatDB.js";
 import { Player } from "mojang-minecraft";
+import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 function distmovedstats(
     player: Player,
     args: Map<string, any>,
@@ -16,7 +17,7 @@ function distmovedstats(
             let players: Player[] = Minecraft.world.getPlayers()
             for (let i of players) {
                 if (i.name == args.get("target")) {
-                    let distTravelled: number = PlayerTag.read(i, "dpm:distTravelled").data;
+                    let distTravelled: number = PlayerTag.read(i, MCWLNamespaces.distanceTravelled).data;
                     return [`${args.get("target")} has travelled a total of ${distTravelled}m ingame`, 0];
                 }
             }
@@ -35,7 +36,7 @@ function distmovedstatsInfo(inf: string) {
     printStream.info(inf);
 }
 const distmovedstatsCmd = new Command(
-    "distmovedstats",
+    "distancemoved",
     "Displays distance travelled by player in metres",
     [
         new CommandFormat(

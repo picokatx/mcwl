@@ -11,9 +11,8 @@
       "rootDir": ".",
 
     },
-    "include": ["Minecraft", "GameTest.d.ts"],
     "devDependencies": {
       "commonjs": "latest",
       "requirejs": "latest"
-    },
+    }
 }

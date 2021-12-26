@@ -23,8 +23,10 @@ export class PrintStream {
         this.debugEnabled = b;
     }
     flush() {
-        this.printable.runCommand(Console.tellraw(this.outputStream));
-        this.outputStream = "";
+        if (this.outputStream != "") {
+            this.printable.runCommand(Console.tellraw(this.outputStream));
+            this.outputStream = "";
+        }
     }
     print(s) {
         switch (typeof s) {
@@ -73,9 +75,11 @@ export class PrintStream {
         this.printable.runCommand(Console.tellraw(this.outputStream));
         this.outputStream = "";
     }
-    chat(s, player) {
+    chat(s, player, targets) {
         this.flush();
-        this.printable.runCommand(Console.chat(s, player));
+        for (let i of targets) {
+            this.printable.runCommand(Console.chat(s, player, i.name));
+        }
     }
     sudoChat(s, name, target) {
         this.flush();

@@ -1,4 +1,6 @@
-export class BlockStatEntry {
+import { BaseTagEntry } from "./BaseTagEntry";
+
+export class BlockStatEntry implements BaseTagEntry {
     id: string
     blocksBroken: number
     blocksPlaced: number

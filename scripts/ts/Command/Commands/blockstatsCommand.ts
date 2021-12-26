@@ -7,6 +7,7 @@ import { printStream } from "../../Main.js";
 import { BlockStatEntry, BSEntryJSONData } from "../../Utils/stats/BlockStatEntry.js";
 import { BlockStatDB } from "../../Utils/stats/BlockStatDB.js";
 import { Player } from "mojang-minecraft";
+import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 function blockstats(
     player: Player,
     args: Map<string, any>,
@@ -16,7 +17,7 @@ function blockstats(
             let players: Player[] = Minecraft.world.getPlayers()
             for (let i of players) {
                 if (i.name==args.get("target")) {
-                    let r: PlayerData = PlayerTag.read(i, "dpm:block_stats");
+                    let r: PlayerData = PlayerTag.read(i, MCWLNamespaces.blocksModified);
                     let bsEntry = new BlockStatDB((r.data as BlockStatEntry[]));
                     let entry = bsEntry.getEntryById(args.get("blockName"));
                     if (args.get("statType")=="blocksBroken") {
@@ -41,7 +42,7 @@ function blockstatsInfo(inf: string) {
     printStream.info(inf);
 }
 const blockstatsCmd = new Command(
-    "blockstats",
+    "blocksmodified",
     "Displays statistics related to blocks",
     [
         new CommandFormat(

@@ -3,13 +3,14 @@ import { CommandFormat, CommandParameter, ARG_STRING } from "../CommandParameter
 import { Command } from "../Command.js";
 import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
+import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 function distmovedstats(player, args, subCmd) {
     switch (subCmd) {
         case 0:
             let players = Minecraft.world.getPlayers();
             for (let i of players) {
                 if (i.name == args.get("target")) {
-                    let distTravelled = PlayerTag.read(i, "dpm:distTravelled").data;
+                    let distTravelled = PlayerTag.read(i, MCWLNamespaces.distanceTravelled).data;
                     return [`${args.get("target")} has travelled a total of ${distTravelled}m ingame`, 0];
                 }
             }
@@ -26,7 +27,7 @@ function distmovedstatsFail(err) {
 function distmovedstatsInfo(inf) {
     printStream.info(inf);
 }
-const distmovedstatsCmd = new Command("distmovedstats", "Displays distance travelled by player in metres", [
+const distmovedstatsCmd = new Command("distancemoved", "Displays distance travelled by player in metres", [
     new CommandFormat([
         new CommandParameter("target", ARG_STRING, false)
     ])
