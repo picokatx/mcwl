@@ -1,4 +1,5 @@
-import { world, Items } from "mojang-minecraft";
+import { world, Items, BlockLocation } from "mojang-minecraft";
+import { register } from "mojang-gametest";
 import { sudoCmd } from "./Command/Commands/sudoCommand.js";
 import { PlayerData } from "./Utils/data/PlayerData.js";
 import { PlayerTag } from "./Utils/data/PlayerTag.js";
@@ -47,6 +48,12 @@ let commands = [
     blocksintCmd
 ];
 export const cmdPrefix = ",";
+let gametestObject;
+let simPlayerObject;
+register("MCWLTests", "spawn_simPlayer", (test) => {
+    gametestObject = test;
+    simPlayerObject = test.spawnSimulatedPlayer(new BlockLocation(0, 0, 0), "picobyte86");
+}).structureName("MCWLTests:spawn_simPlayer").maxTicks(99999999);
 function initializeDB(playerMap, player, tagName, defaultValue) {
     if (!PlayerTag.hasTag(player, tagName)) {
         playerMap.set(player, defaultValue);
@@ -161,7 +168,11 @@ world.events.tick.subscribe((eventData) => {
 });
 world.events.blockBreak.subscribe((eventData) => {
 });
+world.events.chat.subscribe((eventData) => {
+    simPlayerObject.moveToLocation(eventData.sender.location);
+});
 world.events.beforeChat.subscribe((eventData) => {
+    eventData.sender.runCommand(`gametest run MCWLTests:spawn_simPlayer false 1 1`);
     for (let i of Object.values(CustomCharID)) {
         printStream.print(i.toString());
     }

@@ -7,7 +7,7 @@
 /* *****************************************************************************
    Copyright (c) Microsoft Corporation.
    ***************************************************************************** */
-declare module "gametest-mojang" {
+declare module "mojang-gametest" {
     import * as mojangminecraft from "mojang-minecraft";
     /**
     * Represents the type of fluid for use within a fluid

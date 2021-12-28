@@ -1,9 +1,12 @@
 export class Console {
+    static globalRunCmd(s) {
+        return `${s}`;
+    }
     static runCmd(s, player) {
         return `execute @a[name=${player.name}] ~ ~ ~ ${s}`;
     }
     static chat(s, player, target) {
-        return `tellraw ${target} {"rawtext":[{"text":"<${player.name}> ${s}"}]}`;
+        return `tellraw "${target}" {"rawtext":[{"text":"<${player.name}> ${s}"}]}`;
     }
     static sudoChat(s, name, target) {
         return `tellraw ${target} {"rawtext":[{"text":"<${name}> ${s}"}]}`;

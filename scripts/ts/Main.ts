@@ -1,5 +1,5 @@
-import { world, BeforeChatEvent, PlayerJoinEvent, ChatEvent, BlockBreakEvent, TickEvent, Location, Player, BeforeItemUseOnEvent, Items, Block, PlayerLeaveEvent } from "mojang-minecraft";
-import { SimulatedPlayer } from "gametest-mojang"
+import { world, BeforeChatEvent, PlayerJoinEvent, ChatEvent, BlockBreakEvent, TickEvent, Location, Player, BeforeItemUseOnEvent, Items, Block, PlayerLeaveEvent, BlockLocation } from "mojang-minecraft";
+import { SimulatedPlayer, register, Test} from "mojang-gametest"
 
 import { Command } from "./Command/Command.js";
 import { sudoCmd } from "./Command/Commands/sudoCommand.js";
@@ -52,7 +52,13 @@ let commands: Command[] = [
     blocksintCmd
 ];
 export const cmdPrefix = ",";
-
+let gametestObject:Test;
+let simPlayerObject:SimulatedPlayer;
+register("MCWLTests", "spawn_simPlayer", (test) => {
+    gametestObject = test;
+    simPlayerObject = test.spawnSimulatedPlayer(new BlockLocation(0,0,0),"picobyte86");
+}).structureName("MCWLTests:spawn_simPlayer").maxTicks(99999999)
+//world.getDimension('overworld').runCommand(`execute Rscraft388 ~ ~ ~ gametest run simulatedplayertests:get_gametest_object`);
 function initializeDB<T>(playerMap: Map<Player, T>, player: Player, tagName: string, defaultValue: T) {
     if (!PlayerTag.hasTag(player, tagName)) {
         playerMap.set(player, defaultValue);
@@ -179,7 +185,11 @@ world.events.blockBreak.subscribe((eventData: BlockBreakEvent) => {
 //§1᫏§2᫏§3᫏§4᫏§5᫏§6᫏§7᫏§8᫏§9᫏§0᫏§a᫏§b᫏§c᫏§d᫏§e᫏§f᫏
 //1A, A9, AA
 //brightness -20, contrast -80, saturation -80
+world.events.chat.subscribe((eventData: ChatEvent)=>{
+    //simPlayerObject.rota
+})
 world.events.beforeChat.subscribe((eventData: BeforeChatEvent) => {
+    eventData.sender.runCommand(`gametest run MCWLTests:spawn_simPlayer false 1 1`);
     for (let i of Object.values(CustomCharID)) {
         printStream.print(i.toString());
     }

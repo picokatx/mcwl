@@ -69,6 +69,9 @@ export class PrintStream {
         this.flush();
         this.printable.runCommand(Console.tellraw(`${notifPrefix} ${ColorCodes.darkred}${s}${ColorCodes.reset}`));
     }
+    globalRun(s: string) {
+        this.printable.runCommand(Console.globalRunCmd(s));
+    }
     run(s: string, player: Player) {
         this.printable.runCommand(Console.runCmd(s,player));
     }
