@@ -2,7 +2,7 @@ import { CommandFormat } from "../CommandParameter.js";
 import { Command } from "../Command.js";
 import { printStream } from "../../Main.js";
 import { BlockLocation, Player } from "mojang-minecraft";
-import { worldMaxHeight } from "../../Utils/constants/MathConstants.js";
+import { maxWorldHeight } from "../../Utils/constants/MathConstants.js";
 function top(
     player: Player,
     args: Map<string, any>,
@@ -11,14 +11,14 @@ function top(
     let top: number = player.location.y;
     switch (subCmd) {
         case 0:
-            while (playerLoc.y <= worldMaxHeight) {
+            while (playerLoc.y <= maxWorldHeight) {
                 if (!player.dimension.getBlock(playerLoc).isEmpty) {
                     top = playerLoc.y-2;
                     break;
                 }
                 playerLoc = playerLoc.above();
             }
-            if (playerLoc.y == -worldMaxHeight+1) {
+            if (playerLoc.y == -maxWorldHeight+1) {
                 return [`Unable to find teleport location`, 1];
             } else {
                 printStream.run(`tp @s ${playerLoc.x} ${top} ${playerLoc.z}`, player);

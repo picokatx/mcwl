@@ -2,49 +2,34 @@ import { CommandFormat, CommandParameter, ARG_STRING } from "../CommandParameter
 import { Command } from "../Command.js";
 import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
-import { Player, world } from "mojang-minecraft";
+import { world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
-function sneakstats(
-    player: Player,
-    args: Map<string, any>,
-    subCmd: number) {
+function crouchtime(player, args, subCmd) {
     switch (subCmd) {
         case 0:
-            let players: Player[] = world.getPlayers()
+            let players = world.getPlayers();
             for (let i of players) {
                 if (i.name == args.get("target")) {
-                    let sneakTime: number = PlayerTag.read(i, MCWLNamespaces.sneakDuration).data;
+                    let sneakTime = PlayerTag.read(i, MCWLNamespaces.sneakDuration).data;
                     return [`${args.get("target")} has crouched a total of ${sneakTime} game ticks`, 0];
                 }
             }
-
         default:
             return [`subCmd index ${subCmd} out of range. subCmd does not exist`, 1];
     }
 }
-function sneakstatsSucceed(suc: string) {
+function crouchtimeSucceed(suc) {
     printStream.success(suc);
 }
-function sneakstatsFail(err: string) {
+function crouchtimeFail(err) {
     printStream.failure(err);
 }
-function sneakstatsInfo(inf: string) {
+function crouchtimeInfo(inf) {
     printStream.info(inf);
 }
-const sneakstatsCmd = new Command(
-    "crouchtime",
-    "Displays sneak time of player in ticks",
-    [
-        new CommandFormat(
-            [
-                new CommandParameter("target", ARG_STRING, false)
-            ]
-        )
-    ],
-    sneakstats,
-    sneakstatsSucceed,
-    sneakstatsFail,
-    sneakstatsInfo,
-    3
-);
-export { sneakstatsCmd };
+const crouchtimeCmd = new Command("crouchtime", "Displays total time player has sneaked in ticks", [
+    new CommandFormat([
+        new CommandParameter("target", ARG_STRING, false)
+    ])
+], crouchtime, crouchtimeSucceed, crouchtimeFail, crouchtimeInfo, 3);
+export { crouchtimeCmd };

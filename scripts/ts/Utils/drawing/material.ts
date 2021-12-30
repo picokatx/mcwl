@@ -220,17 +220,3 @@ export class UnweightedBlockDistFragment extends Shader {
 export let pointMaterial: Material = new Material("point", new PointVertex("point_vertex"), new BaseFragment("point_fragment"));
 export let cuboidMaterial: Material = new Material("cuboid", new CuboidVertex("cuboid_vertex"), new BaseFragment("cuboid_fragment"));
 export let testMaterial: Material = new Material("cuboid", new CuboidVertex("cuboid_vertex"), new UnweightedBlockDistFragment("cuboid_fragment"));
-//{expr:"rand(pool)),pool:[diamondOre,redstoneOre,coalOre,emeraldOre,ironOre,lapisOre]"}
-//{expr:"get("location")%2*rand(pool)),pool:[diamondOre,redstoneOre,coalOre,emeraldOre,ironOre,lapisOre]"}
-// --exprArgs --material --vertex
-// {"block": [cobblestone, infested_cobblestone], "data": 0, "origin": "~1 ~1 ~1", "size": 5}
-// [%origin[0]+%x,%origin[1]+%y,%origin[2]+%z];y<=%size
-// %block[rand()*%block.length]
-// ,cube (use cube vertex)
-// ~1 ~1 ~1 5 [cobblestone, infested_cobblestone] 0 (origin, size, block, data) 
-// default fragment shader is assumed
-// other stuff ig
-// apply multiple vertex/fragment to args?
-// ,shape []
-// ,
-// ,

@@ -94,10 +94,8 @@ class ExprContext {
     static cbrt(x: any[]) {
         return Math.cbrt(x[0])
     }
-} //RegExp(/^\((?:(?:(?:-|)\d+\.\d+)|(?:(?:-|)\d+)|(?:"(?:[\w:@ ]+)")|(?=\w)\D\w+)(?:,(?:(?:(?:-|)\d+\.\d+)|(?:(?:-|)\d+)|(?:"(?:[\w:@ ]+)")|(?=\w)\D\w+))*\)/)
+} 
 const TOKEN_TYPE = {
-    ///^\((?:(?:-|)\d+\.\d+|(?:-|)\d+|"(?:[\w:@ ]+)"|(?=\w)\D\w+)(?:,(?:(?:-|)\d+\.\d+|(?:-|)\d+|"(?:[\w:@ ]+)"|(?=\w)\D\w+))*\)/
-    //RegExp(`^\\((?:${TOKEN_TYPE.LIT_FLOAT.source.slice(1)}|${TOKEN_TYPE.LIT_NUMBER.source.slice(1)}|${TOKEN_TYPE.LIT_STRING.source.slice(1)}|${TOKEN_TYPE.VAR.source.slice(1)})(?:,(?:${TOKEN_TYPE.LIT_FLOAT.source.slice(1)}|${TOKEN_TYPE.LIT_NUMBER.source.slice(1)}|${TOKEN_TYPE.LIT_STRING.source.slice(1)}|${TOKEN_TYPE.VAR.source.slice(1)}))*\\)`)
     CONST_PI: RegExp(/^PI/),
     CONST_PHI: RegExp(/^PHI/),
     CONST_E: RegExp(/^E/),
@@ -110,7 +108,6 @@ const TOKEN_TYPE = {
     LIT_STRING: RegExp(/^"(?:[\w:@ ]+)"/),
     LIT_LIST: RegExp(/^\[(?:.*,)*(?:[^)]*)\]/),
     LIT_FUN: RegExp(/^(?=(?=\w)\D\w*)(?=\w)\D\w*\((?:.*,)*(?:[^)]*)\)/),
-    //RegExp(/^\((?:.*,)*(?:[^)]*)\)/)
     LIT_QUERY: RegExp(/^\%(?=\w)\D\w+/),
     OP_ADD: RegExp(/^\+/),
     OP_SUB: RegExp(/^\-/),
@@ -128,7 +125,6 @@ const TOKEN_TYPE = {
     OP_DECR: RegExp(/^\-\-/),
     SYN_COMMA: RegExp(/^\,/),
     SYN_BRACKET: RegExp(/^(?<!\w)\([^)]*\)/),
-    //SYN_RBRACKET: RegExp(/^\)/),
     SYN_POINT: RegExp(/^\./),
     SYN_SPACE: RegExp(/^ /),
     VAR: RegExp(/^(?=\w)\D\w+/),
@@ -160,10 +156,7 @@ const TOKEN_MAP = [
     ),
     new TokenMap(
         "LIT_FUN",
-        TOKEN_TYPE.LIT_FUN/*,
-        function (token: string) {
-            return ExprContext.parseJSON([token.replace("(", "[").replace(")", "]")])
-        }*/
+        TOKEN_TYPE.LIT_FUN
     ),
     new TokenMap(
         "LIT_NUMBER",
@@ -473,16 +466,7 @@ const SUBEXPR_MAP:SubExpr[] = [
         ],
         function (a, b) { return a * b },
         15
-    ), //22*5-1/10+(rand()*4)
-    //rand() - RTN_FUNCTION - [1]
-    //[1]*4 - MULTIPLY - [2]
-    //22*5 - MULTIPLY - [3]
-    //1/10 - DIVIDE - [4]
-    //[3]-[4] - SUBTRACT - [5]
-    //[5]+[2] - ADD - [6]
-    //return [6]
-
-    //return add(subtract(multiply(22,5),divide(1,10)),multiply(rand(),4))
+    ),
 
     new SubExpr(
         "DIVIDE",
@@ -622,8 +606,7 @@ export class Expression {
         for (let i of SUBEXPR_MAP) {
             for (let j of i.expr) {
                 let instances = tokens.map((token,idx)=>{return tokens.slice(idx,idx+j.length).map((ele,idx)=>{return ele.name===j[idx]}).every(e=>e==true)});
-                //tokens.map((token,idx)=>{if (tokens.slice(idx,idx+j.length).map((ele,idx1)=>{return ele.name===j[idx1]}).every(e=>e==true)) {tokens.splice(idx,idx+j.length,"test")}});
-            } //b.map((ele,idx)=>{return b.slice(idx,idx+a.length).map((ele1,idx1)=>{return ele1===a[idx1]}).every(e=>e==true)})
+            } 
         }
     }   
 }

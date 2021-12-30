@@ -10,8 +10,6 @@ function sudo(
     args: Map<string, any>,
     subCmd: number) {
     let pData: SudoEntry = Object.assign(new SudoEntry(),PlayerTag.read(player, MCWLNamespaces.sudo).data);
-    //printStream.println(pData);
-    //printStream.println(PlayerTag.read(player, "dpm:sudo"));
     switch (subCmd) {
         case 0:
             new SudoEntry(true,args.get("name"),args.get("target")).saveToTag(player);

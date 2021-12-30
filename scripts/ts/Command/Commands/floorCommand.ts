@@ -3,6 +3,7 @@ import { Command } from "../Command.js";
 import { printStream } from "../../Main.js";
 import { BlockLocation, Player } from "mojang-minecraft";
 import { DataHelper } from "../../Utils/data/DataHelper.js";
+import { minWorldHeight } from "../../Utils/constants/MathConstants.js";
 function floor(
     player: Player,
     args: Map<string, any>,
@@ -11,14 +12,14 @@ function floor(
     let floor: number = player.location.y;
     switch (subCmd) {
         case 0:
-            while (playerLoc.y >= -64) {
+            while (playerLoc.y >= minWorldHeight) {
                 if (!player.dimension.getBlock(playerLoc).isEmpty) {
                     floor = playerLoc.y+1;
                     break;
                 }
                 playerLoc = DataHelper.below(playerLoc);
             }
-            if (playerLoc.y == -65) {
+            if (playerLoc.y == minWorldHeight - 1) {
                 return [`Unable to find teleport location`, 1];
             } else {
                 printStream.run(`tp @s ${playerLoc.x} ${floor} ${playerLoc.z}`, player);

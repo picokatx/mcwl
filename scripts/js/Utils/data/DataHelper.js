@@ -1,4 +1,5 @@
 import { BlockLocation, BlockProperties } from "mojang-minecraft";
+import { minWorldHeight } from "../constants/MathConstants.js";
 import { PotionData } from "../constants/PotionID.js";
 export class DataHelper {
     static cauldronHasWater(p) {
@@ -14,14 +15,14 @@ export class DataHelper {
         return !(p.permutation.getProperty(BlockProperties.extinguished).value);
     }
     static isContainerEmpty(container) {
-        let bLoc = new BlockLocation(container.location.x, -64, container.location.z);
+        let bLoc = new BlockLocation(container.location.x, minWorldHeight, container.location.z);
         let obstruction = container.dimension.getBlock(bLoc);
         let clone = obstruction.permutation.clone();
         let cloneType = obstruction.type;
         container.dimension.getBlock(bLoc).setType(container.type);
         let ret1;
         try {
-            ret1 = container.dimension.runCommand(`testforblocks ${container.location.x} -64 ${container.location.z} ${container.location.x} -64 ${container.location.z} ${container.location.x} ${container.location.y} ${container.location.z} all`);
+            ret1 = container.dimension.runCommand(`testforblocks ${container.location.x} ${minWorldHeight} ${container.location.z} ${container.location.x} -64 ${container.location.z} ${container.location.x} ${container.location.y} ${container.location.z} all`);
             container.dimension.getBlock(bLoc).setType(cloneType);
             container.dimension.getBlock(bLoc).setPermutation(clone);
             return true;

@@ -4,7 +4,7 @@ import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
 import { Player, world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
-function distmovedstats(
+function distancemoved(
     player: Player,
     args: Map<string, any>,
     subCmd: number) {
@@ -22,16 +22,16 @@ function distmovedstats(
             return [`subCmd index ${subCmd} out of range. subCmd does not exist`, 1];
     }
 }
-function distmovedstatsSucceed(suc: string) {
+function distancemovedSucceed(suc: string) {
     printStream.success(suc);
 }
-function distmovedstatsFail(err: string) {
+function distancemovedFail(err: string) {
     printStream.failure(err);
 }
-function distmovedstatsInfo(inf: string) {
+function distancemovedInfo(inf: string) {
     printStream.info(inf);
 }
-const distmovedstatsCmd = new Command(
+const distancemovedCmd = new Command(
     "distancemoved",
     "Displays distance travelled by player in metres",
     [
@@ -41,10 +41,10 @@ const distmovedstatsCmd = new Command(
             ]
         )
     ],
-    distmovedstats,
-    distmovedstatsSucceed,
-    distmovedstatsFail,
-    distmovedstatsInfo,
+    distancemoved,
+    distancemovedSucceed,
+    distancemovedFail,
+    distancemovedInfo,
     3
 );
-export { distmovedstatsCmd };
+export { distancemovedCmd };

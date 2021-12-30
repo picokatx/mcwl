@@ -3,6 +3,7 @@ import { Command } from "../Command.js";
 import { printStream } from "../../Main.js";
 import { BlockLocation } from "mojang-minecraft";
 import { DataHelper } from "../../Utils/data/DataHelper.js";
+import { minWorldHeight } from "../../Utils/constants/MathConstants.js";
 function descend(player, args, subCmd) {
     let levelCount = 0;
     let levelPaddingCount = 0;
@@ -10,7 +11,7 @@ function descend(player, args, subCmd) {
     let floor = player.location.y;
     switch (subCmd) {
         case 0:
-            while (playerLoc.y >= -64 && levelCount < args.get("levels")) {
+            while (playerLoc.y >= minWorldHeight && levelCount < args.get("levels")) {
                 if (player.dimension.getBlock(playerLoc).isEmpty) {
                     levelPaddingCount++;
                 }
@@ -31,7 +32,7 @@ function descend(player, args, subCmd) {
                 return [`Descended ${args.get("levels")} levels`, 0];
             }
         case 1:
-            while (playerLoc.y >= -64 && levelCount < args.get("levels")) {
+            while (playerLoc.y >= minWorldHeight && levelCount < args.get("levels")) {
                 if (player.dimension.getBlock(playerLoc).isEmpty) {
                     levelPaddingCount++;
                 }
@@ -52,7 +53,7 @@ function descend(player, args, subCmd) {
                 return [`Descended ${args.get("levels")} levels`, 0];
             }
         case 2:
-            while (levelPaddingCount < 2 && playerLoc.y >= -64) {
+            while (levelPaddingCount < 2 && playerLoc.y >= minWorldHeight) {
                 if (player.dimension.getBlock(playerLoc).isEmpty) {
                     levelPaddingCount++;
                 }

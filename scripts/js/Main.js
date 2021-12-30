@@ -4,10 +4,10 @@ import { PlayerData } from "./Utils/data/PlayerData.js";
 import { PlayerTag } from "./Utils/data/PlayerTag.js";
 import { PrintStream } from "./Utils/logging/PrintStream.js";
 import { BlockStatDB } from "./Utils/stats/BlockStatDB.js";
-import { blockstatsCmd } from "./Command/Commands/blockstatsCommand.js";
-import { sneakstatsCmd } from "./Command/Commands/sneakstatsCommand.js";
+import { blocksmodifiedCmd } from "./Command/Commands/blocksmodifiedCommand.js";
+import { crouchtimeCmd } from "./Command/Commands/crouchtimeCommand.js";
 import { Vec3 } from "./Utils/data/vec3.js";
-import { distmovedstatsCmd } from "./Command/Commands/distTravelledCommand.js";
+import { distancemovedCmd } from "./Command/Commands/distancemovedCommand.js";
 import { spawnCmd } from "./Command/Commands/spawnCommand.js";
 import { gotoCmd } from "./Command/Commands/gotoCommand.js";
 import { setblockCmd } from "./Command/Commands/setblockCommand.js";
@@ -21,7 +21,7 @@ import { MCWLNamespaces } from "./Utils/constants/MCWLNamespaces.js";
 import { playtimeCmd } from "./Command/Commands/playtimeCommand.js";
 import { topCmd } from "./Command/Commands/topCommand.js";
 import { helpCmd } from "./Command/Commands/helpCommand.js";
-import { playerjoinedCmd } from "./Command/Commands/playerJoinedCommand.js";
+import { playerjoinedCmd } from "./Command/Commands/playerjoinedCommand.js";
 export let printStream = new PrintStream(world.getDimension("overworld"));
 export let playerBlockSelection = [];
 export let playerBlockStatDB = new Map();
@@ -37,21 +37,21 @@ export let playerPrevLocDB = new Map();
 export let playerPlaytimeDB = new Map();
 export let playerSudoDB = new Map();
 export let commands = [
-    sudoCmd,
-    blockstatsCmd,
-    sneakstatsCmd,
-    distmovedstatsCmd,
-    spawnCmd,
-    gotoCmd,
     ascendCmd,
-    setblockCmd,
-    descendCmd,
-    floorCmd,
     blocksintCmd,
-    playtimeCmd,
-    topCmd,
+    blocksmodifiedCmd,
+    descendCmd,
+    distancemovedCmd,
+    floorCmd,
+    gotoCmd,
     helpCmd,
-    playerjoinedCmd
+    playtimeCmd,
+    playerjoinedCmd,
+    topCmd,
+    sudoCmd,
+    crouchtimeCmd,
+    spawnCmd,
+    setblockCmd,
 ];
 export const cmdPrefix = ",";
 function initializeDB(playerMap, player, tagName, defaultValue) {
@@ -208,8 +208,6 @@ world.events.blockPlace.subscribe((eventData) => {
     playerBlockStatDB4.get(eventData.player).add(id, "blocksPlaced");
     playerBlockStatDB4.get(eventData.player).saveToTag(eventData.player, 4);
 });
-world.events.chat.subscribe((eventData) => {
-});
 world.events.beforeChat.subscribe((eventData) => {
     if (eventData.message[0] === cmdPrefix) {
         eventData.message = eventData.message.substring(1);
@@ -236,7 +234,6 @@ function cmdHandler(chatEvent) {
         return;
     }
     let subCmdIdx = commands[cmdIdx].cmdParameters.map(a => a.testRegex(cmdArgs)).indexOf(true);
-    printStream.println(subCmdIdx);
     if (subCmdIdx != -1) {
         let args = commands[cmdIdx].cmdParameters[subCmdIdx].parseRegex(cmdArgs);
         let parsedArgs = new Map();

@@ -2,6 +2,7 @@ import { ARG_NUMBER, CommandParameter, CommandFormat } from "../CommandParameter
 import { Command } from "../Command.js";
 import { printStream } from "../../Main.js";
 import { BlockLocation, Player } from "mojang-minecraft";
+import { maxWorldHeight } from "../../Utils/constants/MathConstants.js";
 function ascend(
     player: Player,
     args: Map<string, any>,
@@ -12,7 +13,7 @@ function ascend(
     let floor: number = player.location.y;
     switch (subCmd) {
         case 0:
-            while (playerLoc.y <= 320) {
+            while (playerLoc.y <= maxWorldHeight) {
                 if (player.dimension.getBlock(playerLoc).isEmpty) {
                     levelPaddingCount++;
                 } else {
@@ -34,7 +35,7 @@ function ascend(
                 return [`Ascended ${args.get("levels")} levels`, 0];
             }
         case 1:
-            while (playerLoc.y <= 320) {
+            while (playerLoc.y <= maxWorldHeight) {
                 if (player.dimension.getBlock(playerLoc).isEmpty) {
                     levelPaddingCount++;
                 } else {
@@ -56,7 +57,7 @@ function ascend(
                 return [`Ascended ${args.get("levels")} levels`, 0];
             }
         case 2:
-            while (levelPaddingCount < 2 && playerLoc.y <= 320) {
+            while (levelPaddingCount < 2 && playerLoc.y <= maxWorldHeight) {
                 if (player.dimension.getBlock(playerLoc).isEmpty) {
                     levelPaddingCount++;
                 } else {
@@ -72,7 +73,7 @@ function ascend(
                 return [`Ascended 1 level`, 0];
             }
         default:
-            return [`subCmd index ${subCmd} out of range. subCmd does not exist`, 1];
+            return [`Command format does not exist, use ,help ${ascendCmd.name} for a list of all command formats`, 1];
     }
 }
 function ascendSucceed(suc: string) {

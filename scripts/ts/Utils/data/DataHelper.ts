@@ -1,4 +1,5 @@
 import { Block, BlockLocation, BlockPermutation, BlockProperties, BlockType, CommandReturn, ItemStack, Player } from "mojang-minecraft";
+import { minWorldHeight } from "../constants/MathConstants.js";
 import { PotionData } from "../constants/PotionID.js";
 
 export class DataHelper {
@@ -15,14 +16,14 @@ export class DataHelper {
         return !(p.permutation.getProperty(BlockProperties.extinguished).value)
     }
     static isContainerEmpty(container: Block) {
-        let bLoc: BlockLocation = new BlockLocation(container.location.x,-64,container.location.z);
+        let bLoc: BlockLocation = new BlockLocation(container.location.x,minWorldHeight,container.location.z);
         let obstruction: Block = container.dimension.getBlock(bLoc);
         let clone: BlockPermutation = obstruction.permutation.clone();
         let cloneType: BlockType = obstruction.type;
         container.dimension.getBlock(bLoc).setType(container.type);
         let ret1: CommandReturn; 
         try {
-            ret1 = container.dimension.runCommand(`testforblocks ${container.location.x} -64 ${container.location.z} ${container.location.x} -64 ${container.location.z} ${container.location.x} ${container.location.y} ${container.location.z} all`);
+            ret1 = container.dimension.runCommand(`testforblocks ${container.location.x} ${minWorldHeight} ${container.location.z} ${container.location.x} -64 ${container.location.z} ${container.location.x} ${container.location.y} ${container.location.z} all`);
             container.dimension.getBlock(bLoc).setType(cloneType);
             container.dimension.getBlock(bLoc).setPermutation(clone);
             return true;

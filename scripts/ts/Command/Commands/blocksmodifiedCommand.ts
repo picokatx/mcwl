@@ -6,7 +6,7 @@ import { BlockStatEntry } from "../../Utils/stats/BlockStatEntry.js";
 import { BlockStatDB } from "../../Utils/stats/BlockStatDB.js";
 import { Player, world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
-function blockstats(
+function blocksmodified(
     player: Player,
     args: Map<string, any>,
     subCmd: number) {
@@ -31,13 +31,6 @@ function blockstats(
                         }
                     }
                     return [`Invalid Block Name`,1]
-                    /*
-                    let entry = bsEntry.getEntryById(args.get("blockName"));
-                    if (args.get("statType")=="blocksBroken") {
-                        return [`${entry.blocksBroken} ${args.get("blockName")} have been broken by ${args.get("target")}`, 0];
-                    } else {
-                        return [`${entry.blocksPlaced} ${args.get("blockName")} have been placed by ${args.get("target")}`, 0];
-                    }*/
                 }
             }
 
@@ -45,16 +38,16 @@ function blockstats(
             return [`subCmd index ${subCmd} out of range. subCmd does not exist`, 1];
     }
 }
-function blockstatsSucceed(suc: string) {
+function blocksmodifiedSucceed(suc: string) {
     printStream.success(suc);
 }
-function blockstatsFail(err: string) {
+function blocksmodifiedFail(err: string) {
     printStream.failure(err);
 }
-function blockstatsInfo(inf: string) {
+function blocksmodifiedInfo(inf: string) {
     printStream.info(inf);
 }
-const blockstatsCmd = new Command(
+const blocksmodifiedCmd = new Command(
     "blocksmodified",
     "Displays statistics related to blocks",
     [
@@ -66,10 +59,10 @@ const blockstatsCmd = new Command(
             ]
         )
     ],
-    blockstats,
-    blockstatsSucceed,
-    blockstatsFail,
-    blockstatsInfo,
+    blocksmodified,
+    blocksmodifiedSucceed,
+    blocksmodifiedFail,
+    blocksmodifiedInfo,
     3
 );
-export { blockstatsCmd };
+export { blocksmodifiedCmd };
