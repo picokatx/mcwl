@@ -22,10 +22,10 @@ import { blocksintCmd } from "./Command/Commands/blocksintCommand.js";
 import { BaseTagDB } from "./Utils/stats/BaseTagDB.js";
 import { SudoEntry } from "./Utils/stats/SudoEntry.js";
 import { MCWLNamespaces } from "./Utils/constants/MCWLNamespaces.js";
-import {CustomCharID} from "./Utils/constants/CustomCharID.js";
 import { playtimeCmd } from "./Command/Commands/playtimeCommand.js";
 import { topCmd } from "./Command/Commands/topCommand.js";
 import { helpCmd } from "./Command/Commands/helpCommand.js";
+import { playerjoinedCmd } from "./Command/Commands/playerJoinedCommand.js";
 export let printStream: PrintStream = new PrintStream(world.getDimension("overworld"));
 export let playerBlockSelection: PlayerBlockSelection[] = [];
 export let playerBlockStatDB: Map<Player, BlockStatDB> = new Map<Player, BlockStatDB>();
@@ -35,6 +35,7 @@ export let playerBlockStatDB3: Map<Player, BlockStatDB> = new Map<Player, BlockS
 export let playerBlockStatDB4: Map<Player, BlockStatDB> = new Map<Player, BlockStatDB>();
 export let playerBlocksIntDB: Map<Player, BlocksIntDB> = new Map<Player, BlocksIntDB>();
 export let playerCrouchTimeDB: Map<Player, number> = new Map<Player, number>();
+export let playerJoinedDB: Map<Player, number> = new Map<Player, number>();
 export let playerDistTravelledDB: Map<Player, number> = new Map<Player, number>();
 export let playerPrevLocDB: Map<Player, Location> = new Map<Player, Location>();
 export let playerPlaytimeDB: Map<Player, number> = new Map<Player, number>();
@@ -53,7 +54,8 @@ export let commands: Command[] = [
     blocksintCmd,
     playtimeCmd,
     topCmd,
-    helpCmd
+    helpCmd,
+    playerjoinedCmd
 ];
 export const cmdPrefix = ",";
 //world.getDimension('overworld').runCommand(`execute Rscraft388 ~ ~ ~ gametest run simulatedplayertests:get_gametest_object`);
@@ -97,12 +99,14 @@ function getPlayer(name:string):Player {
         }
     }
 }
+
 world.events.playerJoin.subscribe((eventData: PlayerJoinEvent) => {
     //PlayerTag.clearTags(eventData.player);
     playerPrevLocDB.set(eventData.player, eventData.player.location);
     initializeDB<number>(playerCrouchTimeDB, eventData.player, MCWLNamespaces.sneakDuration, 0);
     initializeDB<number>(playerDistTravelledDB, eventData.player, MCWLNamespaces.distanceTravelled, 0);
     initializeDB<number>(playerPlaytimeDB,eventData.player,MCWLNamespaces.playtime,0);
+    initializeDB<number>(playerJoinedDB,eventData.player,MCWLNamespaces.playerJoined,0);
     new BlocksIntDB().initialize(playerBlocksIntDB, eventData.player, new BlocksIntDB());
     new SudoEntry(false,"pico","@a").initialize(playerSudoDB, eventData.player);
 
@@ -121,6 +125,8 @@ world.events.playerJoin.subscribe((eventData: PlayerJoinEvent) => {
     } else {
         playerBlockStatDB.set(eventData.player, new BlockStatDB((PlayerTag.read(eventData.player, "dpm:block_stats").data as BlockStatEntry[])));
     }*/
+    playerJoinedDB.set(eventData.player, playerJoinedDB.get(eventData.player) + 1);
+    saveDBToTag(playerJoinedDB.get(eventData.player),eventData.player,"number", MCWLNamespaces.playerJoined);
 })
 world.events.beforeItemUseOn.subscribe((eventData: BeforeItemUseOnEvent) => {
     if (eventData.source.id == "minecraft:player") {

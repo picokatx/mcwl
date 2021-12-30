@@ -4,7 +4,7 @@ import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
 import { Player, world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
-function distmovedstats(
+function playerjoined(
     player: Player,
     args: Map<string, any>,
     subCmd: number) {
@@ -13,8 +13,8 @@ function distmovedstats(
             let players: Player[] = world.getPlayers()
             for (let i of players) {
                 if (i.name == args.get("target")) {
-                    let distTravelled: number = PlayerTag.read(i, MCWLNamespaces.distanceTravelled).data;
-                    return [`${args.get("target")} has travelled a total of ${distTravelled}m ingame`, 0];
+                    let playerJoined: number = PlayerTag.read(i, MCWLNamespaces.playerJoined).data;
+                    return [`${args.get("target")} has joined this world ${playerJoined} times`, 0];
                 }
             }
 
@@ -22,18 +22,18 @@ function distmovedstats(
             return [`subCmd index ${subCmd} out of range. subCmd does not exist`, 1];
     }
 }
-function distmovedstatsSucceed(suc: string) {
+function playerjoinedSucceed(suc: string) {
     printStream.success(suc);
 }
-function distmovedstatsFail(err: string) {
+function playerjoinedFail(err: string) {
     printStream.failure(err);
 }
-function distmovedstatsInfo(inf: string) {
+function playerjoinedInfo(inf: string) {
     printStream.info(inf);
 }
-const distmovedstatsCmd = new Command(
-    "distancemoved",
-    "Displays distance travelled by player in metres",
+const playerjoinedCmd = new Command(
+    "playerjoined",
+    "Displays number of times player has joined world",
     [
         new CommandFormat(
             [
@@ -41,10 +41,10 @@ const distmovedstatsCmd = new Command(
             ]
         )
     ],
-    distmovedstats,
-    distmovedstatsSucceed,
-    distmovedstatsFail,
-    distmovedstatsInfo,
+    playerjoined,
+    playerjoinedSucceed,
+    playerjoinedFail,
+    playerjoinedInfo,
     3
 );
-export { distmovedstatsCmd };
+export { playerjoinedCmd };

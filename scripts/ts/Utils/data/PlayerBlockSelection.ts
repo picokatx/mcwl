@@ -1,4 +1,4 @@
-import { Block, BlockBreakEvent, BlockLocation, Player, PlayerJoinEvent } from "mojang-minecraft";
+import { Block, BlockLocation, Player } from "mojang-minecraft";
 
 export class PlayerBlockSelection {
     player: Player

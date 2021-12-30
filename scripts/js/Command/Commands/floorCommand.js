@@ -4,8 +4,6 @@ import { printStream } from "../../Main.js";
 import { BlockLocation } from "mojang-minecraft";
 import { DataHelper } from "../../Utils/data/DataHelper.js";
 function floor(player, args, subCmd) {
-    let levelCount = 0;
-    let levelPaddingCount = 0;
     let playerLoc = new BlockLocation(Math.floor(player.location.x), Math.floor(player.location.y) - 1, Math.floor(player.location.z));
     let floor = player.location.y;
     switch (subCmd) {

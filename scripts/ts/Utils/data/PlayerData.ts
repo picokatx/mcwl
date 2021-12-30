@@ -1,5 +1,3 @@
-import { printStream } from "../../Main.js";
-
 export class PlayerData {
     data: any
     dataType: string

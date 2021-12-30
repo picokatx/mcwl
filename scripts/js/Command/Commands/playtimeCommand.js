@@ -11,7 +11,6 @@ function playtime(player, args, subCmd) {
             for (let i of players) {
                 if (i.name == args.get("target")) {
                     let playTime = PlayerTag.read(i, MCWLNamespaces.playtime).data;
-                    printStream.println(`${playTime}`);
                     return [`${args.get("target")} has played for ${playTime} ticks`, 0];
                 }
             }

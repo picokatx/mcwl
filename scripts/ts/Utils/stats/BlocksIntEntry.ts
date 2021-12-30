@@ -1,8 +1,4 @@
-import { Block, Items, MinecraftBlockTypes, Player, world } from "mojang-minecraft";
-import { playerBlockSelection, printStream } from "../../Main.js";
-import { PlayerBlockSelection } from "../data/PlayerBlockSelection.js";
 import { BaseTagEntry } from "./BaseTagEntry.js";
-import { BlockStatEntry } from "./BlockStatEntry.js";
 export const ITEM_ANY = "minecraft:any";
 export class BlocksIntEntry implements BaseTagEntry {
     stat: string

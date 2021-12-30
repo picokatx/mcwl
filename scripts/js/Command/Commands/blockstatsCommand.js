@@ -1,14 +1,14 @@
-import * as Minecraft from "mojang-minecraft";
 import { CommandFormat, CommandParameter, ARG_STRING, ARG_RADIO } from "../CommandParameter.js";
 import { Command } from "../Command.js";
 import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
 import { BlockStatDB } from "../../Utils/stats/BlockStatDB.js";
+import { world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 function blockstats(player, args, subCmd) {
     switch (subCmd) {
         case 0:
-            let players = Minecraft.world.getPlayers();
+            let players = world.getPlayers();
             for (let i of players) {
                 if (i.name == args.get("target")) {
                     let r = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_0").data;

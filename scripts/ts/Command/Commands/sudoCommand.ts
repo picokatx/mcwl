@@ -1,12 +1,12 @@
-import * as Minecraft from "mojang-minecraft";
 import { CommandFormat, CommandParameter, ARG_STRING, ARG_RADIO } from "../CommandParameter.js";
 import { Command } from "../Command.js";
 import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
 import { SudoEntry } from "../../Utils/stats/SudoEntry.js";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
+import { Player } from "mojang-minecraft";
 function sudo(
-    player: Minecraft.Player,
+    player: Player,
     args: Map<string, any>,
     subCmd: number) {
     let pData: SudoEntry = Object.assign(new SudoEntry(),PlayerTag.read(player, MCWLNamespaces.sudo).data);

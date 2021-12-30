@@ -21,6 +21,7 @@ import { MCWLNamespaces } from "./Utils/constants/MCWLNamespaces.js";
 import { playtimeCmd } from "./Command/Commands/playtimeCommand.js";
 import { topCmd } from "./Command/Commands/topCommand.js";
 import { helpCmd } from "./Command/Commands/helpCommand.js";
+import { playerjoinedCmd } from "./Command/Commands/playerJoinedCommand.js";
 export let printStream = new PrintStream(world.getDimension("overworld"));
 export let playerBlockSelection = [];
 export let playerBlockStatDB = new Map();
@@ -30,6 +31,7 @@ export let playerBlockStatDB3 = new Map();
 export let playerBlockStatDB4 = new Map();
 export let playerBlocksIntDB = new Map();
 export let playerCrouchTimeDB = new Map();
+export let playerJoinedDB = new Map();
 export let playerDistTravelledDB = new Map();
 export let playerPrevLocDB = new Map();
 export let playerPlaytimeDB = new Map();
@@ -48,7 +50,8 @@ export let commands = [
     blocksintCmd,
     playtimeCmd,
     topCmd,
-    helpCmd
+    helpCmd,
+    playerjoinedCmd
 ];
 export const cmdPrefix = ",";
 function initializeDB(playerMap, player, tagName, defaultValue) {
@@ -102,6 +105,7 @@ world.events.playerJoin.subscribe((eventData) => {
     initializeDB(playerCrouchTimeDB, eventData.player, MCWLNamespaces.sneakDuration, 0);
     initializeDB(playerDistTravelledDB, eventData.player, MCWLNamespaces.distanceTravelled, 0);
     initializeDB(playerPlaytimeDB, eventData.player, MCWLNamespaces.playtime, 0);
+    initializeDB(playerJoinedDB, eventData.player, MCWLNamespaces.playerJoined, 0);
     new BlocksIntDB().initialize(playerBlocksIntDB, eventData.player, new BlocksIntDB());
     new SudoEntry(false, "pico", "@a").initialize(playerSudoDB, eventData.player);
     new BlockStatDB(0, 5).initialize(playerBlockStatDB, eventData.player, new BlockStatDB(0, 5), 0);
@@ -109,6 +113,8 @@ world.events.playerJoin.subscribe((eventData) => {
     new BlockStatDB(2, 5).initialize(playerBlockStatDB2, eventData.player, new BlockStatDB(2, 5), 2);
     new BlockStatDB(3, 5).initialize(playerBlockStatDB3, eventData.player, new BlockStatDB(3, 5), 3);
     new BlockStatDB(4, 5).initialize(playerBlockStatDB4, eventData.player, new BlockStatDB(4, 5), 4);
+    playerJoinedDB.set(eventData.player, playerJoinedDB.get(eventData.player) + 1);
+    saveDBToTag(playerJoinedDB.get(eventData.player), eventData.player, "number", MCWLNamespaces.playerJoined);
 });
 world.events.beforeItemUseOn.subscribe((eventData) => {
     if (eventData.source.id == "minecraft:player") {

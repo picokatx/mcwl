@@ -1,5 +1,5 @@
-import { Block, BlockType, MinecraftBlockTypes, Player, world } from "mojang-minecraft";
-import { playerBlockSelection, printStream } from "../../Main.js";
+import { Block, BlockType, MinecraftBlockTypes, Player } from "mojang-minecraft";
+import { playerBlockSelection } from "../../Main.js";
 import { MCWLNamespaces } from "../constants/MCWLNamespaces.js";
 import { PlayerBlockSelection } from "../data/PlayerBlockSelection.js";
 import { PlayerData } from "../data/PlayerData.js";

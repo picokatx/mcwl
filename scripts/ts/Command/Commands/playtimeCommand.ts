@@ -1,11 +1,7 @@
-import * as Minecraft from "mojang-minecraft";
-import { CommandFormat, CommandParameter, ARG_STRING, ARG_RADIO } from "../CommandParameter.js";
+import { CommandFormat, CommandParameter, ARG_STRING } from "../CommandParameter.js";
 import { Command } from "../Command.js";
-import { PlayerData } from "../../Utils/data/PlayerData.js";
 import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
-import { BlockStatEntry, BSEntryJSONData } from "../../Utils/stats/BlockStatEntry.js";
-import { BlockStatDB } from "../../Utils/stats/BlockStatDB.js";
 import { Player, world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 function playtime(
@@ -18,7 +14,6 @@ function playtime(
             for (let i of players) {
                 if (i.name == args.get("target")) {
                     let playTime: number = PlayerTag.read(i, MCWLNamespaces.playtime).data;
-                    printStream.println(`${playTime}`);
                     return [`${args.get("target")} has played for ${playTime} ticks`, 0];
                 }
             }

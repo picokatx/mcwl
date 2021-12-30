@@ -34,11 +34,10 @@ minecraft:clean_shulker_box
 minecraft:open_shulker_box
 minecraft:trigger_trapped_chest
 minecraft:use_cauldron
+minecraft:play_time
+minecraft:join_game
 
 In Progress:
-minecraft:leave_game
-minecraft:play_time
-
 minecraft:mob_kills
 minecraft:deaths
 minecraft:player_kills

@@ -1,5 +1,4 @@
 import { Player } from "mojang-minecraft";
-import { printStream } from "../../Main.js";
 import { PlayerData } from "./PlayerData.js";
 const namespace: string = "dpm";
 export class PlayerTag {

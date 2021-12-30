@@ -18,8 +18,5 @@ export class Scoreboard {
             printStream.debug("Player has no objectives");
             return false;
         }
-        /*if (ret.statusMessage==`Player ${player.name} has no scores recorded`) {
-            
-        }*/
     }
 }

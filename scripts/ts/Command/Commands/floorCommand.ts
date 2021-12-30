@@ -1,4 +1,4 @@
-import { ARG_NUMBER, CommandParameter, CommandFormat } from "../CommandParameter.js";
+import { CommandFormat } from "../CommandParameter.js";
 import { Command } from "../Command.js";
 import { printStream } from "../../Main.js";
 import { BlockLocation, Player } from "mojang-minecraft";
@@ -7,8 +7,6 @@ function floor(
     player: Player,
     args: Map<string, any>,
     subCmd: number) {
-    let levelCount = 0;
-    let levelPaddingCount = 0;
     let playerLoc = new BlockLocation(Math.floor(player.location.x), Math.floor(player.location.y) - 1, Math.floor(player.location.z));
     let floor: number = player.location.y;
     switch (subCmd) {

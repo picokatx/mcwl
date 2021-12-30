@@ -4,32 +4,32 @@ import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
 import { world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
-function distmovedstats(player, args, subCmd) {
+function playerjoined(player, args, subCmd) {
     switch (subCmd) {
         case 0:
             let players = world.getPlayers();
             for (let i of players) {
                 if (i.name == args.get("target")) {
-                    let distTravelled = PlayerTag.read(i, MCWLNamespaces.distanceTravelled).data;
-                    return [`${args.get("target")} has travelled a total of ${distTravelled}m ingame`, 0];
+                    let playerJoined = PlayerTag.read(i, MCWLNamespaces.playerJoined).data;
+                    return [`${args.get("target")} has joined this world ${playerJoined} times`, 0];
                 }
             }
         default:
             return [`subCmd index ${subCmd} out of range. subCmd does not exist`, 1];
     }
 }
-function distmovedstatsSucceed(suc) {
+function playerjoinedSucceed(suc) {
     printStream.success(suc);
 }
-function distmovedstatsFail(err) {
+function playerjoinedFail(err) {
     printStream.failure(err);
 }
-function distmovedstatsInfo(inf) {
+function playerjoinedInfo(inf) {
     printStream.info(inf);
 }
-const distmovedstatsCmd = new Command("distancemoved", "Displays distance travelled by player in metres", [
+const playerjoinedCmd = new Command("playerjoined", "Displays number of times player has joined world", [
     new CommandFormat([
         new CommandParameter("target", ARG_STRING, false)
     ])
-], distmovedstats, distmovedstatsSucceed, distmovedstatsFail, distmovedstatsInfo, 3);
-export { distmovedstatsCmd };
+], playerjoined, playerjoinedSucceed, playerjoinedFail, playerjoinedInfo, 3);
+export { playerjoinedCmd };

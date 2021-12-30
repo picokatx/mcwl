@@ -1,5 +1,4 @@
-import { Block, BlockPermutation, BlockType, Items, ItemStack, ItemType, MinecraftBlockTypes } from "mojang-minecraft";
-import { ITEM_ANY } from "./BlocksIntEntry.js";
+import { Block, BlockPermutation, BlockType, ItemStack, ItemType } from "mojang-minecraft";
 
 export class BlocksIntConditions {
     targetBlock: BlockPermutation[] = []

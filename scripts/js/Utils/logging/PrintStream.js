@@ -3,7 +3,7 @@ import { CustomCharID } from "../constants/CustomCharID.js";
 import { Console } from "./Console.js";
 import { getAttributes, getMethods } from "./stringifyObject.js";
 export const filter = RegExp(/[^\w\d\s]/);
-export const notifPrefix = `${ColorCodes.grey}[${ColorCodes.darkgreen}${ColorCodes.bold}DPM${ColorCodes.reset}${ColorCodes.grey}]`;
+export const notifPrefix = `${ColorCodes.grey}[${ColorCodes.darkgreen}${ColorCodes.bold}MCWL${ColorCodes.reset}${ColorCodes.grey}]`;
 export class PrintStream {
     constructor(printable) {
         this.hasError = false;

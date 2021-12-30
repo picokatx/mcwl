@@ -1,12 +1,10 @@
-import * as Minecraft from "mojang-minecraft";
 import { CommandFormat, CommandParameter, ARG_STRING, ARG_RADIO } from "../CommandParameter.js";
 import { Command } from "../Command.js";
-import { PlayerData } from "../../Utils/data/PlayerData.js";
 import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
-import { BlockStatEntry, BSEntryJSONData } from "../../Utils/stats/BlockStatEntry.js";
+import { BlockStatEntry } from "../../Utils/stats/BlockStatEntry.js";
 import { BlockStatDB } from "../../Utils/stats/BlockStatDB.js";
-import { Player } from "mojang-minecraft";
+import { Player, world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 function blockstats(
     player: Player,
@@ -14,7 +12,7 @@ function blockstats(
     subCmd: number) {
     switch (subCmd) {
         case 0:
-            let players: Player[] = Minecraft.world.getPlayers()
+            let players: Player[] = world.getPlayers()
             for (let i of players) {
                 if (i.name==args.get("target")) {
                     let r: BlockStatEntry[] = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_0").data;

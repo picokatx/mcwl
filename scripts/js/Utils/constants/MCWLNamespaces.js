@@ -6,4 +6,5 @@ export var MCWLNamespaces;
     MCWLNamespaces["blockInteractions"] = "mcwl:block_interactions";
     MCWLNamespaces["blocksModified"] = "mcwl:blocks_modified";
     MCWLNamespaces["playtime"] = "mcwl:playtime";
+    MCWLNamespaces["playerJoined"] = "mcwl:player_joined";
 })(MCWLNamespaces || (MCWLNamespaces = {}));

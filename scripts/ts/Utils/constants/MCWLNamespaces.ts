@@ -5,11 +5,5 @@ export enum MCWLNamespaces {
     blockInteractions = "mcwl:block_interactions",
     blocksModified = "mcwl:blocks_modified",
     playtime = "mcwl:playtime",
+    playerJoined = "mcwl:player_joined"
 }
-/*
-dpm:sneakTime
-dpm:distTravelled
-dpm:sudo
-dpm:block_interactions
-dpm:block_stats
-*/
