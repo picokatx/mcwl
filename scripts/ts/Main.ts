@@ -44,6 +44,7 @@ export let commands: Command[] = [
     ascendCmd,
     blocksintCmd,
     blocksmodifiedCmd,
+    crouchtimeCmd,
     descendCmd,
     distancemovedCmd,
     floorCmd,
@@ -53,7 +54,6 @@ export let commands: Command[] = [
     playerjoinedCmd,
     topCmd,
     sudoCmd,
-    crouchtimeCmd,
     spawnCmd,
     setblockCmd,
 

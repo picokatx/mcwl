@@ -40,6 +40,7 @@ export let commands = [
     ascendCmd,
     blocksintCmd,
     blocksmodifiedCmd,
+    crouchtimeCmd,
     descendCmd,
     distancemovedCmd,
     floorCmd,
@@ -49,7 +50,6 @@ export let commands = [
     playerjoinedCmd,
     topCmd,
     sudoCmd,
-    crouchtimeCmd,
     spawnCmd,
     setblockCmd,
 ];

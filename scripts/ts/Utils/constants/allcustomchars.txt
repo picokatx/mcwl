@@ -1,4 +1,4 @@
-export enum CustomCharID {
+export enum CustomCharID { 
     ID0378 = '0x0378',
     ID0379 = '0x0379',
     ID037F = '0x037F',
