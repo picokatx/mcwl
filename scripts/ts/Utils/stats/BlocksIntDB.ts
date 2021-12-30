@@ -210,6 +210,7 @@ export class BlocksIntDB implements BaseTagDB {
             tag.write(player);
         } else {
             this.db = PlayerTag.read(player, MCWLNamespaces.blockInteractions).data;
+            playerMap.set(player, this);
         }
     }
     saveToTag(player: Player) {

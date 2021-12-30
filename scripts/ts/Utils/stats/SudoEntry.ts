@@ -45,6 +45,7 @@ export class SudoEntry implements BaseTagEntry {
             this.sudoToggled = tag.sudoToggled;
             this.sudoName = tag.sudoName;
             this.target = tag.target;
+            playerMap.set(player, this);
         }
     }
     saveToTag(player: Player) {

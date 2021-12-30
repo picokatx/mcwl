@@ -1,5 +1,6 @@
 import { Dimension, Player } from "mojang-minecraft";
 import { ColorCodes } from "../constants/ColorCodes.js";
+import { CustomCharID } from "../constants/CustomCharID.js";
 import { Console } from "./Console.js";
 import { getAttributes, getMethods } from "./stringifyObject.js";
 export const filter: RegExp = RegExp(/[^\w\d\s]/);
@@ -80,12 +81,12 @@ export class PrintStream {
     chat(s: string, player: Player,targets:Player[]) {
         this.flush();
         for (let i of targets) {
-            this.printable.runCommand(Console.chat(s,player,i.name));
+            this.printable.runCommand(Console.chat(this.replaceWithEmotes(s),player,i.name));
         }
     }
     sudoChat(s:string, name:string,target:string) {
         this.flush();
-        this.printable.runCommand(Console.sudoChat(s,name,target));
+        this.printable.runCommand(Console.sudoChat(this.replaceWithEmotes(s),name,target));
     }
     cleanText(s: string): string {
         return s.replace(RegExp(/(?<!\\)\"/g),"\\\"")
@@ -95,6 +96,13 @@ export class PrintStream {
         if (this.debugEnabled) {
             this.printable.runCommand(Console.tellraw(`[${ColorCodes.blue}DEBUG${ColorCodes.reset}] ${this.cleanText(s)}`));
         }
+    }
+    replaceWithEmotes(s: string) {
+        let ret = s;
+        for (let i of Object.entries(CustomCharID)) {
+            ret = ret.replace(new RegExp(`:${i[0]}:`,'g'),i[1].toString());
+        }
+        return ret;
     }
 }
 

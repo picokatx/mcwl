@@ -1,5 +1,4 @@
-import { world, BeforeChatEvent, PlayerJoinEvent, ChatEvent, BlockBreakEvent, TickEvent, Location, Player, BeforeItemUseOnEvent, Items, Block, PlayerLeaveEvent } from "mojang-minecraft";
-import { SimulatedPlayer } from "gametest-mojang"
+import { world, BeforeChatEvent, PlayerJoinEvent, ChatEvent, BlockBreakEvent, TickEvent, Location, Player, BeforeItemUseOnEvent, Items, Block, PlayerLeaveEvent, BlockPlaceEvent } from "mojang-minecraft";
 
 import { Command } from "./Command/Command.js";
 import { sudoCmd } from "./Command/Commands/sudoCommand.js";
@@ -24,21 +23,23 @@ import { BaseTagDB } from "./Utils/stats/BaseTagDB.js";
 import { SudoEntry } from "./Utils/stats/SudoEntry.js";
 import { MCWLNamespaces } from "./Utils/constants/MCWLNamespaces.js";
 import {CustomCharID} from "./Utils/constants/CustomCharID.js";
+import { playtimeCmd } from "./Command/Commands/playtimeCommand.js";
+import { topCmd } from "./Command/Commands/topCommand.js";
+import { helpCmd } from "./Command/Commands/helpCommand.js";
 export let printStream: PrintStream = new PrintStream(world.getDimension("overworld"));
 export let playerBlockSelection: PlayerBlockSelection[] = [];
 export let playerBlockStatDB: Map<Player, BlockStatDB> = new Map<Player, BlockStatDB>();
+export let playerBlockStatDB1: Map<Player, BlockStatDB> = new Map<Player, BlockStatDB>();
+export let playerBlockStatDB2: Map<Player, BlockStatDB> = new Map<Player, BlockStatDB>();
+export let playerBlockStatDB3: Map<Player, BlockStatDB> = new Map<Player, BlockStatDB>();
+export let playerBlockStatDB4: Map<Player, BlockStatDB> = new Map<Player, BlockStatDB>();
 export let playerBlocksIntDB: Map<Player, BlocksIntDB> = new Map<Player, BlocksIntDB>();
 export let playerCrouchTimeDB: Map<Player, number> = new Map<Player, number>();
 export let playerDistTravelledDB: Map<Player, number> = new Map<Player, number>();
 export let playerPrevLocDB: Map<Player, Location> = new Map<Player, Location>();
 export let playerPlaytimeDB: Map<Player, number> = new Map<Player, number>();
 export let playerSudoDB: Map<Player,SudoEntry> = new Map<Player,SudoEntry>();
-let operators = [
-    { "name": "Rscraft388", "permissionLevel": 99 },
-    { "name": "pico", "permissionLevel": 0 },
-    { "name": "rs", "permissionLevel": 0 }
-];
-let commands: Command[] = [
+export let commands: Command[] = [
     sudoCmd,
     blockstatsCmd,
     sneakstatsCmd,
@@ -49,7 +50,10 @@ let commands: Command[] = [
     setblockCmd,
     descendCmd,
     floorCmd,
-    blocksintCmd
+    blocksintCmd,
+    playtimeCmd,
+    topCmd,
+    helpCmd
 ];
 export const cmdPrefix = ",";
 
@@ -86,14 +90,27 @@ function saveDBToTag(db:any, player: Player,type:string,tagName:string) {
     let tag: PlayerTag = new PlayerTag(data);
     tag.write(player);
 }
+function getPlayer(name:string):Player {
+    for (let i of world.getPlayers()) {
+        if (i.name==name) {
+            return i;
+        }
+    }
+}
 world.events.playerJoin.subscribe((eventData: PlayerJoinEvent) => {
-    PlayerTag.clearTags(eventData.player);
+    //PlayerTag.clearTags(eventData.player);
     playerPrevLocDB.set(eventData.player, eventData.player.location);
     initializeDB<number>(playerCrouchTimeDB, eventData.player, MCWLNamespaces.sneakDuration, 0);
     initializeDB<number>(playerDistTravelledDB, eventData.player, MCWLNamespaces.distanceTravelled, 0);
+    initializeDB<number>(playerPlaytimeDB,eventData.player,MCWLNamespaces.playtime,0);
     new BlocksIntDB().initialize(playerBlocksIntDB, eventData.player, new BlocksIntDB());
     new SudoEntry(false,"pico","@a").initialize(playerSudoDB, eventData.player);
-    
+
+    new BlockStatDB(0,5).initialize(playerBlockStatDB,eventData.player,new BlockStatDB(0,5),0);
+    new BlockStatDB(1,5).initialize(playerBlockStatDB1,eventData.player,new BlockStatDB(1,5),1);
+    new BlockStatDB(2,5).initialize(playerBlockStatDB2,eventData.player,new BlockStatDB(2,5),2);
+    new BlockStatDB(3,5).initialize(playerBlockStatDB3,eventData.player,new BlockStatDB(3,5),3);
+    new BlockStatDB(4,5).initialize(playerBlockStatDB4,eventData.player,new BlockStatDB(4,5),4);
     /*if (!PlayerTag.hasTag(eventData.player, "dpm:sudo")) {
         let sudoData: PlayerData = new PlayerData({ "sudoToggled": false, "sudoName": "pico", "target": "@a" }, "object", "dpm:sudo");
         let sudoTag: PlayerTag = new PlayerTag(sudoData);
@@ -166,29 +183,48 @@ world.events.tick.subscribe((eventData: TickEvent) => {
             saveDBToTag(playerCrouchTimeDB.get(p),p,"number", MCWLNamespaces.sneakDuration);
         }
         playerPlaytimeDB.set(p, playerPlaytimeDB.get(p) + 1);
+        saveDBToTag(playerPlaytimeDB.get(p),p,"number", MCWLNamespaces.playtime);
+
         BlockStatDB.getBlockAtPointer(p);
     }
 })
 world.events.blockBreak.subscribe((eventData: BlockBreakEvent) => {
-    /*let id:string = BlockStatDB.getBlockBroken(eventData.player);
-    playerBlockStatDB.get(eventData.player).addBroken(id);
-    let blockData: PlayerData = new PlayerData(playerBlockStatDB.get(eventData.player).db, "object", "dpm:block_stats");
-    let blockTag:PlayerTag = new PlayerTag(blockData);
-    blockTag.write(eventData.player);*/
+    let id:string = BlockStatDB.getBlockBroken(eventData.player);
+    playerBlockStatDB.get(eventData.player).add(id,"blocksBroken");
+    playerBlockStatDB.get(eventData.player).saveToTag(eventData.player,0);
+    playerBlockStatDB1.get(eventData.player).add(id,"blocksBroken");
+    playerBlockStatDB1.get(eventData.player).saveToTag(eventData.player,1);
+    playerBlockStatDB2.get(eventData.player).add(id,"blocksBroken");
+    playerBlockStatDB2.get(eventData.player).saveToTag(eventData.player,2);
+    playerBlockStatDB3.get(eventData.player).add(id,"blocksBroken");
+    playerBlockStatDB3.get(eventData.player).saveToTag(eventData.player,3);
+    playerBlockStatDB4.get(eventData.player).add(id,"blocksBroken");
+    playerBlockStatDB4.get(eventData.player).saveToTag(eventData.player,4);
+})
+world.events.blockPlace.subscribe((eventData: BlockPlaceEvent)=> {
+    let id:string = eventData.block.id;
+    playerBlockStatDB.get(eventData.player).add(id,"blocksPlaced");
+    playerBlockStatDB.get(eventData.player).saveToTag(eventData.player,0);
+    playerBlockStatDB1.get(eventData.player).add(id,"blocksPlaced");
+    playerBlockStatDB1.get(eventData.player).saveToTag(eventData.player,1);
+    playerBlockStatDB2.get(eventData.player).add(id,"blocksPlaced");
+    playerBlockStatDB2.get(eventData.player).saveToTag(eventData.player,2);
+    playerBlockStatDB3.get(eventData.player).add(id,"blocksPlaced");
+    playerBlockStatDB3.get(eventData.player).saveToTag(eventData.player,3);
+    playerBlockStatDB4.get(eventData.player).add(id,"blocksPlaced");
+    playerBlockStatDB4.get(eventData.player).saveToTag(eventData.player,4);
 })
 //§1᫏§2᫏§3᫏§4᫏§5᫏§6᫏§7᫏§8᫏§9᫏§0᫏§a᫏§b᫏§c᫏§d᫏§e᫏§f᫏
 //1A, A9, AA
 //brightness -20, contrast -80, saturation -80
 world.events.beforeChat.subscribe((eventData: BeforeChatEvent) => {
-    for (let i of Object.values(CustomCharID)) {
+    /*for (let i of Object.values(CustomCharID)) {
         printStream.print(i.toString());
     }
-    printStream.println("end");
-
+    printStream.println("end");*/
     if (eventData.message[0] === cmdPrefix) {
-        let opIdx = operators.map(a => a.name).indexOf(eventData.sender.name);
         eventData.message = eventData.message.substring(1);
-        cmdHandler(eventData, operators[opIdx].permissionLevel);
+        cmdHandler(eventData);
     } else {
         let rSudoData:SudoEntry = Object.assign(new SudoEntry(),PlayerTag.read(eventData.sender,MCWLNamespaces.sudo).data);
         if (rSudoData.sudoToggled == true) {
@@ -199,11 +235,15 @@ world.events.beforeChat.subscribe((eventData: BeforeChatEvent) => {
     }
     eventData.cancel = true;
 });
-function cmdHandler(chatEvent: ChatEvent, opLevel: number) {
+function cmdHandler(chatEvent: ChatEvent) {
     const cmdBase = chatEvent.message.split(" ")[0];
     const cmdArgs = chatEvent.message.split(" ").slice(1).join(" ");
     const player = chatEvent.sender;
     let cmdIdx = commands.map(a => a.name).indexOf(cmdBase);
+    if (cmdIdx==-1) {
+        printStream.failure(`Command not found. Use ,help for a list of all commands.`);
+        return
+    }
     let subCmdIdx = commands[cmdIdx].cmdParameters.map(a => a.testRegex(cmdArgs)).indexOf(true);
     printStream.println(subCmdIdx);
     if (subCmdIdx != -1) {
@@ -224,5 +264,7 @@ function cmdHandler(chatEvent: ChatEvent, opLevel: number) {
                 commands[cmdIdx].info(retMsg);
                 break;
         }
+    } else {
+        printStream.failure(`Command Format Invalid. Use ,help for a list of all command formats.`);
     }
 }

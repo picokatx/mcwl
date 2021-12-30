@@ -11,15 +11,23 @@ function blockstats(player, args, subCmd) {
             let players = Minecraft.world.getPlayers();
             for (let i of players) {
                 if (i.name == args.get("target")) {
-                    let r = PlayerTag.read(i, MCWLNamespaces.blocksModified);
-                    let bsEntry = new BlockStatDB(r.data);
-                    let entry = bsEntry.getEntryById(args.get("blockName"));
-                    if (args.get("statType") == "blocksBroken") {
-                        return [`${entry.blocksBroken} ${args.get("blockName")} have been broken by ${args.get("target")}`, 0];
+                    let r = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_0").data;
+                    let r1 = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_1").data;
+                    let r2 = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_2").data;
+                    let r3 = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_3").data;
+                    let r4 = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_4").data;
+                    let bmEntry = [new BlockStatDB(r), new BlockStatDB(r1), new BlockStatDB(r2), new BlockStatDB(r3), new BlockStatDB(r4)];
+                    for (let i of bmEntry) {
+                        if (i.getEntryById(args.get("blockName")) != null) {
+                            if (args.get("statType") == "blocksBroken") {
+                                return [`${args.get("target")} has ${args.get("statType")} ${i.getEntryById(args.get("blockName")).blocksBroken} ${i.getEntryById(args.get("blockName")).id}.`, 0];
+                            }
+                            else {
+                                return [`${args.get("target")} has ${args.get("statType")} ${i.getEntryById(args.get("blockName")).blocksPlaced} ${i.getEntryById(args.get("blockName")).id}.`, 0];
+                            }
+                        }
                     }
-                    else {
-                        return [`${entry.blocksPlaced} ${args.get("blockName")} have been placed by ${args.get("target")}`, 0];
-                    }
+                    return [`Invalid Block Name`, 1];
                 }
             }
         default:

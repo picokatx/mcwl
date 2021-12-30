@@ -1,17 +1,18 @@
-import * as Minecraft from "mojang-minecraft";
 import { CommandFormat, CommandParameter, ARG_STRING } from "../CommandParameter.js";
 import { Command } from "../Command.js";
 import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
+import { world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 function playtime(player, args, subCmd) {
     switch (subCmd) {
         case 0:
-            let players = Minecraft.world.getPlayers();
+            let players = world.getPlayers();
             for (let i of players) {
                 if (i.name == args.get("target")) {
                     let playTime = PlayerTag.read(i, MCWLNamespaces.playtime).data;
-                    return [`${args.get("target")} has played for ${playTime}`, 0];
+                    printStream.println(`${playTime}`);
+                    return [`${args.get("target")} has played for ${playTime} ticks`, 0];
                 }
             }
         default:

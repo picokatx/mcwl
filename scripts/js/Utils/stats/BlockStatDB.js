@@ -6,18 +6,32 @@ import { PlayerData } from "../data/PlayerData.js";
 import { PlayerTag } from "../data/PlayerTag.js";
 import { BlockStatEntry } from "./BlockStatEntry.js";
 export class BlockStatDB {
-    constructor(db) {
+    constructor(db, dbCount) {
         this.db = [];
-        if (db == null) {
-            MinecraftBlockTypes.getAllBlockTypes().forEach((s) => {
-                this.db.push(new BlockStatEntry(s.id));
-            });
+        if (typeof db == 'number') {
+            let blockTypelen = MinecraftBlockTypes.getAllBlockTypes().length;
+            let chunkExt = blockTypelen % dbCount;
+            let chunkSize = Math.floor((blockTypelen - blockTypelen % dbCount) / dbCount);
+            let blockTypes = MinecraftBlockTypes.getAllBlockTypes();
+            if (db == dbCount - 1) {
+                for (let i = db * chunkSize; i < chunkSize * (db + 1) + chunkExt; i++) {
+                    this.db.push(new BlockStatEntry(blockTypes[i].id));
+                }
+            }
+            else {
+                for (let i = db * chunkSize; i < chunkSize * (db + 1); i++) {
+                    this.db.push(new BlockStatEntry(blockTypes[i].id));
+                }
+            }
         }
         else {
             this.db = db;
         }
     }
     add(id, dataType) {
+        if (this.getEntryById(id) == null) {
+            return;
+        }
         if (dataType == 'blocksBroken') {
             this.getEntryById(id).blocksBroken += 1;
         }
@@ -26,6 +40,9 @@ export class BlockStatDB {
         }
     }
     set(id, val, dataType) {
+        if (this.getEntryById(id) == null) {
+            return;
+        }
         if (dataType == 'blocksBroken') {
             this.getEntryById(id).blocksBroken = val;
         }
@@ -56,19 +73,32 @@ export class BlockStatDB {
             }
         }
     }
-    initialize(playerMap, player, defaultValue) {
-        if (!PlayerTag.hasTag(player, MCWLNamespaces.blocksModified)) {
+    initialize(playerMap, player, defaultValue, dbNum) {
+        if (!PlayerTag.hasTag(player, MCWLNamespaces.blocksModified + "_" + dbNum)) {
             playerMap.set(player, defaultValue);
-            let data = new PlayerData(this.db, "object", MCWLNamespaces.blocksModified);
+            let data;
+            if (dbNum == null) {
+                data = new PlayerData(this.db, "object", MCWLNamespaces.blocksModified);
+            }
+            else {
+                data = new PlayerData(this.db, "object", MCWLNamespaces.blocksModified + "_" + dbNum);
+            }
             let tag = new PlayerTag(data);
             tag.write(player);
         }
         else {
-            this.db = PlayerTag.read(player, MCWLNamespaces.blocksModified).data;
+            this.db = PlayerTag.read(player, MCWLNamespaces.blocksModified + "_" + dbNum).data;
+            playerMap.set(player, this);
         }
     }
-    saveToTag(player) {
-        let data = new PlayerData(this.db, "object", MCWLNamespaces.blocksModified);
+    saveToTag(player, dbNum) {
+        let data;
+        if (dbNum == null) {
+            data = new PlayerData(this.db, "object", MCWLNamespaces.blocksModified);
+        }
+        else {
+            data = new PlayerData(this.db, "object", MCWLNamespaces.blocksModified + "_" + dbNum);
+        }
         let tag = new PlayerTag(data);
         tag.write(player);
     }

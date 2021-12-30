@@ -41,6 +41,7 @@ export class SudoEntry {
             this.sudoToggled = tag.sudoToggled;
             this.sudoName = tag.sudoName;
             this.target = tag.target;
+            playerMap.set(player, this);
         }
     }
     saveToTag(player) {

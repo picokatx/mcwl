@@ -168,6 +168,7 @@ export class BlocksIntDB {
         }
         else {
             this.db = PlayerTag.read(player, MCWLNamespaces.blockInteractions).data;
+            playerMap.set(player, this);
         }
     }
     saveToTag(player) {

@@ -6,7 +6,7 @@ import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
 import { BlockStatEntry, BSEntryJSONData } from "../../Utils/stats/BlockStatEntry.js";
 import { BlockStatDB } from "../../Utils/stats/BlockStatDB.js";
-import { Player } from "mojang-minecraft";
+import { Player, world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 function playtime(
     player: Player,
@@ -14,11 +14,12 @@ function playtime(
     subCmd: number) {
     switch (subCmd) {
         case 0:
-            let players: Player[] = Minecraft.world.getPlayers()
+            let players: Player[] = world.getPlayers()
             for (let i of players) {
                 if (i.name == args.get("target")) {
                     let playTime: number = PlayerTag.read(i, MCWLNamespaces.playtime).data;
-                    return [`${args.get("target")} has played for ${playTime}`, 0];
+                    printStream.println(`${playTime}`);
+                    return [`${args.get("target")} has played for ${playTime} ticks`, 0];
                 }
             }
 
