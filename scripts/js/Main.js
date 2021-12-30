@@ -202,6 +202,8 @@ world.events.blockPlace.subscribe((eventData) => {
     playerBlockStatDB4.get(eventData.player).add(id, "blocksPlaced");
     playerBlockStatDB4.get(eventData.player).saveToTag(eventData.player, 4);
 });
+world.events.chat.subscribe((eventData) => {
+});
 world.events.beforeChat.subscribe((eventData) => {
     if (eventData.message[0] === cmdPrefix) {
         eventData.message = eventData.message.substring(1);

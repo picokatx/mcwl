@@ -56,7 +56,7 @@ export let commands: Command[] = [
     helpCmd
 ];
 export const cmdPrefix = ",";
-
+//world.getDimension('overworld').runCommand(`execute Rscraft388 ~ ~ ~ gametest run simulatedplayertests:get_gametest_object`);
 function initializeDB<T>(playerMap: Map<Player, T>, player: Player, tagName: string, defaultValue: T) {
     if (!PlayerTag.hasTag(player, tagName)) {
         playerMap.set(player, defaultValue);
@@ -217,6 +217,9 @@ world.events.blockPlace.subscribe((eventData: BlockPlaceEvent)=> {
 //§1᫏§2᫏§3᫏§4᫏§5᫏§6᫏§7᫏§8᫏§9᫏§0᫏§a᫏§b᫏§c᫏§d᫏§e᫏§f᫏
 //1A, A9, AA
 //brightness -20, contrast -80, saturation -80
+world.events.chat.subscribe((eventData: ChatEvent)=>{
+    //simPlayerObject.rota
+})
 world.events.beforeChat.subscribe((eventData: BeforeChatEvent) => {
     /*for (let i of Object.values(CustomCharID)) {
         printStream.print(i.toString());
