@@ -1,4 +1,4 @@
-export const Locale_EN_US:Map<string,string> = new Map<string,string>([
+export const Locale_EN_US: Map<string, string> = new Map<string, string>([
     ["player_welcome", "Welcome %s. This server has MCWL installed. For a list of all commands, type ,help in chat."],
     ["cmd_not_found", "Command not found. Use ,help for a list of all commands."],
     ["cmd_return_default", "Command format does not exist, use ,help %s for a list of all command formats."],
@@ -52,7 +52,7 @@ export const Locale_EN_US:Map<string,string> = new Map<string,string>([
     ["cmd_return_descend_2_failure", "Unable to find teleport location."],
     ["cmd_return_descend_2_success", "Descended 1 level."],
     ["cmd_return_distancemoved_0_info", "%s has travelled a total of %d blocks ingame."],
-    ["cmd_return_firstjoined_0_info","%s first joined this world on %s"],
+    ["cmd_return_firstjoined_0_info", "%s first joined this world on %s"],
     ["cmd_return_floor_0_failure", "Unable to find teleport location."],
     ["cmd_return_floor_0_success", "Teleported %s to floor."],
     ["cmd_return_goto_0_success", "%s teleported from [%d, %d, %d] to [%d, %d, %d]."],
@@ -90,14 +90,14 @@ export const Locale_EN_US:Map<string,string> = new Map<string,string>([
 
 ])
 export class Locale {
-    language:string
-    languageMap:Map<string,string>
-    constructor(language:string, languageMap:Map<string,string>) {
+    language: string
+    languageMap: Map<string, string>
+    constructor(language: string, languageMap: Map<string, string>) {
         this.language = language
         this.languageMap = languageMap;
     }
-    get(s:string):string {
+    get(s: string): string {
         return this.languageMap.get(s);
     }
 }
-export const locale:Locale = new Locale("en_us",Locale_EN_US);
+export const locale: Locale = new Locale("en_us", Locale_EN_US);

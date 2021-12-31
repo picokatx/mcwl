@@ -1,5 +1,4 @@
 import { Dimension, Player } from "mojang-minecraft";
-import { printStream } from "../../Main.js";
 import { ColorCodes } from "../constants/ColorCodes.js";
 import { CustomCharID } from "../constants/CustomCharID.js";
 import { Console } from "./Console.js";

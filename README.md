@@ -17,6 +17,7 @@ Emote Support - Currently emotes for items with item id 256-380 are added
 - crouchtime
 - descend
 - distancemoved
+- firstjoined
 - floor
 - goto
 - help
@@ -26,5 +27,5 @@ Emote Support - Currently emotes for items with item id 256-380 are added
 - spawn
 - sudo
 - top
-## Technologies
+## Resources
 vec3 - https://www.npmjs.com/package/vec3

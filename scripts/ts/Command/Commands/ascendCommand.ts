@@ -73,7 +73,7 @@ function ascend(
             if (playerLoc.y > maxWorldHeight) {
                 return new MCWLCommandReturn(1, locale.get("cmd_return_ascend_2_failure"));
             } else {
-                printStream.run(`tp @s ${playerLoc.x} ${playerLoc.y+1} ${playerLoc.z}`, player);
+                printStream.run(`tp @s ${playerLoc.x} ${playerLoc.y + 1} ${playerLoc.z}`, player);
                 return new MCWLCommandReturn(0, locale.get("cmd_return_ascend_2_success"));
             }
         default:
