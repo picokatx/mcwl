@@ -3,7 +3,7 @@ export class PlayerData {
     dataType: string
     name: string
     format: string
-    constructor(data: any, dataType: string,name:string) {
+    constructor(data: any, dataType: string, name: string) {
         this.dataType = dataType;
         this.name = name;
         this.format = "v1.0"

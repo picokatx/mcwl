@@ -31,13 +31,13 @@ function top(
     }
 }
 function topSucceed(s: string, args: any[]) {
-    printStream.success(s,args);
+    printStream.success(s, args);
 }
 function topFail(s: string, args: any[]) {
-    printStream.failure(s,args);
+    printStream.failure(s, args);
 }
 function topInfo(s: string, args: any[]) {
-    printStream.info(s,args);
+    printStream.info(s, args);
 }
 const topCmd = new Command(
     locale.get("cmd_name_top"),

@@ -12,19 +12,19 @@ function spawn(
     switch (subCmd) {
         case 0:
             let coords = DataHelper.parseCoords(args.get(locale.get("cmd_args_position")), player);
-            if (coords==[]) {
+            if (coords == []) {
                 return new MCWLCommandReturn(1, locale.get("cmd_return_default"), spawnCmd.name);
             }
             for (let i = 0; i < args.get(locale.get("cmd_args_count")); i++) {
-                world.getDimension("overworld").spawnEntity(args.get(locale.get("cmd_args_entity")), new BlockLocation(coords[0], coords[1]+1, coords[2]));
+                world.getDimension("overworld").spawnEntity(args.get(locale.get("cmd_args_entity")), new BlockLocation(coords[0], coords[1] + 1, coords[2]));
             }
-            return new MCWLCommandReturn(0, locale.get("cmd_return_spawn_0_success"), parseInt(args.get(locale.get("cmd_args_count"))), args.get(locale.get("cmd_args_entity")), coords[0], coords[1]+1, coords[2]);
+            return new MCWLCommandReturn(0, locale.get("cmd_return_spawn_0_success"), parseInt(args.get(locale.get("cmd_args_count"))), args.get(locale.get("cmd_args_entity")), coords[0], coords[1] + 1, coords[2]);
         case 1:
-            let loc: BlockLocation = new BlockLocation(Math.floor(player.location.x), Math.floor(player.location.y+1), Math.floor(player.location.z));
+            let loc: BlockLocation = new BlockLocation(Math.floor(player.location.x), Math.floor(player.location.y + 1), Math.floor(player.location.z));
             for (let i = 0; i < parseInt(args.get(locale.get("cmd_args_count"))); i++) {
                 world.getDimension("overworld").spawnEntity(args.get(locale.get("cmd_args_entity")), loc);
             }
-            return new MCWLCommandReturn(0, locale.get("cmd_return_spawn_0_success"), parseInt(args.get(locale.get("cmd_args_count"))), args.get(locale.get("cmd_args_entity")), loc.x, loc.y+1, loc.z);
+            return new MCWLCommandReturn(0, locale.get("cmd_return_spawn_0_success"), parseInt(args.get(locale.get("cmd_args_count"))), args.get(locale.get("cmd_args_entity")), loc.x, loc.y + 1, loc.z);
         default:
             return new MCWLCommandReturn(1, locale.get("cmd_return_default"), spawnCmd.name);
     }

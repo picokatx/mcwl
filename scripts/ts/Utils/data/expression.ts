@@ -94,7 +94,7 @@ class ExprContext {
     static cbrt(x: any[]) {
         return Math.cbrt(x[0])
     }
-} 
+}
 const TOKEN_TYPE = {
     CONST_PI: RegExp(/^PI/),
     CONST_PHI: RegExp(/^PHI/),
@@ -248,9 +248,9 @@ interface ExprNode {
     name: string
     children: ExprNode[]
     val: Token[]
-    run:(...args: any) => any
+    run: (...args: any) => any
 }
-class AddNode implements ExprNode{
+class AddNode implements ExprNode {
     name: string = "add"
     children: ExprNode[]
     val: Token[]
@@ -258,7 +258,7 @@ class AddNode implements ExprNode{
         return this.val[0].token + this.val[1].token;
     }
 }
-class SubtractNode implements ExprNode{
+class SubtractNode implements ExprNode {
     name: string = "subtract"
     children: ExprNode[]
     val: Token[]
@@ -266,7 +266,7 @@ class SubtractNode implements ExprNode{
         return this.val[0].token - this.val[1].token;
     }
 }
-class MultiplyNode implements ExprNode{
+class MultiplyNode implements ExprNode {
     name: string = "multiply"
     children: ExprNode[]
     val: Token[]
@@ -274,7 +274,7 @@ class MultiplyNode implements ExprNode{
         return this.val[0].token * this.val[1].token;
     }
 }
-class DivideNode implements ExprNode{
+class DivideNode implements ExprNode {
     name: string = "divide"
     children: ExprNode[]
     val: Token[]
@@ -282,7 +282,7 @@ class DivideNode implements ExprNode{
         return this.val[0].token / this.val[1].token;
     }
 }
-class PowerNode implements ExprNode{
+class PowerNode implements ExprNode {
     name: string = "power"
     children: ExprNode[]
     val: Token[]
@@ -290,7 +290,7 @@ class PowerNode implements ExprNode{
         return this.val[0].token ** this.val[1].token;
     }
 }
-class PreIncrementNode implements ExprNode{
+class PreIncrementNode implements ExprNode {
     name: string = "preincrement"
     children: ExprNode[]
     val: Token[]
@@ -298,7 +298,7 @@ class PreIncrementNode implements ExprNode{
         return ++this.val[0].token;
     }
 }
-class PostIncrementNode implements ExprNode{
+class PostIncrementNode implements ExprNode {
     name: string = "postincrement"
     children: ExprNode[]
     val: Token[]
@@ -306,7 +306,7 @@ class PostIncrementNode implements ExprNode{
         return this.val[0].token++;
     }
 }
-class PreDecrementNode implements ExprNode{
+class PreDecrementNode implements ExprNode {
     name: string = "predecrement"
     children: ExprNode[]
     val: Token[]
@@ -314,7 +314,7 @@ class PreDecrementNode implements ExprNode{
         return --this.val[0].token;
     }
 }
-class PostDecrementNode implements ExprNode{
+class PostDecrementNode implements ExprNode {
     name: string = "postdecrement"
     children: ExprNode[]
     val: Token[]
@@ -322,7 +322,7 @@ class PostDecrementNode implements ExprNode{
         return this.val[0].token--;
     }
 }
-class MoreThanNode implements ExprNode{
+class MoreThanNode implements ExprNode {
     name: string = "morethan"
     children: ExprNode[]
     val: Token[]
@@ -330,7 +330,7 @@ class MoreThanNode implements ExprNode{
         return this.val[0].token > this.val[1].token;
     }
 }
-class LessThanNode implements ExprNode{
+class LessThanNode implements ExprNode {
     name: string = "lessthan"
     children: ExprNode[]
     val: Token[]
@@ -338,7 +338,7 @@ class LessThanNode implements ExprNode{
         return this.val[0].token < this.val[1].token;
     }
 }
-class MoreThanEqualsNode implements ExprNode{
+class MoreThanEqualsNode implements ExprNode {
     name: string = "morethanequals"
     children: ExprNode[]
     val: Token[]
@@ -346,7 +346,7 @@ class MoreThanEqualsNode implements ExprNode{
         return this.val[0].token >= this.val[1].token;
     }
 }
-class LessThanEqualsNode implements ExprNode{
+class LessThanEqualsNode implements ExprNode {
     name: string = "lessthanequals"
     children: ExprNode[]
     val: Token[]
@@ -354,7 +354,7 @@ class LessThanEqualsNode implements ExprNode{
         return this.val[0].token <= this.val[1].token;
     }
 }
-class StrictEqualsNode implements ExprNode{
+class StrictEqualsNode implements ExprNode {
     name: string = "strictequals"
     children: ExprNode[]
     val: Token[]
@@ -362,7 +362,7 @@ class StrictEqualsNode implements ExprNode{
         return this.val[0].token === this.val[1].token;
     }
 }
-class StrictNotEqualsNode implements ExprNode{
+class StrictNotEqualsNode implements ExprNode {
     name: string = "strictnotequals"
     children: ExprNode[]
     val: Token[]
@@ -370,7 +370,7 @@ class StrictNotEqualsNode implements ExprNode{
         return this.val[0].token !== this.val[1].token;
     }
 }
-class AssignNode implements ExprNode{
+class AssignNode implements ExprNode {
     name: string = "assign"
     children: ExprNode[]
     val: Token[]
@@ -378,7 +378,7 @@ class AssignNode implements ExprNode{
         (varStore as any)[typeof this.val[0].token] = this.val[1].token;
     }
 }
-class DeclareNode implements ExprNode{
+class DeclareNode implements ExprNode {
     name: string = "declare"
     children: ExprNode[]
     val: Token[]
@@ -386,7 +386,7 @@ class DeclareNode implements ExprNode{
         (varStore as any)[typeof this.val[0].token] = undefined;
     }
 }
-class FunctionNode implements ExprNode{
+class FunctionNode implements ExprNode {
     name: string = "function"
     children: ExprNode[]
     val: Token[]
@@ -394,15 +394,15 @@ class FunctionNode implements ExprNode{
         return (ExprContext as any)[this.val[0].token](this.val[1].token)
     }
 }
-class BracketNode implements ExprNode{
+class BracketNode implements ExprNode {
     name: string = "bracket"
     children: ExprNode[]
     val: Token[]
     run() {
-        return 
+        return
     }
 }
-const SUBEXPR_MAP:SubExpr[] = [
+const SUBEXPR_MAP: SubExpr[] = [
     new SubExpr(
         "BRACKET",
         [
@@ -438,7 +438,7 @@ const SUBEXPR_MAP:SubExpr[] = [
     new SubExpr(
         "PREINCREMENT",
         [
-            [ "OP_INCR","LIT_NUMBER"]
+            ["OP_INCR", "LIT_NUMBER"]
         ],
         function (a) { return ++a },
         19
@@ -446,7 +446,7 @@ const SUBEXPR_MAP:SubExpr[] = [
     new SubExpr(
         "PREDECREMENT",
         [
-            [ "OP_DECR","LIT_NUMBER"]
+            ["OP_DECR", "LIT_NUMBER"]
         ],
         function (a) { return --a },
         19
@@ -574,7 +574,7 @@ export class QueriedVal {
 export class Expression {
     static parse(expr: string) {
         let exprIterator: string = expr
-        let tokens: Token[] = [new Token("LIT_NUMBER",0),new Token("OP_ADD","+")];
+        let tokens: Token[] = [new Token("LIT_NUMBER", 0), new Token("OP_ADD", "+")];
         while (exprIterator.length > 0) {
             for (let i of Object.values(TOKEN_MAP)) {
                 if (i.type.test(exprIterator)) {
@@ -605,8 +605,8 @@ export class Expression {
     static compute(tokens: Token[], ...args: QueriedVal[]) {
         for (let i of SUBEXPR_MAP) {
             for (let j of i.expr) {
-                let instances = tokens.map((token,idx)=>{return tokens.slice(idx,idx+j.length).map((ele,idx)=>{return ele.name===j[idx]}).every(e=>e==true)});
-            } 
+                let instances = tokens.map((token, idx) => { return tokens.slice(idx, idx + j.length).map((ele, idx) => { return ele.name === j[idx] }).every(e => e == true) });
+            }
         }
-    }   
+    }
 }

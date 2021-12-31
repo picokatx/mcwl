@@ -8,8 +8,8 @@ export class SudoEntry implements BaseTagEntry {
     sudoToggled: boolean
     sudoName: string
     target: string
-    constructor(sudoToggled?: boolean,sudoName?: string,target?: string) {
-        if (sudoToggled==null && sudoName==null && target==null) {
+    constructor(sudoToggled?: boolean, sudoName?: string, target?: string) {
+        if (sudoToggled == null && sudoName == null && target == null) {
             this.sudoToggled = false;
             this.sudoName = "pico";
             this.target = "@a";
@@ -22,7 +22,7 @@ export class SudoEntry implements BaseTagEntry {
     toJSON(): SudoEntryJSONData {
         return Object.assign({}, this);
     }
-    
+
     static fromJSON(json: SudoEntryJSONData | string): SudoEntry {
         if (typeof json === 'string') {
             return JSON.parse(json, SudoEntry.reviver);
@@ -36,7 +36,7 @@ export class SudoEntry implements BaseTagEntry {
     }
     initialize(playerMap: Map<Player, SudoEntry>, player: Player,) {
         if (!PlayerTag.hasTag(player, MCWLNamespaces.sudo)) {
-            playerMap.set(player,this);
+            playerMap.set(player, this);
             let data: PlayerData = new PlayerData(this, "object", MCWLNamespaces.sudo);
             let tag: PlayerTag = new PlayerTag(data);
             tag.write(player);

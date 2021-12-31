@@ -67,7 +67,7 @@ function descend(
             if (playerLoc.y < minWorldHeight) {
                 return new MCWLCommandReturn(1, locale.get("cmd_return_descend_2_failure"));
             } else {
-                printStream.run(`tp @s ${playerLoc.x} ${playerLoc.y+1} ${playerLoc.z}`, player);
+                printStream.run(`tp @s ${playerLoc.x} ${playerLoc.y + 1} ${playerLoc.z}`, player);
                 return new MCWLCommandReturn(0, locale.get("cmd_return_descend_2_success"));
             }
         default:

@@ -13,14 +13,14 @@ export class BlockStatDB implements BaseTagDB {
         if (typeof db == 'number') {
             let blockTypelen = MinecraftBlockTypes.getAllBlockTypes().length;
             let chunkExt = blockTypelen % dbCount;
-            let chunkSize = Math.floor((blockTypelen - blockTypelen % dbCount)/dbCount);
-            let blockTypes:BlockType[] = MinecraftBlockTypes.getAllBlockTypes();
-            if (db==dbCount-1) {
-                for (let i=db*chunkSize;i<chunkSize*(db+1)+chunkExt;i++) {
+            let chunkSize = Math.floor((blockTypelen - blockTypelen % dbCount) / dbCount);
+            let blockTypes: BlockType[] = MinecraftBlockTypes.getAllBlockTypes();
+            if (db == dbCount - 1) {
+                for (let i = db * chunkSize; i < chunkSize * (db + 1) + chunkExt; i++) {
                     this.db.push(new BlockStatEntry(blockTypes[i].id));
                 }
             } else {
-                for (let i=db*chunkSize;i<chunkSize*(db+1);i++) {
+                for (let i = db * chunkSize; i < chunkSize * (db + 1); i++) {
                     this.db.push(new BlockStatEntry(blockTypes[i].id));
                 }
             }
@@ -29,7 +29,7 @@ export class BlockStatDB implements BaseTagDB {
         }
     }
     add(id: string, dataType: ('blocksPlaced' | 'blocksBroken')) {
-        if (this.getEntryById(id)==null) {
+        if (this.getEntryById(id) == null) {
             return
         }
         if (dataType == 'blocksBroken') {
@@ -39,7 +39,7 @@ export class BlockStatDB implements BaseTagDB {
         }
     }
     set(id: string, val: number, dataType: ('blocksPlaced' | 'blocksBroken')) {
-        if (this.getEntryById(id)==null) {
+        if (this.getEntryById(id) == null) {
             return
         }
         if (dataType == 'blocksBroken') {
@@ -71,11 +71,11 @@ export class BlockStatDB implements BaseTagDB {
             }
         }
     }
-    initialize(playerMap:Map<Player, BlockStatDB>, player: Player, defaultValue: BlockStatDB,dbNum?: number) {
+    initialize(playerMap: Map<Player, BlockStatDB>, player: Player, defaultValue: BlockStatDB, dbNum?: number) {
         if (!PlayerTag.hasTag(player, MCWLNamespaces.blocksModified + "_" + dbNum)) {
             playerMap.set(player, defaultValue);
             let data: PlayerData
-            if (dbNum==null) {
+            if (dbNum == null) {
                 data = new PlayerData(this.db, "object", MCWLNamespaces.blocksModified);
             } else {
                 data = new PlayerData(this.db, "object", MCWLNamespaces.blocksModified + "_" + dbNum);
@@ -89,7 +89,7 @@ export class BlockStatDB implements BaseTagDB {
     }
     saveToTag(player: Player, dbNum?: number) {
         let data: PlayerData
-        if (dbNum==null) {
+        if (dbNum == null) {
             data = new PlayerData(this.db, "object", MCWLNamespaces.blocksModified);
         } else {
             data = new PlayerData(this.db, "object", MCWLNamespaces.blocksModified + "_" + dbNum);

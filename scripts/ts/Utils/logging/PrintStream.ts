@@ -83,26 +83,26 @@ export class PrintStream {
     }
     success(s: string, args?: any[]) {
         this.flush();
-        if (args==null) {
+        if (args == null) {
             this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.blue}${s}${ColorCodes.reset}`));
         } else {
-            this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.blue}${this.format(s,args)}${ColorCodes.reset}`));
+            this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.blue}${this.format(s, args)}${ColorCodes.reset}`));
         }
     }
     info(s: string, args?: any[]) {
         this.flush();
-        if (args==null) {
+        if (args == null) {
             this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.grey}${s}${ColorCodes.reset}`));
         } else {
-            this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.grey}${this.format(s,args)}${ColorCodes.reset}`));
+            this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.grey}${this.format(s, args)}${ColorCodes.reset}`));
         }
     }
     failure(s: string, args?: any[]) {
         this.flush();
-        if (args==null) {
+        if (args == null) {
             this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.darkred}${s}${ColorCodes.reset}`));
         } else {
-            this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.darkred}${this.format(s,args)}${ColorCodes.reset}`));
+            this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.darkred}${this.format(s, args)}${ColorCodes.reset}`));
         }
     }
     globalRun(s: string) {
@@ -129,8 +129,8 @@ export class PrintStream {
             this.failure(`Arguments of length ${a.length} does not satisfy requirement`);
         }
     }
-    println(s: any, ...args:any): void {
-        this.print(this.format(s,args));
+    println(s: any, ...args: any): void {
+        this.print(this.format(s, args));
         this.queued.push(Console.tellraw(this.outputStream));
         this.outputStream = "";
     }

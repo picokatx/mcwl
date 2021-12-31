@@ -3,9 +3,9 @@ export const ITEM_ANY = "minecraft:any";
 export class BlocksIntEntry implements BaseTagEntry {
     stat: string
     count: number
-    constructor(stat:string, count?:number) {
+    constructor(stat: string, count?: number) {
         this.stat = stat;
-        if (count!=null) {
+        if (count != null) {
             this.count = count;
         } else {
             this.count = 0;

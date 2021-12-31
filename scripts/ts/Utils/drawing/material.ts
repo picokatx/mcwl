@@ -209,7 +209,7 @@ export class UnweightedBlockDistFragment extends Shader {
         let block: string[] = args.get("blocks");
         for (let i of vertex) {
             let blockData: Minecraft.BlockPermutation = (
-                MinecraftBlockTypes[block[Math.floor(Math.random()*(block.length))] as keyof typeof MinecraftBlockTypes] as any
+                MinecraftBlockTypes[block[Math.floor(Math.random() * (block.length))] as keyof typeof MinecraftBlockTypes] as any
             ).createDefaultBlockPermutation();
             ret.push(blockData);
         }

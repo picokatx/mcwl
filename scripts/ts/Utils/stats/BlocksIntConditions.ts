@@ -4,22 +4,22 @@ export class BlocksIntConditions {
     targetBlock: BlockPermutation[] = []
     itemUsed: ItemStack[] = []
     any: boolean = false;
-    blockDataCheck: (p:Block) => boolean
-    itemDataCheck: (p:ItemStack) => boolean
+    blockDataCheck: (p: Block) => boolean
+    itemDataCheck: (p: ItemStack) => boolean
     constructor(
         targetBlock: BlockType | BlockType[] | BlockPermutation | BlockPermutation[],
         itemUsed: ItemType | ItemType[] | ItemStack | ItemStack[] | string,
-        blockDataCheck?: (p:Block) => boolean,
-        itemDataCheck?: (p:ItemStack) => boolean) {
-        if (blockDataCheck!=null) {
+        blockDataCheck?: (p: Block) => boolean,
+        itemDataCheck?: (p: ItemStack) => boolean) {
+        if (blockDataCheck != null) {
             this.blockDataCheck = blockDataCheck;
         } else {
-            this.blockDataCheck = ((p:Block)=>{return true});
+            this.blockDataCheck = ((p: Block) => { return true });
         }
-        if (itemDataCheck!=null) {
+        if (itemDataCheck != null) {
             this.itemDataCheck = itemDataCheck;
         } else {
-            this.itemDataCheck = ((p:ItemStack)=>{return true});
+            this.itemDataCheck = ((p: ItemStack) => { return true });
         }
         if (Array.isArray(targetBlock)) {
             for (let i of targetBlock) {
@@ -45,7 +45,7 @@ export class BlocksIntConditions {
                 }
             }
         } else {
-            if ((typeof itemUsed)=='string') {
+            if ((typeof itemUsed) == 'string') {
                 this.any = true;
             } else if (itemUsed instanceof ItemStack) {
                 this.itemUsed.push(itemUsed as ItemStack);
