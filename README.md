@@ -9,7 +9,7 @@ Emote Support - Currently emotes for items with item id 256-380 are added
 ## Requirements
 - 1.18.10.21 MCBE beta and above. Vanilla is not supported
 ## Installing
-- zip compress the repository and rename to .mcpack extension, then double click the pack.
+- zip compress the repository and rename to .mcpack extension, then double click the pack. Glyph resource pack can be installed similarly
 ## Commands
 - ascend
 - blocksint
