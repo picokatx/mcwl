@@ -5,42 +5,43 @@ import { printStream } from "../../Main.js";
 import { Player, world } from "mojang-minecraft";
 import { blockIntNamespaces, BlocksIntDB } from "../../Utils/stats/BlocksIntDB.js";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
+import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
+import { locale } from "../../Utils/constants/LocalisationStrings.js";
 function blocksint(
     player: Player,
     args: Map<string, any>,
-    subCmd: number) {
+    subCmd: number): MCWLCommandReturn {
     switch (subCmd) {
         case 0:
             let players: Player[] = world.getPlayers()
             for (let i of players) {
-                if (i.name == args.get("target")) {
+                if (i.name == args.get(locale.get("cmd_args_target"))) {
                     let r: BlocksIntDB = new BlocksIntDB(PlayerTag.read(i, MCWLNamespaces.blockInteractions).data);
-                    let entry = r.getEntryById(args.get("statType"));
-                    return [`Username: ${args.get("target")}, [${entry.stat}] : ${entry.count}`, 0];
+                    let entry = r.getEntryById(args.get(locale.get("cmd_args_statType")));
+                    return new MCWLCommandReturn(0, locale.get("cmd_return_blocksint_0_info"), args.get("target"), entry.stat, entry.count);
                 }
             }
-
         default:
-            return [`subCmd index ${subCmd} out of range. subCmd does not exist`, 1];
+            return new MCWLCommandReturn(1, locale.get("cmd_return_default"), blocksintCmd.name);
     }
 }
-function blocksintSucceed(suc: string) {
-    printStream.success(suc);
+function blocksintSucceed(s: string, args: any[]) {
+    printStream.success(s, args);
 }
-function blocksintFail(err: string) {
-    printStream.failure(err);
+function blocksintFail(s: string, args: any[]) {
+    printStream.failure(s, args);
 }
-function blocksintInfo(inf: string) {
-    printStream.info(inf);
+function blocksintInfo(s: string, args: any[]) {
+    printStream.info(s, args);
 }
 const blocksintCmd = new Command(
-    "blocksint",
-    "Displays number of interactions with block",
+    locale.get("cmd_name_blocksint"),
+    locale.get("cmd_description_blocksint"),
     [
         new CommandFormat(
             [
-                new CommandParameter("target", ARG_STRING, false),
-                new CommandParameter("statType", ARG_RADIO(Array.from(blockIntNamespaces.keys())), false),
+                new CommandParameter(locale.get("cmd_args_target"), ARG_STRING, false),
+                new CommandParameter(locale.get("cmd_args_statType"), ARG_RADIO(Array.from(blockIntNamespaces.keys())), false),
             ]
         )
     ],

@@ -2,9 +2,11 @@ export class PlayerData {
     data: any
     dataType: string
     name: string
+    format: string
     constructor(data: any, dataType: string,name:string) {
         this.dataType = dataType;
         this.name = name;
+        this.format = "v1.0"
         switch (dataType) {
             case "string":
                 this.data = (data as string)
@@ -56,4 +58,5 @@ interface PlayerJSONData {
     data: any;
     dataType: string;
     name: string
+    format: string
 }

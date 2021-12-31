@@ -5,52 +5,65 @@ import { Vec3 } from "../../Utils/data/vec3.js";
 import { printStream } from "../../Main.js";
 import { DataHelper } from "../../Utils/data/DataHelper.js";
 import { Player } from "mojang-minecraft";
+import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
+import { locale } from "../../Utils/constants/LocalisationStrings.js";
 
 function setblock(
     player: Player,
     args: Map<string, any>,
-    subCmd: number) {
+    subCmd: number): MCWLCommandReturn {
     switch (subCmd) {
         case 0:
-            const coords = DataHelper.parseCoords(args.get("position"), player);
-            pointMaterial.apply(
-                new Map().set("position", new Vec3(coords[0], coords[1], coords[2])),
-                new Map().set("block", args.get("block"))
-            );
-            return [`${args.get("block")} placed at [${coords[0]},${coords[1]},${coords[2]}]`, 0]
+            let coords = DataHelper.parseCoords(args.get(locale.get("cmd_args_position")), player);
+            if (coords == [] || coords == null) {
+                return new MCWLCommandReturn(1, locale.get("cmd_return_default"), setblockCmd.name);
+            }
+            try {
+                pointMaterial.apply(
+                    new Map().set("position", new Vec3(coords[0], coords[1], coords[2])),
+                    new Map().set("block", args.get(locale.get("cmd_args_block")))
+                );
+            } catch {
+                return new MCWLCommandReturn(1, locale.get("cmd_return_default"), setblockCmd.name);
+            }
+            return new MCWLCommandReturn(0, locale.get("cmd_return_setblock_0_success"), args.get(locale.get("cmd_args_block")), coords[0], coords[1], coords[2])
         case 1:
-            const loc = new Vec3(player.location.x, player.location.y, player.location.z).floor();
-            pointMaterial.apply(
-                new Map().set("position", loc),
-                new Map().set("block", args.get("block"))
-            );
-            return [`${args.get("block")} placed at [${loc.x}, ${loc.y}, ${loc.z}]`, 0]
+            let loc = new Vec3(player.location.x, player.location.y, player.location.z).floor();
+            try {
+                pointMaterial.apply(
+                    new Map().set("position", loc),
+                    new Map().set("block", args.get(locale.get("cmd_args_block")))
+                );
+            } catch {
+                return new MCWLCommandReturn(1, locale.get("cmd_return_default"), setblockCmd.name);
+            }
+            return new MCWLCommandReturn(0, locale.get("cmd_return_setblock_0_success"), args.get(locale.get("cmd_args_block")), loc.x, loc.y, loc.z)
         default:
-            return [`subCmd index ${subCmd} out of range. subCmd does not exist`, 1];
+            return new MCWLCommandReturn(1, locale.get("cmd_return_default"), setblockCmd.name);
     }
 }
-function setblockSucceed(suc: string) {
-    printStream.success(suc);
+function setblockSucceed(s: string, args: any[]) {
+    printStream.success(s, args);
 }
-function setblockFail(err: string) {
-    printStream.failure(err);
+function setblockFail(s: string, args: any[]) {
+    printStream.failure(s, args);
 }
-function setblockInfo(inf: string) {
-    printStream.info(inf);
+function setblockInfo(s: string, args: any[]) {
+    printStream.info(s, args);
 }
 const setblockCmd = new Command(
-    "setblock",
-    "better than vanilla /setblock",
+    locale.get("cmd_name_setblock"),
+    locale.get("cmd_description_setblock"),
     [
         new CommandFormat(
             [
-                new CommandParameter("position", ARG_WORLD_POS, false),
-                new CommandParameter("block", ARG_STRING, false),
+                new CommandParameter(locale.get("cmd_args_position"), ARG_WORLD_POS, false),
+                new CommandParameter(locale.get("cmd_args_block"), ARG_STRING, false),
             ]
         ),
         new CommandFormat(
             [
-                new CommandParameter("block", ARG_STRING, false),
+                new CommandParameter(locale.get("cmd_args_block"), ARG_STRING, false),
             ]
         )
     ],

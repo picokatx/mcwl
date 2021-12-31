@@ -5,5 +5,6 @@ export enum MCWLNamespaces {
     blockInteractions = "mcwl:block_interactions",
     blocksModified = "mcwl:blocks_modified",
     playtime = "mcwl:playtime",
-    playerJoined = "mcwl:player_joined"
+    playerJoined = "mcwl:player_joined",
+    playerFirstJoined = "mcwl:player_first_joined"
 }

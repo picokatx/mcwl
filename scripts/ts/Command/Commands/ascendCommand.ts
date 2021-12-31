@@ -3,10 +3,12 @@ import { Command } from "../Command.js";
 import { printStream } from "../../Main.js";
 import { BlockLocation, Player } from "mojang-minecraft";
 import { maxWorldHeight } from "../../Utils/constants/MathConstants.js";
+import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
+import { locale } from "../../Utils/constants/LocalisationStrings.js";
 function ascend(
     player: Player,
     args: Map<string, any>,
-    subCmd: number) {
+    subCmd: number): MCWLCommandReturn {
     let levelCount = 0;
     let levelPaddingCount = 0;
     let playerLoc = new BlockLocation(Math.floor(player.location.x), Math.floor(player.location.y) + 2, Math.floor(player.location.z));
@@ -17,9 +19,9 @@ function ascend(
                 if (player.dimension.getBlock(playerLoc).isEmpty) {
                     levelPaddingCount++;
                 } else {
-                    if (levelPaddingCount >= args.get("padding")) {
+                    if (levelPaddingCount >= args.get(locale.get("cmd_args_padding"))) {
                         levelCount++;
-                        if (levelCount >= args.get("levels")) {
+                        if (levelCount >= args.get(locale.get("cmd_args_levels"))) {
                             break;
                         }
                     }
@@ -29,10 +31,10 @@ function ascend(
                 playerLoc = playerLoc.above();
             }
             if (floor == player.location.y) {
-                return [`Unable to find teleport location`, 1];
+                return new MCWLCommandReturn(1, locale.get("cmd_return_ascend_0_failure"));
             } else {
                 printStream.run(`tp @s ${playerLoc.x} ${floor} ${playerLoc.z}`, player);
-                return [`Ascended ${args.get("levels")} levels`, 0];
+                return new MCWLCommandReturn(0, locale.get("cmd_return_ascend_0_success"), args.get(locale.get("cmd_args_levels")));
             }
         case 1:
             while (playerLoc.y <= maxWorldHeight) {
@@ -41,7 +43,7 @@ function ascend(
                 } else {
                     if (levelPaddingCount >= 2) {
                         levelCount++;
-                        if (levelCount >= args.get("levels")) {
+                        if (levelCount >= args.get(locale.get("cmd_args_levels"))) {
                             break;
                         }
                     }
@@ -51,50 +53,52 @@ function ascend(
                 playerLoc = playerLoc.above();
             }
             if (floor == player.location.y) {
-                return [`Unable to find teleport location`, 1];
+                return new MCWLCommandReturn(1, locale.get("cmd_return_ascend_1_failure"));
             } else {
                 printStream.run(`tp @s ${playerLoc.x} ${floor} ${playerLoc.z}`, player);
-                return [`Ascended ${args.get("levels")} levels`, 0];
+                return new MCWLCommandReturn(0, locale.get("cmd_return_ascend_1_success"), args.get(locale.get("cmd_args_levels")));
             }
         case 2:
-            while (levelPaddingCount < 2 && playerLoc.y <= maxWorldHeight) {
+            levelPaddingCount = 2;
+            while (playerLoc.y <= maxWorldHeight) {
                 if (player.dimension.getBlock(playerLoc).isEmpty) {
                     levelPaddingCount++;
                 } else {
-                    floor = playerLoc.y + 1;
-                    levelPaddingCount = 0;
+                    if (levelPaddingCount >= 2) {
+                        break;
+                    }
                 }
                 playerLoc = playerLoc.above();
             }
-            if (floor == player.location.y) {
-                return [`Unable to find teleport location`, 1];
+            if (playerLoc.y > maxWorldHeight) {
+                return new MCWLCommandReturn(1, locale.get("cmd_return_ascend_2_failure"));
             } else {
-                printStream.run(`tp @s ${playerLoc.x} ${floor} ${playerLoc.z}`, player);
-                return [`Ascended 1 level`, 0];
+                printStream.run(`tp @s ${playerLoc.x} ${playerLoc.y+1} ${playerLoc.z}`, player);
+                return new MCWLCommandReturn(0, locale.get("cmd_return_ascend_2_success"));
             }
         default:
-            return [`Command format does not exist, use ,help ${ascendCmd.name} for a list of all command formats`, 1];
+            return new MCWLCommandReturn(1, locale.get("cmd_return_default"), ascendCmd.name);
     }
 }
-function ascendSucceed(suc: string) {
-    printStream.success(suc);
+function ascendSucceed(s: string, args: any[]) {
+    printStream.success(s, args);
 }
-function ascendFail(err: string) {
-    printStream.failure(err);
+function ascendFail(s: string, args: any[]) {
+    printStream.failure(s, args);
 }
-function ascendInfo(inf: string) {
-    printStream.info(inf);
+function ascendInfo(s: string, args: any[]) {
+    printStream.info(s, args);
 }
 const ascendCmd = new Command(
-    "ascend",
-    "Teleports player to upper level",
+    locale.get("cmd_name_ascend"),
+    locale.get("cmd_description_ascend"),
     [
         new CommandFormat([
-            new CommandParameter("levels", ARG_NUMBER, false),
-            new CommandParameter("padding", ARG_NUMBER, false)
+            new CommandParameter(locale.get("cmd_args_levels"), ARG_NUMBER, false),
+            new CommandParameter(locale.get("cmd_args_padding"), ARG_NUMBER, false)
         ]),
         new CommandFormat([
-            new CommandParameter("levels", ARG_NUMBER, false)
+            new CommandParameter(locale.get("cmd_args_levels"), ARG_NUMBER, false)
         ]),
         new CommandFormat([])
     ],

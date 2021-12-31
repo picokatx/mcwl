@@ -1,50 +1,55 @@
-import {CommandFormat,CommandParameter,ARG_STRING, ARG_WORLD_POS, ARG_NUMBER} from "../CommandParameter.js";
-import {Command} from "../Command.js";
+import { CommandFormat, CommandParameter, ARG_STRING, ARG_WORLD_POS, ARG_NUMBER } from "../CommandParameter.js";
+import { Command } from "../Command.js";
 import { DataHelper } from "../../Utils/data/DataHelper.js";
 import { BlockLocation, Player, world } from "mojang-minecraft";
 import { printStream } from "../../Main.js";
+import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
+import { locale } from "../../Utils/constants/LocalisationStrings.js";
 function spawn(
     player: Player,
-    args: Map<string,any>,
-    subCmd: number) {
+    args: Map<string, any>,
+    subCmd: number): MCWLCommandReturn {
     switch (subCmd) {
         case 0:
-            let coords = DataHelper.parseCoords(args.get("position"),player);
-            for (let i=0;i<args.get("count");i++) {
-                world.getDimension("overworld").spawnEntity(args.get("entity"),new BlockLocation(coords[0],coords[1],coords[2]));
+            let coords = DataHelper.parseCoords(args.get(locale.get("cmd_args_position")), player);
+            if (coords==[]) {
+                return new MCWLCommandReturn(1, locale.get("cmd_return_default"), spawnCmd.name);
             }
-            return [`Spawned ${args.get("count")} ${args.get("entity")} at [${coords[0]}, ${coords[1]}, ${coords[2]}]`,0];
+            for (let i = 0; i < args.get(locale.get("cmd_args_count")); i++) {
+                world.getDimension("overworld").spawnEntity(args.get(locale.get("cmd_args_entity")), new BlockLocation(coords[0], coords[1]+1, coords[2]));
+            }
+            return new MCWLCommandReturn(0, locale.get("cmd_return_spawn_0_success"), parseInt(args.get(locale.get("cmd_args_count"))), args.get(locale.get("cmd_args_entity")), coords[0], coords[1]+1, coords[2]);
         case 1:
-            let loc:BlockLocation = new BlockLocation(Math.floor(player.location.x),Math.floor(player.location.y),Math.floor(player.location.z));
-            for (let i=0;i<parseInt(args.get("count"));i++) {
-                world.getDimension("overworld").spawnEntity(args.get("entity"),loc);
+            let loc: BlockLocation = new BlockLocation(Math.floor(player.location.x), Math.floor(player.location.y+1), Math.floor(player.location.z));
+            for (let i = 0; i < parseInt(args.get(locale.get("cmd_args_count"))); i++) {
+                world.getDimension("overworld").spawnEntity(args.get(locale.get("cmd_args_entity")), loc);
             }
-            return [`Spawned ${args.get("count")} ${args.get("entity")} at [${loc.x}, ${loc.y}, ${loc.z}]`,0];
+            return new MCWLCommandReturn(0, locale.get("cmd_return_spawn_0_success"), parseInt(args.get(locale.get("cmd_args_count"))), args.get(locale.get("cmd_args_entity")), loc.x, loc.y+1, loc.z);
         default:
-            return [`subCmd index ${subCmd} out of range. subCmd does not exist`,1];
+            return new MCWLCommandReturn(1, locale.get("cmd_return_default"), spawnCmd.name);
     }
 }
-function spawnSucceed(suc:string) {
-    printStream.success(suc);
+function spawnSucceed(s: string, args: any[]) {
+    printStream.success(s, args);
 }
-function spawnFail(err:string) {
-    printStream.failure(err);
+function spawnFail(s: string, args: any[]) {
+    printStream.failure(s, args);
 }
-function spawnInfo(inf:string) {
-    printStream.info(inf);
+function spawnInfo(s: string, args: any[]) {
+    printStream.info(s, args);
 }
 const spawnCmd = new Command(
-    "spawn",
-    "spawns entity",
+    locale.get("cmd_name_spawn"),
+    locale.get("cmd_description_spawn"),
     [
         new CommandFormat([
-            new CommandParameter("entity",ARG_STRING,false),
-            new CommandParameter("position",ARG_WORLD_POS,false),
-            new CommandParameter("count",ARG_NUMBER,true),
+            new CommandParameter(locale.get("cmd_args_entity"), ARG_STRING, false),
+            new CommandParameter(locale.get("cmd_args_position"), ARG_WORLD_POS, false),
+            new CommandParameter(locale.get("cmd_args_count"), ARG_NUMBER, true),
         ]),
         new CommandFormat([
-            new CommandParameter("entity",ARG_STRING,false),
-            new CommandParameter("count",ARG_STRING,true)
+            new CommandParameter(locale.get("cmd_args_entity"), ARG_STRING, false),
+            new CommandParameter(locale.get("cmd_args_count"), ARG_STRING, true)
         ]),
     ],
     spawn,
@@ -53,4 +58,4 @@ const spawnCmd = new Command(
     spawnInfo,
     3
 );
-export {spawnCmd};
+export { spawnCmd };

@@ -6,32 +6,32 @@ import { world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
 import { locale } from "../../Utils/constants/LocalisationStrings.js";
-function crouchtime(player, args, subCmd) {
+function firstjoined(player, args, subCmd) {
     switch (subCmd) {
         case 0:
             let players = world.getPlayers();
             for (let i of players) {
                 if (i.name == args.get(locale.get("cmd_args_target"))) {
-                    let sneakTime = parseInt(PlayerTag.read(i, MCWLNamespaces.sneakDuration).data);
-                    return new MCWLCommandReturn(0, locale.get("cmd_return_crouchtime_0_info"), args.get(locale.get("cmd_args_target")), sneakTime);
+                    let firstjoined = PlayerTag.read(i, MCWLNamespaces.playerFirstJoined).data;
+                    return new MCWLCommandReturn(0, locale.get("cmd_return_firstjoined_0_info"), args.get(locale.get("cmd_args_target")), firstjoined);
                 }
             }
         default:
-            return new MCWLCommandReturn(1, locale.get("cmd_return_default"), crouchtimeCmd.name);
+            return new MCWLCommandReturn(1, locale.get("cmd_return_default"), firstjoinedCmd.name);
     }
 }
-function crouchtimeSucceed(s, args) {
+function firstjoinedSucceed(s, args) {
     printStream.success(s, args);
 }
-function crouchtimeFail(s, args) {
+function firstjoinedFail(s, args) {
     printStream.failure(s, args);
 }
-function crouchtimeInfo(s, args) {
+function firstjoinedInfo(s, args) {
     printStream.info(s, args);
 }
-const crouchtimeCmd = new Command(locale.get("cmd_name_crouchtime"), locale.get("cmd_description_crouchtime"), [
+const firstjoinedCmd = new Command(locale.get("cmd_name_firstjoined"), locale.get("cmd_description_firstjoined"), [
     new CommandFormat([
         new CommandParameter(locale.get("cmd_args_target"), ARG_STRING, false)
     ])
-], crouchtime, crouchtimeSucceed, crouchtimeFail, crouchtimeInfo, 3);
-export { crouchtimeCmd };
+], firstjoined, firstjoinedSucceed, firstjoinedFail, firstjoinedInfo, 3);
+export { firstjoinedCmd };

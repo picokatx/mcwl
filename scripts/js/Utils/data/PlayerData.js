@@ -2,6 +2,7 @@ export class PlayerData {
     constructor(data, dataType, name) {
         this.dataType = dataType;
         this.name = name;
+        this.format = "v1.0";
         switch (dataType) {
             case "string":
                 this.data = data;

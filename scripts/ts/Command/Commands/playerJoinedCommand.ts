@@ -4,40 +4,41 @@ import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
 import { Player, world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
+import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
+import { locale } from "../../Utils/constants/LocalisationStrings.js";
 function playerjoined(
     player: Player,
     args: Map<string, any>,
-    subCmd: number) {
+    subCmd: number): MCWLCommandReturn {
     switch (subCmd) {
         case 0:
             let players: Player[] = world.getPlayers()
             for (let i of players) {
-                if (i.name == args.get("target")) {
-                    let playerJoined: number = PlayerTag.read(i, MCWLNamespaces.playerJoined).data;
-                    return [`${args.get("target")} has joined this world ${playerJoined} times`, 0];
+                if (i.name == args.get(locale.get("cmd_args_target"))) {
+                    let playerJoined: number = parseInt(PlayerTag.read(i, MCWLNamespaces.playerJoined).data as string);
+                    return new MCWLCommandReturn(0, locale.get("cmd_return_playerjoined_0_info"), args.get(locale.get("cmd_args_target")), playerJoined);
                 }
             }
-
         default:
-            return [`subCmd index ${subCmd} out of range. subCmd does not exist`, 1];
+            return new MCWLCommandReturn(1, locale.get("cmd_return_default"), playerjoinedCmd.name);
     }
 }
-function playerjoinedSucceed(suc: string) {
-    printStream.success(suc);
+function playerjoinedSucceed(s: string, args: any[]) {
+    printStream.success(s, args);
 }
-function playerjoinedFail(err: string) {
-    printStream.failure(err);
+function playerjoinedFail(s: string, args: any[]) {
+    printStream.failure(s, args);
 }
-function playerjoinedInfo(inf: string) {
-    printStream.info(inf);
+function playerjoinedInfo(s: string, args: any[]) {
+    printStream.info(s, args);
 }
 const playerjoinedCmd = new Command(
-    "playerjoined",
-    "Displays number of times player has joined world",
+    locale.get("cmd_name_playerjoined"),
+    locale.get("cmd_description_playerjoined"),
     [
         new CommandFormat(
             [
-                new CommandParameter("target", ARG_STRING, false)
+                new CommandParameter(locale.get("cmd_args_target"), ARG_STRING, false)
             ]
         )
     ],

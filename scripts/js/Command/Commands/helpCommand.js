@@ -1,11 +1,13 @@
 import { CommandFormat, CommandParameter, ARG_STRING } from "../CommandParameter.js";
 import { Command } from "../Command.js";
 import { commands, printStream } from "../../Main.js";
+import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
+import { locale } from "../../Utils/constants/LocalisationStrings.js";
 function help(player, args, subCmd) {
     switch (subCmd) {
         case 0:
             for (let i of commands) {
-                if (i.name == args.get("command")) {
+                if (i.name == args.get(locale.get("cmd_args_command"))) {
                     let format = "";
                     for (let j of i.cmdParameters) {
                         format += `\n,${i.name}`;
@@ -18,32 +20,32 @@ function help(player, args, subCmd) {
                             }
                         }
                     }
-                    return [`${i.name} - ${i.description}.\nFormat:${format}`, 0];
+                    return new MCWLCommandReturn(0, locale.get("cmd_return_help_0_success"), i.name, i.description, format);
                 }
             }
-            return [`Command not found, use ,help for a list of all commands`, 1];
+            return new MCWLCommandReturn(1, locale.get("cmd_return_help_0_failure"), args.get(locale.get("cmd_args_command")));
         case 1:
             let helpText = "";
             for (let i of commands) {
                 helpText += `${i.name} - ${i.description}\n`;
             }
-            return [`List of all avaliable commands:\n${helpText}`, 0];
+            return new MCWLCommandReturn(0, locale.get("cmd_return_help_1_success"), helpText);
         default:
-            return [`subCmd index ${subCmd} out of range. subCmd does not exist`, 1];
+            return new MCWLCommandReturn(1, locale.get("cmd_return_default"), helpCmd.name);
     }
 }
-function helpSucceed(suc) {
-    printStream.success(suc);
+function helpSucceed(s, args) {
+    printStream.success(s, args);
 }
-function helpFail(err) {
-    printStream.failure(err);
+function helpFail(s, args) {
+    printStream.failure(s, args);
 }
-function helpInfo(inf) {
-    printStream.info(inf);
+function helpInfo(s, args) {
+    printStream.info(s, args);
 }
-const helpCmd = new Command("help", "pov you forgot your own command syntax smh", [
+const helpCmd = new Command(locale.get("cmd_name_help"), locale.get("cmd_description_help"), [
     new CommandFormat([
-        new CommandParameter("command", ARG_STRING, false)
+        new CommandParameter(locale.get("cmd_args_command"), ARG_STRING, false)
     ]),
     new CommandFormat([])
 ], help, helpSucceed, helpFail, helpInfo, 3);

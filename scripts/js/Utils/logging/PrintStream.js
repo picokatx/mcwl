@@ -9,7 +9,30 @@ export class PrintStream {
         this.hasError = false;
         this.debugEnabled = true;
         this.outputStream = "";
+        this.queued = [];
         this.printable = printable;
+    }
+    broadcast() {
+        if (this.queued.length > 0) {
+            try {
+                this.printable.runCommand(this.queued[0]);
+                this.queued.shift();
+            }
+            catch {
+            }
+        }
+    }
+    broadcastAll() {
+        if (this.queued.length > 0) {
+            try {
+                for (let i of this.queued) {
+                    this.printable.runCommand(i);
+                    this.queued.shift();
+                }
+            }
+            catch {
+            }
+        }
     }
     setError() {
         this.hasError = true;
@@ -25,7 +48,7 @@ export class PrintStream {
     }
     flush() {
         if (this.outputStream != "") {
-            this.printable.runCommand(Console.tellraw(this.outputStream));
+            this.queued.push(Console.tellraw(this.outputStream));
             this.outputStream = "";
         }
     }
@@ -56,38 +79,74 @@ export class PrintStream {
                 this.outputStream += "Invalid Char";
         }
     }
-    success(s) {
+    success(s, args) {
         this.flush();
-        this.printable.runCommand(Console.tellraw(`${notifPrefix} ${ColorCodes.blue}${s}${ColorCodes.reset}`));
+        if (args == null) {
+            this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.blue}${s}${ColorCodes.reset}`));
+        }
+        else {
+            this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.blue}${this.format(s, args)}${ColorCodes.reset}`));
+        }
     }
-    info(s) {
+    info(s, args) {
         this.flush();
-        this.printable.runCommand(Console.tellraw(`${notifPrefix} ${ColorCodes.grey}${s}${ColorCodes.reset}`));
+        if (args == null) {
+            this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.grey}${s}${ColorCodes.reset}`));
+        }
+        else {
+            this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.grey}${this.format(s, args)}${ColorCodes.reset}`));
+        }
     }
-    failure(s) {
+    failure(s, args) {
         this.flush();
-        this.printable.runCommand(Console.tellraw(`${notifPrefix} ${ColorCodes.darkred}${s}${ColorCodes.reset}`));
+        if (args == null) {
+            this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.darkred}${s}${ColorCodes.reset}`));
+        }
+        else {
+            this.queued.push(Console.tellraw(`${notifPrefix} ${ColorCodes.darkred}${this.format(s, args)}${ColorCodes.reset}`));
+        }
     }
     globalRun(s) {
-        this.printable.runCommand(Console.globalRunCmd(s));
+        this.queued.push(Console.globalRunCmd(s));
     }
     run(s, player) {
-        this.printable.runCommand(Console.runCmd(s, player));
+        this.queued.push(Console.runCmd(s, player));
     }
-    println(s) {
-        this.print(s);
-        this.printable.runCommand(Console.tellraw(this.outputStream));
+    format(s, args) {
+        let a = Array.from(args);
+        try {
+            let ret = s;
+            for (let i of a) {
+                if (typeof i == 'string') {
+                    ret = ret.replace(new RegExp(/%s/), i);
+                }
+                else if (typeof i == 'number') {
+                    ret = ret.replace(new RegExp(/%d/), "" + i);
+                }
+                else if (typeof i == 'boolean') {
+                    ret = ret.replace(new RegExp(/%b/), "" + i);
+                }
+            }
+            return ret;
+        }
+        catch {
+            this.failure(`Arguments of length ${a.length} does not satisfy requirement`);
+        }
+    }
+    println(s, ...args) {
+        this.print(this.format(s, args));
+        this.queued.push(Console.tellraw(this.outputStream));
         this.outputStream = "";
     }
     chat(s, player, targets) {
         this.flush();
         for (let i of targets) {
-            this.printable.runCommand(Console.chat(this.replaceWithEmotes(s), player, i.name));
+            this.queued.push(Console.chat(this.replaceWithEmotes(s), player, i.name));
         }
     }
     sudoChat(s, name, target) {
         this.flush();
-        this.printable.runCommand(Console.sudoChat(this.replaceWithEmotes(s), name, target));
+        this.queued.push(Console.sudoChat(this.replaceWithEmotes(s), name, target));
     }
     cleanText(s) {
         return s.replace(RegExp(/(?<!\\)\"/g), "\\\"");
@@ -95,7 +154,7 @@ export class PrintStream {
     debug(s) {
         this.flush();
         if (this.debugEnabled) {
-            this.printable.runCommand(Console.tellraw(`[${ColorCodes.blue}DEBUG${ColorCodes.reset}] ${this.cleanText(s)}`));
+            this.queued.push(Console.tellraw(`[${ColorCodes.blue}DEBUG${ColorCodes.reset}] ${this.cleanText(s)}`));
         }
     }
     replaceWithEmotes(s) {

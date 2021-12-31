@@ -4,55 +4,57 @@ import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
 import { SudoEntry } from "../../Utils/stats/SudoEntry.js";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
+import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
+import { locale } from "../../Utils/constants/LocalisationStrings.js";
 function sudo(player, args, subCmd) {
     let pData = Object.assign(new SudoEntry(), PlayerTag.read(player, MCWLNamespaces.sudo).data);
     switch (subCmd) {
         case 0:
-            new SudoEntry(true, args.get("name"), args.get("target")).saveToTag(player);
-            return [`${player.name} has been nicked as ${args.get("name")} for ${args.get("target")}`, 0];
+            new SudoEntry(true, args.get(locale.get("cmd_args_name")), args.get(locale.get("cmd_args_target"))).saveToTag(player);
+            return new MCWLCommandReturn(0, locale.get("cmd_return_sudo_0_success"), player.name, args.get(locale.get("cmd_args_name")), args.get(locale.get("cmd_args_target")));
         case 1:
-            switch (args.get("on|off|toggle")) {
-                case "toggle":
+            switch (args.get(locale.get("cmd_args_sudoOptions"))) {
+                case locale.get("cmd_args_sudo_toggle"):
                     if (pData.sudoToggled) {
                         pData.sudoToggled = false;
                         pData.saveToTag(player);
-                        return [`Sudo module has been toggled off`, 0];
+                        return new MCWLCommandReturn(0, locale.get("cmd_return_sudo_1_off_success"));
                     }
                     else {
                         pData.sudoToggled = true;
                         pData.saveToTag(player);
-                        return [`Sudo module has been toggled on`, 0];
+                        return new MCWLCommandReturn(0, locale.get("cmd_return_sudo_1_on_success"));
                     }
-                case "on":
+                case locale.get("cmd_args_sudo_on"):
                     pData.sudoToggled = true;
                     pData.saveToTag(player);
-                    return [`Sudo module has been toggled on`, 0];
-                case "off":
+                    return new MCWLCommandReturn(0, locale.get("cmd_return_sudo_1_on_success"));
+                case locale.get("cmd_args_sudo_off"):
                     pData.sudoToggled = false;
                     pData.saveToTag(player);
-                    return [`Sudo module has been toggled off`, 0];
+                    return new MCWLCommandReturn(0, locale.get("cmd_return_sudo_1_off_success"));
             }
-            return [`Unexpected '${args.get("on|off|toggle")}' at parameter 1`, 1];
+            return new MCWLCommandReturn(1, locale.get("cmd_return_sudo_1_failure"), args.get(locale.get("cmd_args_sudoOptions")));
         default:
-            return [`subCmd index ${subCmd} out of range. subCmd does not exist`, 1];
+            return new MCWLCommandReturn(1, locale.get("cmd_return_default"), sudoCmd.name);
     }
 }
-function sudoSucceed(suc) {
-    printStream.success(suc);
+function sudoSucceed(s, args) {
+    printStream.success(s, args);
 }
-function sudoFail(err) {
-    printStream.failure(err);
+function sudoFail(s, args) {
+    printStream.failure(s, args);
 }
-function sudoInfo(inf) {
-    printStream.info(inf);
+function sudoInfo(s, args) {
+    printStream.info(s, args);
 }
-const sudoCmd = new Command("sudo", "changes name shown in chat", [
+const sudoCmd = new Command(locale.get("cmd_name_sudo"), locale.get("cmd_description_sudo"), [
     new CommandFormat([
-        new CommandParameter("name", ARG_STRING, false),
-        new CommandParameter("target", ARG_STRING, false)
+        new CommandParameter(locale.get("cmd_args_name"), ARG_STRING, false),
+        new CommandParameter(locale.get("cmd_args_target"), ARG_STRING, false)
     ]),
     new CommandFormat([
-        new CommandParameter("on|off|toggle", ARG_RADIO(["on", "off", "toggle"]), false)
+        new CommandParameter(locale.get("cmd_args_sudoOptions"), ARG_RADIO([locale.get("cmd_args_sudo_on"), locale.get("cmd_args_sudo_off"), locale.get("cmd_args_sudo_toggle")]), false)
     ])
 ], sudo, sudoSucceed, sudoFail, sudoInfo, 3);
 export { sudoCmd };

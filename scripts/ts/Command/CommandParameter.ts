@@ -139,10 +139,5 @@ export class CommandFormat {
             .slice(0,-2))
             .exec(cmd)
             .slice(1);
-        /*return cmd.split(RegExp(this.para.map(a => a.type.regType.source)
-                                             .join("")
-                                             .slice(0,-2)))
-                  .filter(b => b!=="" && b!==" " && b!==undefined)
-                  .map(c => c.trim());*/
     }
 }

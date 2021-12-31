@@ -6,7 +6,7 @@ import { Player, world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
 import { locale } from "../../Utils/constants/LocalisationStrings.js";
-function playtime(
+function firstjoined(
     player: Player,
     args: Map<string, any>,
     subCmd: number): MCWLCommandReturn {
@@ -15,27 +15,27 @@ function playtime(
             let players: Player[] = world.getPlayers()
             for (let i of players) {
                 if (i.name == args.get(locale.get("cmd_args_target"))) {
-                    let playTime: number = parseInt(PlayerTag.read(i, MCWLNamespaces.playtime).data as string);
-                    return new MCWLCommandReturn(0, locale.get("cmd_return_playtime_0_info"), args.get(locale.get("cmd_args_target")), playTime);
+                    let firstjoined: string = PlayerTag.read(i, MCWLNamespaces.playerFirstJoined).data;
+                    return new MCWLCommandReturn(0, locale.get("cmd_return_firstjoined_0_info"), args.get(locale.get("cmd_args_target")), firstjoined);
                 }
             }
 
         default:
-            return new MCWLCommandReturn(1, locale.get("cmd_return_default"), playtimeCmd.name);
+            return new MCWLCommandReturn(1, locale.get("cmd_return_default"), firstjoinedCmd.name);
     }
 }
-function playtimeSucceed(s: string, args: any[]) {
+function firstjoinedSucceed(s: string, args: any[]) {
     printStream.success(s, args);
 }
-function playtimeFail(s: string, args: any[]) {
+function firstjoinedFail(s: string, args: any[]) {
     printStream.failure(s, args);
 }
-function playtimeInfo(s: string, args: any[]) {
+function firstjoinedInfo(s: string, args: any[]) {
     printStream.info(s, args);
 }
-const playtimeCmd = new Command(
-    locale.get("cmd_name_playtime"),
-    locale.get("cmd_description_playtime"),
+const firstjoinedCmd = new Command(
+    locale.get("cmd_name_firstjoined"),
+    locale.get("cmd_description_firstjoined"),
     [
         new CommandFormat(
             [
@@ -43,10 +43,10 @@ const playtimeCmd = new Command(
             ]
         )
     ],
-    playtime,
-    playtimeSucceed,
-    playtimeFail,
-    playtimeInfo,
+    firstjoined,
+    firstjoinedSucceed,
+    firstjoinedFail,
+    firstjoinedInfo,
     3
 );
-export { playtimeCmd };
+export { firstjoinedCmd };

@@ -4,32 +4,34 @@ import { PlayerTag } from "../../Utils/data/PlayerTag.js";
 import { printStream } from "../../Main.js";
 import { world } from "mojang-minecraft";
 import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
+import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
+import { locale } from "../../Utils/constants/LocalisationStrings.js";
 function playtime(player, args, subCmd) {
     switch (subCmd) {
         case 0:
             let players = world.getPlayers();
             for (let i of players) {
-                if (i.name == args.get("target")) {
-                    let playTime = PlayerTag.read(i, MCWLNamespaces.playtime).data;
-                    return [`${args.get("target")} has played for ${playTime} ticks`, 0];
+                if (i.name == args.get(locale.get("cmd_args_target"))) {
+                    let playTime = parseInt(PlayerTag.read(i, MCWLNamespaces.playtime).data);
+                    return new MCWLCommandReturn(0, locale.get("cmd_return_playtime_0_info"), args.get(locale.get("cmd_args_target")), playTime);
                 }
             }
         default:
-            return [`subCmd index ${subCmd} out of range. subCmd does not exist`, 1];
+            return new MCWLCommandReturn(1, locale.get("cmd_return_default"), playtimeCmd.name);
     }
 }
-function playtimeSucceed(suc) {
-    printStream.success(suc);
+function playtimeSucceed(s, args) {
+    printStream.success(s, args);
 }
-function playtimeFail(err) {
-    printStream.failure(err);
+function playtimeFail(s, args) {
+    printStream.failure(s, args);
 }
-function playtimeInfo(inf) {
-    printStream.info(inf);
+function playtimeInfo(s, args) {
+    printStream.info(s, args);
 }
-const playtimeCmd = new Command("playtime", "Displays playtime of player", [
+const playtimeCmd = new Command(locale.get("cmd_name_playtime"), locale.get("cmd_description_playtime"), [
     new CommandFormat([
-        new CommandParameter("target", ARG_STRING, false)
+        new CommandParameter(locale.get("cmd_args_target"), ARG_STRING, false)
     ])
 ], playtime, playtimeSucceed, playtimeFail, playtimeInfo, 3);
 export { playtimeCmd };

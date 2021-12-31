@@ -22,6 +22,8 @@ import { playtimeCmd } from "./Command/Commands/playtimeCommand.js";
 import { topCmd } from "./Command/Commands/topCommand.js";
 import { helpCmd } from "./Command/Commands/helpCommand.js";
 import { playerjoinedCmd } from "./Command/Commands/playerjoinedCommand.js";
+import { firstjoinedCmd } from "./Command/Commands/firstjoinedCommand.js";
+import { locale } from "./Utils/constants/LocalisationStrings.js";
 export let printStream = new PrintStream(world.getDimension("overworld"));
 export let playerBlockSelection = [];
 export let playerBlockStatDB = new Map();
@@ -36,6 +38,7 @@ export let playerDistTravelledDB = new Map();
 export let playerPrevLocDB = new Map();
 export let playerPlaytimeDB = new Map();
 export let playerSudoDB = new Map();
+export let playerFirstJoinedDB = new Map();
 export let commands = [
     ascendCmd,
     blocksintCmd,
@@ -43,6 +46,7 @@ export let commands = [
     crouchtimeCmd,
     descendCmd,
     distancemovedCmd,
+    firstjoinedCmd,
     floorCmd,
     gotoCmd,
     helpCmd,
@@ -101,6 +105,10 @@ function getPlayer(name) {
     }
 }
 world.events.playerJoin.subscribe((eventData) => {
+    if (!PlayerTag.hasTag(eventData.player, MCWLNamespaces.playerFirstJoined)) {
+        printStream.info(locale.get('player_welcome'), [eventData.player.name]);
+    }
+    initializeDB(playerFirstJoinedDB, eventData.player, MCWLNamespaces.playerFirstJoined, new Date().toString());
     playerPrevLocDB.set(eventData.player, eventData.player.location);
     initializeDB(playerCrouchTimeDB, eventData.player, MCWLNamespaces.sneakDuration, 0);
     initializeDB(playerDistTravelledDB, eventData.player, MCWLNamespaces.distanceTravelled, 0);
@@ -114,7 +122,7 @@ world.events.playerJoin.subscribe((eventData) => {
     new BlockStatDB(3, 5).initialize(playerBlockStatDB3, eventData.player, new BlockStatDB(3, 5), 3);
     new BlockStatDB(4, 5).initialize(playerBlockStatDB4, eventData.player, new BlockStatDB(4, 5), 4);
     playerJoinedDB.set(eventData.player, playerJoinedDB.get(eventData.player) + 1);
-    saveDBToTag(playerJoinedDB.get(eventData.player), eventData.player, "number", MCWLNamespaces.playerJoined);
+    saveDBToTag(playerJoinedDB.get(eventData.player), eventData.player, 'number', MCWLNamespaces.playerJoined);
 });
 world.events.beforeItemUseOn.subscribe((eventData) => {
     if (eventData.source.id == "minecraft:player") {
@@ -165,6 +173,7 @@ world.events.beforeItemUseOn.subscribe((eventData) => {
 world.events.playerLeave.subscribe((eventData) => {
 });
 world.events.tick.subscribe((eventData) => {
+    printStream.broadcast();
     let pList = world.getPlayers();
     for (let p of pList) {
         if (!playerPrevLocDB.get(p).equals(p.location)) {
@@ -184,28 +193,28 @@ world.events.tick.subscribe((eventData) => {
 });
 world.events.blockBreak.subscribe((eventData) => {
     let id = BlockStatDB.getBlockBroken(eventData.player);
-    playerBlockStatDB.get(eventData.player).add(id, "blocksBroken");
+    playerBlockStatDB.get(eventData.player).add(id, locale.get("cmd_args_blocksBroken"));
     playerBlockStatDB.get(eventData.player).saveToTag(eventData.player, 0);
-    playerBlockStatDB1.get(eventData.player).add(id, "blocksBroken");
+    playerBlockStatDB1.get(eventData.player).add(id, locale.get("cmd_args_blocksBroken"));
     playerBlockStatDB1.get(eventData.player).saveToTag(eventData.player, 1);
-    playerBlockStatDB2.get(eventData.player).add(id, "blocksBroken");
+    playerBlockStatDB2.get(eventData.player).add(id, locale.get("cmd_args_blocksBroken"));
     playerBlockStatDB2.get(eventData.player).saveToTag(eventData.player, 2);
-    playerBlockStatDB3.get(eventData.player).add(id, "blocksBroken");
+    playerBlockStatDB3.get(eventData.player).add(id, locale.get("cmd_args_blocksBroken"));
     playerBlockStatDB3.get(eventData.player).saveToTag(eventData.player, 3);
-    playerBlockStatDB4.get(eventData.player).add(id, "blocksBroken");
+    playerBlockStatDB4.get(eventData.player).add(id, locale.get("cmd_args_blocksBroken"));
     playerBlockStatDB4.get(eventData.player).saveToTag(eventData.player, 4);
 });
 world.events.blockPlace.subscribe((eventData) => {
     let id = eventData.block.id;
-    playerBlockStatDB.get(eventData.player).add(id, "blocksPlaced");
+    playerBlockStatDB.get(eventData.player).add(id, locale.get("cmd_args_blocksPlaced"));
     playerBlockStatDB.get(eventData.player).saveToTag(eventData.player, 0);
-    playerBlockStatDB1.get(eventData.player).add(id, "blocksPlaced");
+    playerBlockStatDB1.get(eventData.player).add(id, locale.get("cmd_args_blocksPlaced"));
     playerBlockStatDB1.get(eventData.player).saveToTag(eventData.player, 1);
-    playerBlockStatDB2.get(eventData.player).add(id, "blocksPlaced");
+    playerBlockStatDB2.get(eventData.player).add(id, locale.get("cmd_args_blocksPlaced"));
     playerBlockStatDB2.get(eventData.player).saveToTag(eventData.player, 2);
-    playerBlockStatDB3.get(eventData.player).add(id, "blocksPlaced");
+    playerBlockStatDB3.get(eventData.player).add(id, locale.get("cmd_args_blocksPlaced"));
     playerBlockStatDB3.get(eventData.player).saveToTag(eventData.player, 3);
-    playerBlockStatDB4.get(eventData.player).add(id, "blocksPlaced");
+    playerBlockStatDB4.get(eventData.player).add(id, locale.get("cmd_args_blocksPlaced"));
     playerBlockStatDB4.get(eventData.player).saveToTag(eventData.player, 4);
 });
 world.events.beforeChat.subscribe((eventData) => {
@@ -230,7 +239,7 @@ function cmdHandler(chatEvent) {
     const player = chatEvent.sender;
     let cmdIdx = commands.map(a => a.name).indexOf(cmdBase);
     if (cmdIdx == -1) {
-        printStream.failure(`Command not found. Use ,help for a list of all commands.`);
+        printStream.failure(locale.get("cmd_not_found"));
         return;
     }
     let subCmdIdx = commands[cmdIdx].cmdParameters.map(a => a.testRegex(cmdArgs)).indexOf(true);
@@ -238,22 +247,23 @@ function cmdHandler(chatEvent) {
         let args = commands[cmdIdx].cmdParameters[subCmdIdx].parseRegex(cmdArgs);
         let parsedArgs = new Map();
         commands[cmdIdx].cmdParameters[subCmdIdx].para.map((para, i) => { parsedArgs.set(para.name, para.type.parse(args[i])); });
-        const retArgs = commands[cmdIdx].execute(player, parsedArgs, subCmdIdx);
-        const retMsg = retArgs[0];
-        const errCode = retArgs[1];
+        const ret = commands[cmdIdx].execute(player, parsedArgs, subCmdIdx);
+        const retMsg = ret.returnMessage;
+        const errCode = ret.errorCode;
+        const retArgs = ret.messageArgs;
         switch (errCode) {
             case 0:
-                commands[cmdIdx].success(retMsg);
+                commands[cmdIdx].success(retMsg, retArgs);
                 break;
             case 1:
-                commands[cmdIdx].failure(retMsg);
+                commands[cmdIdx].failure(retMsg, retArgs);
                 break;
             case 2:
-                commands[cmdIdx].info(retMsg);
+                commands[cmdIdx].info(retMsg, retArgs);
                 break;
         }
     }
     else {
-        printStream.failure(`Command Format Invalid. Use ,help for a list of all command formats.`);
+        printStream.failure(locale.get("cmd_return_default"));
     }
 }
