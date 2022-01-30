@@ -1,10 +1,8 @@
 import { CommandFormat, CommandParameter, ARG_STRING, ARG_RADIO } from "../CommandParameter.js";
 import { Command } from "../Command.js";
-import { PlayerTag } from "../../Utils/data/PlayerTag.js";
-import { printStream } from "../../Main.js";
-import { Player, world } from "mojang-minecraft";
-import { blockIntNamespaces, BlocksIntDB } from "../../Utils/stats/BlocksIntDB.js";
-import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
+import { playerDB, printStream } from "../../Main.js";
+import { EntityIterator, Player, world } from "mojang-minecraft";
+import { blockIntNamespaces } from "../../Utils/stats/BlocksIntDB.js";
 import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
 import { locale } from "../../Utils/constants/LocalisationStrings.js";
 function blocksint(
@@ -13,11 +11,10 @@ function blocksint(
     subCmd: number): MCWLCommandReturn {
     switch (subCmd) {
         case 0:
-            let players: Player[] = world.getPlayers()
+            let players: EntityIterator = world.getPlayers()
             for (let i of players) {
-                if (i.name == args.get(locale.get("cmd_args_target"))) {
-                    let r: BlocksIntDB = new BlocksIntDB(PlayerTag.read(i, MCWLNamespaces.blockInteractions).data);
-                    let entry = r.getEntryById(args.get(locale.get("cmd_args_statType")));
+                if ((i as Player).name == args.get(locale.get("cmd_args_target"))) {
+                    let entry = playerDB.get((i as Player).name).blockInt.getEntryById(args.get(locale.get("cmd_args_statType")));
                     return new MCWLCommandReturn(0, locale.get("cmd_return_blocksint_0_info"), args.get("target"), entry.stat, entry.count);
                 }
             }

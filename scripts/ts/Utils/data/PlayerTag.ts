@@ -15,6 +15,7 @@ export class PlayerTag {
             if (j.name == this.pData.name) {
                 player.removeTag(i)
                 player.addTag(JSON.stringify(this.pData));
+                
                 return
             };
         }

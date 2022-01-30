@@ -32,9 +32,6 @@ export class SudoEntry {
     initialize(playerMap, player) {
         if (!PlayerTag.hasTag(player, MCWLNamespaces.sudo)) {
             playerMap.set(player, this);
-            let data = new PlayerData(this, "object", MCWLNamespaces.sudo);
-            let tag = new PlayerTag(data);
-            tag.write(player);
         }
         else {
             let tag = PlayerTag.read(player, MCWLNamespaces.sudo).data;
@@ -48,5 +45,8 @@ export class SudoEntry {
         let data = new PlayerData(this, "object", MCWLNamespaces.sudo);
         let tag = new PlayerTag(data);
         tag.write(player);
+    }
+    toJSONString() {
+        return JSON.stringify(new PlayerData(this, "object", MCWLNamespaces.sudo));
     }
 }

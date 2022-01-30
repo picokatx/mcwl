@@ -8,4 +8,7 @@ export var MCWLNamespaces;
     MCWLNamespaces["playtime"] = "mcwl:playtime";
     MCWLNamespaces["playerJoined"] = "mcwl:player_joined";
     MCWLNamespaces["playerFirstJoined"] = "mcwl:player_first_joined";
+    MCWLNamespaces["playerName"] = "mcwl:player_name";
+    MCWLNamespaces["versionID"] = "mcwl:version_id";
+    MCWLNamespaces["storageID"] = "mcwl:storage_id";
 })(MCWLNamespaces || (MCWLNamespaces = {}));

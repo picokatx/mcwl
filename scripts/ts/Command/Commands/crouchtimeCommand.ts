@@ -1,9 +1,7 @@
 import { CommandFormat, CommandParameter, ARG_STRING } from "../CommandParameter.js";
 import { Command } from "../Command.js";
-import { PlayerTag } from "../../Utils/data/PlayerTag.js";
-import { printStream } from "../../Main.js";
-import { Player, world } from "mojang-minecraft";
-import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
+import { playerDB, printStream } from "../../Main.js";
+import { EntityIterator, Player, world } from "mojang-minecraft";
 import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
 import { locale } from "../../Utils/constants/LocalisationStrings.js";
 function crouchtime(
@@ -12,10 +10,10 @@ function crouchtime(
     subCmd: number): MCWLCommandReturn {
     switch (subCmd) {
         case 0:
-            let players: Player[] = world.getPlayers()
+            let players: EntityIterator = world.getPlayers()
             for (let i of players) {
-                if (i.name == args.get(locale.get("cmd_args_target"))) {
-                    let sneakTime: number = parseInt(PlayerTag.read(i, MCWLNamespaces.sneakDuration).data as string);
+                if ((i as Player).name == args.get(locale.get("cmd_args_target"))) {
+                    let sneakTime: number = playerDB.get((i as Player).name).crouchTime
                     return new MCWLCommandReturn(0, locale.get("cmd_return_crouchtime_0_info"), args.get(locale.get("cmd_args_target")), sneakTime);
                 }
             }

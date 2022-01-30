@@ -1,11 +1,7 @@
 import { CommandFormat, CommandParameter, ARG_STRING, ARG_RADIO } from "../CommandParameter.js";
 import { Command } from "../Command.js";
-import { PlayerTag } from "../../Utils/data/PlayerTag.js";
-import { printStream } from "../../Main.js";
-import { BlockStatEntry } from "../../Utils/stats/BlockStatEntry.js";
-import { BlockStatDB } from "../../Utils/stats/BlockStatDB.js";
-import { Player, world } from "mojang-minecraft";
-import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
+import { playerDB, printStream } from "../../Main.js";
+import { EntityIterator, Player, world } from "mojang-minecraft";
 import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
 import { locale } from "../../Utils/constants/LocalisationStrings.js";
 function blocksmodified(
@@ -14,16 +10,11 @@ function blocksmodified(
     subCmd: number): MCWLCommandReturn {
     switch (subCmd) {
         case 0:
-            let players: Player[] = world.getPlayers()
+            let players: EntityIterator = world.getPlayers()
             for (let i of players) {
-                if (i.name == args.get(locale.get("cmd_args_target"))) {
-                    let r: BlockStatEntry[] = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_0").data;
-                    let r1: BlockStatEntry[] = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_1").data;
-                    let r2: BlockStatEntry[] = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_2").data;
-                    let r3: BlockStatEntry[] = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_3").data;
-                    let r4: BlockStatEntry[] = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_4").data;
-                    let bmEntry: BlockStatDB[] = [new BlockStatDB(r), new BlockStatDB(r1), new BlockStatDB(r2), new BlockStatDB(r3), new BlockStatDB(r4)]
-                    for (let i of bmEntry) {
+                if ((i as Player).name == args.get(locale.get("cmd_args_target"))) {
+                    let r  = playerDB.get((i as Player).name).blockMod
+                    for (let i of r) {
                         if (i.getEntryById(args.get(locale.get("cmd_args_blockName"))) != null) {
                             if (args.get(locale.get("cmd_args_statType")) == locale.get("cmd_args_blocksBroken")) {
                                 return new MCWLCommandReturn(0, locale.get("cmd_return_blocksmodified_0_broken_info"), args.get(locale.get("cmd_args_target")), i.getEntryById(args.get(locale.get("cmd_args_blockName"))).blocksBroken, i.getEntryById(args.get(locale.get("cmd_args_blockName"))).id)
@@ -35,7 +26,6 @@ function blocksmodified(
                     return new MCWLCommandReturn(1, locale.get("cmd_return_blocksmodified_0_failure"), args.get("blockName"));
                 }
             }
-
         default:
             return new MCWLCommandReturn(1, locale.get("cmd_return_default"), blocksmodifiedCmd.name);
     }

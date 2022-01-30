@@ -1,4 +1,4 @@
-import { Dimension, Player } from "mojang-minecraft";
+import { Dimension, EntityIterator, Player } from "mojang-minecraft";
 import { ColorCodes } from "../constants/ColorCodes.js";
 import { CustomCharID } from "../constants/CustomCharID.js";
 import { Console } from "./Console.js";
@@ -134,10 +134,10 @@ export class PrintStream {
         this.queued.push(Console.tellraw(this.outputStream));
         this.outputStream = "";
     }
-    chat(s: string, player: Player, targets: Player[]) {
+    chat(s: string, player: Player, targets: EntityIterator) {
         this.flush();
         for (let i of targets) {
-            this.queued.push(Console.chat(this.replaceWithEmotes(s), player, i.name));
+            this.queued.push(Console.chat(this.replaceWithEmotes(s), player, (i as Player).name));
         }
     }
     sudoChat(s: string, name: string, target: string) {

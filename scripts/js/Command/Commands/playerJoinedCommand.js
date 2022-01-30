@@ -1,9 +1,7 @@
 import { CommandFormat, CommandParameter, ARG_STRING } from "../CommandParameter.js";
 import { Command } from "../Command.js";
-import { PlayerTag } from "../../Utils/data/PlayerTag.js";
-import { printStream } from "../../Main.js";
+import { playerDB, printStream } from "../../Main.js";
 import { world } from "mojang-minecraft";
-import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
 import { locale } from "../../Utils/constants/LocalisationStrings.js";
 function playerjoined(player, args, subCmd) {
@@ -12,7 +10,7 @@ function playerjoined(player, args, subCmd) {
             let players = world.getPlayers();
             for (let i of players) {
                 if (i.name == args.get(locale.get("cmd_args_target"))) {
-                    let playerJoined = parseInt(PlayerTag.read(i, MCWLNamespaces.playerJoined).data);
+                    let playerJoined = playerDB.get(i.name).joined;
                     return new MCWLCommandReturn(0, locale.get("cmd_return_playerjoined_0_info"), args.get(locale.get("cmd_args_target")), playerJoined);
                 }
             }

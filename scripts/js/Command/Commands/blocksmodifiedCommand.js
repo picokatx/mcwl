@@ -1,10 +1,7 @@
 import { CommandFormat, CommandParameter, ARG_STRING, ARG_RADIO } from "../CommandParameter.js";
 import { Command } from "../Command.js";
-import { PlayerTag } from "../../Utils/data/PlayerTag.js";
-import { printStream } from "../../Main.js";
-import { BlockStatDB } from "../../Utils/stats/BlockStatDB.js";
+import { playerDB, printStream } from "../../Main.js";
 import { world } from "mojang-minecraft";
-import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
 import { locale } from "../../Utils/constants/LocalisationStrings.js";
 function blocksmodified(player, args, subCmd) {
@@ -13,13 +10,8 @@ function blocksmodified(player, args, subCmd) {
             let players = world.getPlayers();
             for (let i of players) {
                 if (i.name == args.get(locale.get("cmd_args_target"))) {
-                    let r = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_0").data;
-                    let r1 = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_1").data;
-                    let r2 = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_2").data;
-                    let r3 = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_3").data;
-                    let r4 = PlayerTag.read(i, MCWLNamespaces.blocksModified + "_4").data;
-                    let bmEntry = [new BlockStatDB(r), new BlockStatDB(r1), new BlockStatDB(r2), new BlockStatDB(r3), new BlockStatDB(r4)];
-                    for (let i of bmEntry) {
+                    let r = playerDB.get(i.name).blockMod;
+                    for (let i of r) {
                         if (i.getEntryById(args.get(locale.get("cmd_args_blockName"))) != null) {
                             if (args.get(locale.get("cmd_args_statType")) == locale.get("cmd_args_blocksBroken")) {
                                 return new MCWLCommandReturn(0, locale.get("cmd_return_blocksmodified_0_broken_info"), args.get(locale.get("cmd_args_target")), i.getEntryById(args.get(locale.get("cmd_args_blockName"))).blocksBroken, i.getEntryById(args.get(locale.get("cmd_args_blockName"))).id);

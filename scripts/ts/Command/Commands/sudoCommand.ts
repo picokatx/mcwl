@@ -1,9 +1,7 @@
 import { CommandFormat, CommandParameter, ARG_STRING, ARG_RADIO } from "../CommandParameter.js";
 import { Command } from "../Command.js";
-import { PlayerTag } from "../../Utils/data/PlayerTag.js";
-import { printStream } from "../../Main.js";
+import { playerDB, printStream } from "../../Main.js";
 import { SudoEntry } from "../../Utils/stats/SudoEntry.js";
-import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 import { Player } from "mojang-minecraft";
 import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
 import { locale } from "../../Utils/constants/LocalisationStrings.js";
@@ -11,10 +9,10 @@ function sudo(
     player: Player,
     args: Map<string, any>,
     subCmd: number): MCWLCommandReturn {
-    let pData: SudoEntry = Object.assign(new SudoEntry(), PlayerTag.read(player, MCWLNamespaces.sudo).data);
+    let pData: SudoEntry = playerDB.get(player.name).sudo;
     switch (subCmd) {
         case 0:
-            new SudoEntry(true, args.get(locale.get("cmd_args_name")), args.get(locale.get("cmd_args_target"))).saveToTag(player);
+            playerDB.get(player.name).sudo = new SudoEntry(true, args.get(locale.get("cmd_args_name")), args.get(locale.get("cmd_args_target")));
             return new MCWLCommandReturn(0, locale.get("cmd_return_sudo_0_success"), player.name, args.get(locale.get("cmd_args_name")), args.get(locale.get("cmd_args_target")));
         case 1:
             switch (args.get(locale.get("cmd_args_sudoOptions"))) {

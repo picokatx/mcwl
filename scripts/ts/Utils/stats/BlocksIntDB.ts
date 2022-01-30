@@ -205,9 +205,9 @@ export class BlocksIntDB implements BaseTagDB {
     initialize(playerMap: Map<Player, BlocksIntDB>, player: Player, defaultValue: BlocksIntDB) {
         if (!PlayerTag.hasTag(player, MCWLNamespaces.blockInteractions)) {
             playerMap.set(player, defaultValue);
-            let data: PlayerData = new PlayerData(this.db, "object", MCWLNamespaces.blockInteractions);
+            /*let data: PlayerData = new PlayerData(this.db, "object", MCWLNamespaces.blockInteractions);
             let tag: PlayerTag = new PlayerTag(data);
-            tag.write(player);
+            tag.write(player);*/
         } else {
             this.db = PlayerTag.read(player, MCWLNamespaces.blockInteractions).data;
             playerMap.set(player, this);
@@ -217,5 +217,8 @@ export class BlocksIntDB implements BaseTagDB {
         let data: PlayerData = new PlayerData(this.db, "object", MCWLNamespaces.blockInteractions);
         let tag: PlayerTag = new PlayerTag(data);
         tag.write(player);
+    }
+    toJSONString():string {
+        return JSON.stringify(new PlayerData(this.db, "object", MCWLNamespaces.blockInteractions));
     }
 }

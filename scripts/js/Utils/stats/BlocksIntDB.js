@@ -162,9 +162,6 @@ export class BlocksIntDB {
     initialize(playerMap, player, defaultValue) {
         if (!PlayerTag.hasTag(player, MCWLNamespaces.blockInteractions)) {
             playerMap.set(player, defaultValue);
-            let data = new PlayerData(this.db, "object", MCWLNamespaces.blockInteractions);
-            let tag = new PlayerTag(data);
-            tag.write(player);
         }
         else {
             this.db = PlayerTag.read(player, MCWLNamespaces.blockInteractions).data;
@@ -175,5 +172,8 @@ export class BlocksIntDB {
         let data = new PlayerData(this.db, "object", MCWLNamespaces.blockInteractions);
         let tag = new PlayerTag(data);
         tag.write(player);
+    }
+    toJSONString() {
+        return JSON.stringify(new PlayerData(this.db, "object", MCWLNamespaces.blockInteractions));
     }
 }

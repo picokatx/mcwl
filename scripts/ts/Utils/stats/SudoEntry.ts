@@ -37,9 +37,9 @@ export class SudoEntry implements BaseTagEntry {
     initialize(playerMap: Map<Player, SudoEntry>, player: Player,) {
         if (!PlayerTag.hasTag(player, MCWLNamespaces.sudo)) {
             playerMap.set(player, this);
-            let data: PlayerData = new PlayerData(this, "object", MCWLNamespaces.sudo);
+            /*let data: PlayerData = new PlayerData(this, "object", MCWLNamespaces.sudo);
             let tag: PlayerTag = new PlayerTag(data);
-            tag.write(player);
+            tag.write(player);*/
         } else {
             let tag = PlayerTag.read(player, MCWLNamespaces.sudo).data;
             this.sudoToggled = tag.sudoToggled;
@@ -52,6 +52,9 @@ export class SudoEntry implements BaseTagEntry {
         let data: PlayerData = new PlayerData(this, "object", MCWLNamespaces.sudo);
         let tag: PlayerTag = new PlayerTag(data);
         tag.write(player);
+    }
+    toJSONString():string {
+        return JSON.stringify(new PlayerData(this, "object", MCWLNamespaces.sudo));
     }
 }
 export interface SudoEntryJSONData {

@@ -1,7 +1,12 @@
-import { BlockLocation, BlockProperties } from "mojang-minecraft";
+import { BlockLocation, BlockProperties, EntityQueryOptions, world } from "mojang-minecraft";
 import { minWorldHeight } from "../constants/MathConstants.js";
 import { PotionData } from "../constants/PotionID.js";
 export class DataHelper {
+    static getPlayer(name) {
+        let query = new EntityQueryOptions();
+        query.name = name;
+        return Array.from(world.getPlayers(query))[0];
+    }
     static cauldronHasWater(p) {
         return p.permutation.getProperty(BlockProperties.fillLevel).value != 0;
     }

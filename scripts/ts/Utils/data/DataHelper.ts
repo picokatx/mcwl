@@ -1,10 +1,15 @@
-import { Block, BlockLocation, BlockPermutation, BlockProperties, BlockType, CommandReturn, ItemStack, Player } from "mojang-minecraft";
+import { Block, BlockLocation, BlockPermutation, BlockProperties, BlockType, BoolBlockProperty, CommandReturn, EntityQueryOptions, IntBlockProperty, ItemStack, Player, world } from "mojang-minecraft";
 import { minWorldHeight } from "../constants/MathConstants.js";
 import { PotionData } from "../constants/PotionID.js";
 
 export class DataHelper {
+    static getPlayer(name: string): Player {
+        let query:EntityQueryOptions = new EntityQueryOptions();
+        query.name = name
+        return (Array.from(world.getPlayers(query))[0] as Player)
+    }
     static cauldronHasWater(p: Block) {
-        return p.permutation.getProperty(BlockProperties.fillLevel).value != 0;
+        return (p.permutation.getProperty(BlockProperties.fillLevel) as IntBlockProperty).value != 0;
     }
     static isPotion(i: ItemStack) {
         return !(i.data == PotionData.awkward ||
@@ -13,7 +18,7 @@ export class DataHelper {
             i.data == PotionData.thick);
     }
     static campfireIsLit(p: Block) {
-        return !(p.permutation.getProperty(BlockProperties.extinguished).value)
+        return !((p.permutation.getProperty(BlockProperties.extinguished) as BoolBlockProperty).value)
     }
     static isContainerEmpty(container: Block) {
         let bLoc: BlockLocation = new BlockLocation(container.location.x, minWorldHeight, container.location.z);

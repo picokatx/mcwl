@@ -1,5 +1,4 @@
 import { Block, BlockType, MinecraftBlockTypes, Player } from "mojang-minecraft";
-import { playerBlockSelection } from "../../Main.js";
 import { MCWLNamespaces } from "../constants/MCWLNamespaces.js";
 import { PlayerBlockSelection } from "../data/PlayerBlockSelection.js";
 import { PlayerData } from "../data/PlayerData.js";
@@ -55,33 +54,17 @@ export class BlockStatDB implements BaseTagDB {
             }
         }
     }
-    static getBlockAtPointer(p: Player) {
-        if (playerBlockSelection.length >= 3) {
-            playerBlockSelection.shift();
-        }
-        let b: Block = p.getBlockFromViewVector();
-        if (b != null) {
-            playerBlockSelection.push(new PlayerBlockSelection(p, p.getBlockFromViewVector()));
-        }
-    }
-    static getBlockBroken(p: Player): string {
-        for (let i of playerBlockSelection) {
-            if (i.player.name == p.name && i.blockID != "minecraft:air" && i.blockID != "minecraft:water") {
-                return i.blockID;
-            }
-        }
-    }
     initialize(playerMap: Map<Player, BlockStatDB>, player: Player, defaultValue: BlockStatDB, dbNum?: number) {
         if (!PlayerTag.hasTag(player, MCWLNamespaces.blocksModified + "_" + dbNum)) {
             playerMap.set(player, defaultValue);
-            let data: PlayerData
+            /*let data: PlayerData
             if (dbNum == null) {
                 data = new PlayerData(this.db, "object", MCWLNamespaces.blocksModified);
             } else {
                 data = new PlayerData(this.db, "object", MCWLNamespaces.blocksModified + "_" + dbNum);
             }
             let tag: PlayerTag = new PlayerTag(data);
-            tag.write(player);
+            tag.write(player);*/
         } else {
             this.db = PlayerTag.read(player, MCWLNamespaces.blocksModified + "_" + dbNum).data
             playerMap.set(player, this);
@@ -96,5 +79,8 @@ export class BlockStatDB implements BaseTagDB {
         }
         let tag: PlayerTag = new PlayerTag(data);
         tag.write(player);
+    }
+    toJSONString():string {
+        return JSON.stringify(new PlayerData(this.db, "object", MCWLNamespaces.blocksModified));
     }
 }

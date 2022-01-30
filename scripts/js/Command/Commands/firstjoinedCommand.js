@@ -1,19 +1,19 @@
 import { CommandFormat, CommandParameter, ARG_STRING } from "../CommandParameter.js";
 import { Command } from "../Command.js";
-import { PlayerTag } from "../../Utils/data/PlayerTag.js";
-import { printStream } from "../../Main.js";
+import { playerDB, printStream } from "../../Main.js";
 import { world } from "mojang-minecraft";
-import { MCWLNamespaces } from "../../Utils/constants/MCWLNamespaces.js";
 import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
 import { locale } from "../../Utils/constants/LocalisationStrings.js";
 function firstjoined(player, args, subCmd) {
     switch (subCmd) {
         case 0:
             let players = world.getPlayers();
+            let p;
             for (let i of players) {
-                if (i.name == args.get(locale.get("cmd_args_target"))) {
-                    let firstjoined = PlayerTag.read(i, MCWLNamespaces.playerFirstJoined).data;
-                    return new MCWLCommandReturn(0, locale.get("cmd_return_firstjoined_0_info"), args.get(locale.get("cmd_args_target")), firstjoined);
+                p = i;
+                if (p.name == args.get(locale.get("cmd_args_target"))) {
+                    let firstJoined = playerDB.get(p.name).firstJoined;
+                    return new MCWLCommandReturn(0, locale.get("cmd_return_firstjoined_0_info"), args.get(locale.get("cmd_args_target")), firstJoined);
                 }
             }
         default:

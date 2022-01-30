@@ -1,9 +1,7 @@
 import { world, Items } from "mojang-minecraft";
 import { sudoCmd } from "./Command/Commands/sudoCommand.js";
-import { PlayerData } from "./Utils/data/PlayerData.js";
 import { PlayerTag } from "./Utils/data/PlayerTag.js";
 import { PrintStream } from "./Utils/logging/PrintStream.js";
-import { BlockStatDB } from "./Utils/stats/BlockStatDB.js";
 import { blocksmodifiedCmd } from "./Command/Commands/blocksmodifiedCommand.js";
 import { crouchtimeCmd } from "./Command/Commands/crouchtimeCommand.js";
 import { Vec3 } from "./Utils/data/vec3.js";
@@ -14,31 +12,20 @@ import { setblockCmd } from "./Command/Commands/setblockCommand.js";
 import { ascendCmd } from "./Command/Commands/ascendCommand.js";
 import { descendCmd } from "./Command/Commands/descendCommand.js";
 import { floorCmd } from "./Command/Commands/floorCommand.js";
-import { blockIntNamespaces, BlocksIntDB } from "./Utils/stats/BlocksIntDB.js";
+import { blockIntNamespaces } from "./Utils/stats/BlocksIntDB.js";
 import { blocksintCmd } from "./Command/Commands/blocksintCommand.js";
-import { SudoEntry } from "./Utils/stats/SudoEntry.js";
 import { MCWLNamespaces } from "./Utils/constants/MCWLNamespaces.js";
 import { playtimeCmd } from "./Command/Commands/playtimeCommand.js";
 import { topCmd } from "./Command/Commands/topCommand.js";
 import { helpCmd } from "./Command/Commands/helpCommand.js";
-import { playerjoinedCmd } from "./Command/Commands/playerjoinedCommand.js";
+import { playerjoinedCmd } from "./Command/Commands/playerJoinedCommand.js";
 import { firstjoinedCmd } from "./Command/Commands/firstjoinedCommand.js";
 import { locale } from "./Utils/constants/LocalisationStrings.js";
+import { PlayerDB } from "./Utils/data/PlayerDB.js";
+import { savedbCmd } from "./Command/Commands/savedbCommand.js";
 export let printStream = new PrintStream(world.getDimension("overworld"));
-export let playerBlockSelection = [];
-export let playerBlockStatDB = new Map();
-export let playerBlockStatDB1 = new Map();
-export let playerBlockStatDB2 = new Map();
-export let playerBlockStatDB3 = new Map();
-export let playerBlockStatDB4 = new Map();
-export let playerBlocksIntDB = new Map();
-export let playerCrouchTimeDB = new Map();
-export let playerJoinedDB = new Map();
-export let playerDistTravelledDB = new Map();
 export let playerPrevLocDB = new Map();
-export let playerPlaytimeDB = new Map();
-export let playerSudoDB = new Map();
-export let playerFirstJoinedDB = new Map();
+export let playerDB = new Map();
 export let commands = [
     ascendCmd,
     blocksintCmd,
@@ -53,76 +40,25 @@ export let commands = [
     playtimeCmd,
     playerjoinedCmd,
     topCmd,
-    sudoCmd,
-    spawnCmd,
+    savedbCmd,
     setblockCmd,
+    spawnCmd,
+    sudoCmd
 ];
 export const cmdPrefix = ",";
-function initializeDB(playerMap, player, tagName, defaultValue) {
-    if (!PlayerTag.hasTag(player, tagName)) {
-        playerMap.set(player, defaultValue);
-        let data;
-        if (typeof defaultValue == 'object') {
-            data = new PlayerData(defaultValue.db, "object", tagName);
-        }
-        else {
-            data = new PlayerData(defaultValue, typeof defaultValue, tagName);
-        }
-        let tag = new PlayerTag(data);
-        tag.write(player);
-    }
-    else {
-        if (typeof defaultValue == 'number') {
-            playerMap.set(player, parseInt(PlayerTag.read(player, tagName).data));
-        }
-        else if (typeof defaultValue == 'boolean') {
-            let b = PlayerTag.read(player, tagName).data;
-            if (b == "true") {
-                playerMap.set(player, true);
-            }
-            else {
-                playerMap.set(player, false);
-            }
-        }
-        else if (typeof defaultValue == 'object') {
-            playerMap.set(player, defaultValue.constructor(player, (PlayerTag.read(player, tagName).data)));
-        }
-        else if (typeof defaultValue == 'string') {
-            playerMap.set(player, PlayerTag.read(player, tagName).data);
-        }
-    }
-}
-function saveDBToTag(db, player, type, tagName) {
-    let data = new PlayerData(db, type, tagName);
-    let tag = new PlayerTag(data);
-    tag.write(player);
-}
-function getPlayer(name) {
-    for (let i of world.getPlayers()) {
-        if (i.name == name) {
-            return i;
-        }
-    }
-}
+world.events.playerLeave.subscribe((eventData) => {
+    printStream.println(`Hello! I hope you saved your player statistics, because if you didn't they're gone now.`);
+});
 world.events.playerJoin.subscribe((eventData) => {
     if (!PlayerTag.hasTag(eventData.player, MCWLNamespaces.playerFirstJoined)) {
         printStream.info(locale.get('player_welcome'), [eventData.player.name]);
+        playerDB.set(eventData.player.name, new PlayerDB(eventData.player, true));
     }
-    initializeDB(playerFirstJoinedDB, eventData.player, MCWLNamespaces.playerFirstJoined, new Date().toString());
-    playerPrevLocDB.set(eventData.player, eventData.player.location);
-    initializeDB(playerCrouchTimeDB, eventData.player, MCWLNamespaces.sneakDuration, 0);
-    initializeDB(playerDistTravelledDB, eventData.player, MCWLNamespaces.distanceTravelled, 0);
-    initializeDB(playerPlaytimeDB, eventData.player, MCWLNamespaces.playtime, 0);
-    initializeDB(playerJoinedDB, eventData.player, MCWLNamespaces.playerJoined, 0);
-    new BlocksIntDB().initialize(playerBlocksIntDB, eventData.player, new BlocksIntDB());
-    new SudoEntry(false, "pico", "@a").initialize(playerSudoDB, eventData.player);
-    new BlockStatDB(0, 5).initialize(playerBlockStatDB, eventData.player, new BlockStatDB(0, 5), 0);
-    new BlockStatDB(1, 5).initialize(playerBlockStatDB1, eventData.player, new BlockStatDB(1, 5), 1);
-    new BlockStatDB(2, 5).initialize(playerBlockStatDB2, eventData.player, new BlockStatDB(2, 5), 2);
-    new BlockStatDB(3, 5).initialize(playerBlockStatDB3, eventData.player, new BlockStatDB(3, 5), 3);
-    new BlockStatDB(4, 5).initialize(playerBlockStatDB4, eventData.player, new BlockStatDB(4, 5), 4);
-    playerJoinedDB.set(eventData.player, playerJoinedDB.get(eventData.player) + 1);
-    saveDBToTag(playerJoinedDB.get(eventData.player), eventData.player, 'number', MCWLNamespaces.playerJoined);
+    else {
+        playerDB.set(eventData.player.name, new PlayerDB(eventData.player, false));
+    }
+    playerPrevLocDB.set(eventData.player.name, eventData.player.location);
+    playerDB.get(eventData.player.name).joined += 1;
 });
 world.events.beforeItemUseOn.subscribe((eventData) => {
     if (eventData.source.id == "minecraft:player") {
@@ -163,59 +99,38 @@ world.events.beforeItemUseOn.subscribe((eventData) => {
                 itemCheckEquals = i[1].itemDataCheck(eventData.item);
             }
             if (blockCheckEquals && itemCheckEquals) {
-                let bInt = playerBlocksIntDB.get(eventData.source);
-                bInt.add(i[0]);
-                bInt.saveToTag(eventData.source);
+                playerDB.get(eventData.source.name).blockInt.add(i[0]);
             }
         }
     }
 });
-world.events.playerLeave.subscribe((eventData) => {
-});
 world.events.tick.subscribe((eventData) => {
     printStream.broadcast();
     let pList = world.getPlayers();
-    for (let p of pList) {
-        if (!playerPrevLocDB.get(p).equals(p.location)) {
-            let l = playerPrevLocDB.get(p);
-            playerDistTravelledDB.set(p, playerDistTravelledDB.get(p) + new Vec3(l.x, l.y, l.z).distanceTo(new Vec3(p.location.x, p.location.y, p.location.z)));
-            playerPrevLocDB.set(p, p.location);
-            saveDBToTag(playerDistTravelledDB.get(p), p, "number", MCWLNamespaces.distanceTravelled);
+    for (let i of pList) {
+        let p = i;
+        if (!playerPrevLocDB.get(p.name).equals(p.location)) {
+            let l = playerPrevLocDB.get(p.name);
+            playerDB.get(p.name).distanceTravelled += new Vec3(l.x, l.y, l.z).distanceTo(new Vec3(p.location.x, p.location.y, p.location.z));
+            playerPrevLocDB.set(p.name, p.location);
         }
         if (p.isSneaking == true) {
-            playerCrouchTimeDB.set(p, playerCrouchTimeDB.get(p) + 1);
-            saveDBToTag(playerCrouchTimeDB.get(p), p, "number", MCWLNamespaces.sneakDuration);
+            playerDB.get(p.name).crouchTime++;
         }
-        playerPlaytimeDB.set(p, playerPlaytimeDB.get(p) + 1);
-        saveDBToTag(playerPlaytimeDB.get(p), p, "number", MCWLNamespaces.playtime);
-        BlockStatDB.getBlockAtPointer(p);
+        playerDB.get(p.name).playtime++;
     }
 });
 world.events.blockBreak.subscribe((eventData) => {
-    let id = BlockStatDB.getBlockBroken(eventData.player);
-    playerBlockStatDB.get(eventData.player).add(id, locale.get("cmd_args_blocksBroken"));
-    playerBlockStatDB.get(eventData.player).saveToTag(eventData.player, 0);
-    playerBlockStatDB1.get(eventData.player).add(id, locale.get("cmd_args_blocksBroken"));
-    playerBlockStatDB1.get(eventData.player).saveToTag(eventData.player, 1);
-    playerBlockStatDB2.get(eventData.player).add(id, locale.get("cmd_args_blocksBroken"));
-    playerBlockStatDB2.get(eventData.player).saveToTag(eventData.player, 2);
-    playerBlockStatDB3.get(eventData.player).add(id, locale.get("cmd_args_blocksBroken"));
-    playerBlockStatDB3.get(eventData.player).saveToTag(eventData.player, 3);
-    playerBlockStatDB4.get(eventData.player).add(id, locale.get("cmd_args_blocksBroken"));
-    playerBlockStatDB4.get(eventData.player).saveToTag(eventData.player, 4);
+    let id = eventData.brokenBlockPermutation.type.id;
+    for (let i of playerDB.get(eventData.player.name).blockMod) {
+        i.add(id, locale.get("cmd_args_blocksBroken"));
+    }
 });
 world.events.blockPlace.subscribe((eventData) => {
     let id = eventData.block.id;
-    playerBlockStatDB.get(eventData.player).add(id, locale.get("cmd_args_blocksPlaced"));
-    playerBlockStatDB.get(eventData.player).saveToTag(eventData.player, 0);
-    playerBlockStatDB1.get(eventData.player).add(id, locale.get("cmd_args_blocksPlaced"));
-    playerBlockStatDB1.get(eventData.player).saveToTag(eventData.player, 1);
-    playerBlockStatDB2.get(eventData.player).add(id, locale.get("cmd_args_blocksPlaced"));
-    playerBlockStatDB2.get(eventData.player).saveToTag(eventData.player, 2);
-    playerBlockStatDB3.get(eventData.player).add(id, locale.get("cmd_args_blocksPlaced"));
-    playerBlockStatDB3.get(eventData.player).saveToTag(eventData.player, 3);
-    playerBlockStatDB4.get(eventData.player).add(id, locale.get("cmd_args_blocksPlaced"));
-    playerBlockStatDB4.get(eventData.player).saveToTag(eventData.player, 4);
+    for (let i of playerDB.get(eventData.player.name).blockMod) {
+        i.add(id, locale.get("cmd_args_blocksPlaced"));
+    }
 });
 world.events.beforeChat.subscribe((eventData) => {
     if (eventData.message[0] === cmdPrefix) {
@@ -223,7 +138,7 @@ world.events.beforeChat.subscribe((eventData) => {
         cmdHandler(eventData);
     }
     else {
-        let rSudoData = Object.assign(new SudoEntry(), PlayerTag.read(eventData.sender, MCWLNamespaces.sudo).data);
+        let rSudoData = playerDB.get(eventData.sender.name).sudo;
         if (rSudoData.sudoToggled == true) {
             printStream.sudoChat(eventData.message, rSudoData.sudoName, rSudoData.target);
         }
