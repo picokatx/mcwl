@@ -24,6 +24,7 @@ Emote Support - Currently emotes for items with item id 256-380 are added
 - help
 - playerjoined
 - playtime
+- savedb
 - setblock
 - spawn
 - sudo
