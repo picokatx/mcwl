@@ -109,12 +109,13 @@ world.events.beforeItemUseOn.subscribe((eventData: BeforeItemUseOnEvent) => {
         }
     }
 })
-
+//let s = "actuallyitismybeliefthatthiswillnotduplicate"
 world.events.tick.subscribe((eventData: TickEvent) => {
     printStream.broadcast();
     let pList: EntityIterator = world.getPlayers();
     for (let i of pList) {
         let p:Player = i as Player
+        //p.nameTag = s
         if (!playerPrevLocDB.get(p.name).equals(p.location)) {
             let l: Location = playerPrevLocDB.get(p.name);
             playerDB.get(p.name).distanceTravelled += new Vec3(l.x, l.y, l.z).distanceTo(new Vec3(p.location.x, p.location.y, p.location.z))
@@ -132,6 +133,7 @@ world.events.blockBreak.subscribe((eventData: BlockBreakEvent) => {
         i.add(id, locale.get("cmd_args_blocksBroken") as any);
     }
 })
+
 world.events.blockPlace.subscribe((eventData: BlockPlaceEvent) => {
     let id: string = eventData.block.id;
     for (let i of playerDB.get(eventData.player.name).blockMod) {
@@ -139,6 +141,7 @@ world.events.blockPlace.subscribe((eventData: BlockPlaceEvent) => {
     }
 })
 world.events.beforeChat.subscribe((eventData: BeforeChatEvent) => {
+    //eventData.sender.runCommand(`say ${eventData.sender.nameTag}`)
     if (eventData.message[0] === cmdPrefix) {
         eventData.message = eventData.message.substring(1);
         cmdHandler(eventData);
