@@ -9,5 +9,7 @@ export enum MCWLNamespaces {
     playerFirstJoined = "mcwl:player_first_joined",
     playerName = "mcwl:player_name",
     versionID = "mcwl:version_id",
-    storageID = "mcwl:storage_id"
+    storageID = "mcwl:storage_id",
+    deaths = "mcwl:deaths",
+    timeSinceDeath = "mcwl:timeSinceDeath"
 }

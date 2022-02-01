@@ -16,12 +16,14 @@ Emote Support - Emotes for items with item id 256-380 are added
 - blocksint
 - blocksmodified
 - crouchtime
+- deaths
 - descend
 - distancemoved
 - firstjoined
 - floor
 - goto
 - help
+- lastdied
 - playerjoined
 - playtime
 - savedb

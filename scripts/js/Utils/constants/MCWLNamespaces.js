@@ -11,4 +11,6 @@ export var MCWLNamespaces;
     MCWLNamespaces["playerName"] = "mcwl:player_name";
     MCWLNamespaces["versionID"] = "mcwl:version_id";
     MCWLNamespaces["storageID"] = "mcwl:storage_id";
+    MCWLNamespaces["deaths"] = "mcwl:deaths";
+    MCWLNamespaces["timeSinceDeath"] = "mcwl:timeSinceDeath";
 })(MCWLNamespaces || (MCWLNamespaces = {}));

@@ -26,8 +26,9 @@ import { MCWLCommandReturn } from "./Command/MCWLCmdReturn.js";
 import { locale } from "./Utils/constants/LocalisationStrings.js";
 import { PlayerDB } from "./Utils/data/PlayerDB.js";
 import { savedbCmd } from "./Command/Commands/savedbCommand.js";
-import { MolangNamespaces, molangQueries } from "./Utils/constants/MolangNamespaces.js";
-
+import { MolangNamespaces } from "./Utils/constants/MolangNamespaces.js";
+import { deathsCmd } from "./Command/Commands/deathsCommand.js";
+import { lastdiedCmd } from "./Command/Commands/lastdiedCommand.js";
 export let printStream: PrintStream = new PrintStream(world.getDimension("overworld"));
 export let playerPrevLocDB: Map<string, Location> = new Map<string, Location>();
 export let playerDB: Map<string,PlayerDB> = new Map<string,PlayerDB>()
@@ -37,12 +38,14 @@ export let commands: Command[] = [
     blocksintCmd,
     blocksmodifiedCmd,
     crouchtimeCmd,
+    deathsCmd,
     descendCmd,
     distancemovedCmd,
     firstjoinedCmd,
     floorCmd,
     gotoCmd,
     helpCmd,
+    lastdiedCmd,
     playtimeCmd,
     playerjoinedCmd,
     topCmd,
@@ -54,14 +57,22 @@ export let commands: Command[] = [
 export const cmdPrefix = ",";
 world.events.beforeDataDrivenEntityTriggerEvent.subscribe((eventData: BeforeDataDrivenEntityTriggerEvent)=> {
     if (eventData.entity.id=="minecraft:player") {
-        let namespace: string[] = eventData.id.split(':')
-        molangQueries.set(namespace.slice(0,3).join(":"),namespace[3]==='true')
+        let namespace: string = eventData.id.split(':').slice(0,3).join(":")
+        let value: boolean = (eventData.id.split(':')[3])==='true'
+        let thisPlayerDB: PlayerDB = playerDB.get((eventData.entity as Player).name)
+        thisPlayerDB.molangQueries.set(namespace,value)
+        
+        if (namespace==MolangNamespaces.is_alive && value==false) {
+            thisPlayerDB.timeSinceDeath = 0
+            thisPlayerDB.deaths++;
+        }
     }
 })
 world.events.playerLeave.subscribe((eventData: PlayerLeaveEvent) => {
     printStream.println(`Hello! I hope you saved your player statistics, because if you didn't they're gone now.`)
 })
 world.events.playerJoin.subscribe((eventData: PlayerJoinEvent) => {
+    PlayerTag.clearTags(eventData.player);
     if (!PlayerTag.hasTag(eventData.player, MCWLNamespaces.playerFirstJoined)) {
         printStream.info(locale.get('player_welcome'), [eventData.player.name])
         playerDB.set(eventData.player.name,new PlayerDB(eventData.player,true))
@@ -118,15 +129,20 @@ world.events.tick.subscribe((eventData: TickEvent) => {
     let pList: EntityIterator = world.getPlayers();
     for (let i of pList) {
         let p:Player = i as Player
+        
         if (!playerPrevLocDB.get(p.name).equals(p.location)) {
             let l: Location = playerPrevLocDB.get(p.name);
             playerDB.get(p.name).distanceTravelled += new Vec3(l.x, l.y, l.z).distanceTo(new Vec3(p.location.x, p.location.y, p.location.z))
             playerPrevLocDB.set(p.name, p.location);
         }
+
         if (p.isSneaking == true) {
             playerDB.get(p.name).crouchTime++;
         }
+
         playerDB.get(p.name).playtime++
+
+        playerDB.get(p.name).timeSinceDeath++;
     }
 })
 

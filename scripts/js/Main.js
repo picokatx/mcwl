@@ -23,7 +23,9 @@ import { firstjoinedCmd } from "./Command/Commands/firstjoinedCommand.js";
 import { locale } from "./Utils/constants/LocalisationStrings.js";
 import { PlayerDB } from "./Utils/data/PlayerDB.js";
 import { savedbCmd } from "./Command/Commands/savedbCommand.js";
-import { molangQueries } from "./Utils/constants/MolangNamespaces.js";
+import { MolangNamespaces } from "./Utils/constants/MolangNamespaces.js";
+import { deathsCmd } from "./Command/Commands/deathsCommand.js";
+import { lastdiedCmd } from "./Command/Commands/lastdiedCommand.js";
 export let printStream = new PrintStream(world.getDimension("overworld"));
 export let playerPrevLocDB = new Map();
 export let playerDB = new Map();
@@ -32,12 +34,14 @@ export let commands = [
     blocksintCmd,
     blocksmodifiedCmd,
     crouchtimeCmd,
+    deathsCmd,
     descendCmd,
     distancemovedCmd,
     firstjoinedCmd,
     floorCmd,
     gotoCmd,
     helpCmd,
+    lastdiedCmd,
     playtimeCmd,
     playerjoinedCmd,
     topCmd,
@@ -49,14 +53,21 @@ export let commands = [
 export const cmdPrefix = ",";
 world.events.beforeDataDrivenEntityTriggerEvent.subscribe((eventData) => {
     if (eventData.entity.id == "minecraft:player") {
-        let namespace = eventData.id.split(':');
-        molangQueries.set(namespace.slice(0, 3).join(":"), namespace[3] === 'true');
+        let namespace = eventData.id.split(':').slice(0, 3).join(":");
+        let value = (eventData.id.split(':')[3]) === 'true';
+        let thisPlayerDB = playerDB.get(eventData.entity.name);
+        thisPlayerDB.molangQueries.set(namespace, value);
+        if (namespace == MolangNamespaces.is_alive && value == false) {
+            thisPlayerDB.timeSinceDeath = 0;
+            thisPlayerDB.deaths++;
+        }
     }
 });
 world.events.playerLeave.subscribe((eventData) => {
     printStream.println(`Hello! I hope you saved your player statistics, because if you didn't they're gone now.`);
 });
 world.events.playerJoin.subscribe((eventData) => {
+    PlayerTag.clearTags(eventData.player);
     if (!PlayerTag.hasTag(eventData.player, MCWLNamespaces.playerFirstJoined)) {
         printStream.info(locale.get('player_welcome'), [eventData.player.name]);
         playerDB.set(eventData.player.name, new PlayerDB(eventData.player, true));
@@ -125,6 +136,7 @@ world.events.tick.subscribe((eventData) => {
             playerDB.get(p.name).crouchTime++;
         }
         playerDB.get(p.name).playtime++;
+        playerDB.get(p.name).timeSinceDeath++;
     }
 });
 world.events.blockBreak.subscribe((eventData) => {
