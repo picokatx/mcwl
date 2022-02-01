@@ -1,11 +1,11 @@
 # MCBE WL
  Minecraft Bedrock Edition script pack that ports Java Edition statistics tracking to Bedrock Edition, and adds quality of life features
 ## Features
-Statistics Tracking - Statistics are tracked and stored in world data as player tags.
+Statistics Tracking - Statistics are tracked and is persistent when the player leaves.
 
 Mobility Commands - For easier navigation of larger worlds
 
-Emote Support - Currently emotes for items with item id 256-380 are added
+Emote Support - Emotes for items with item id 256-380 are added
 ## Requirements
 - 1.18.20.21 MCBE beta and above. Vanilla is not supported
 ## Installing

@@ -193,4 +193,4 @@ export class Locale {
         return this.languageMap.get(s);
     }
 }
-export const locale = new Locale("en_us", LOCALE_ZH_HANS);
+export const locale = new Locale("en_us", Locale_EN_GB);

@@ -23,7 +23,7 @@ import { firstjoinedCmd } from "./Command/Commands/firstjoinedCommand.js";
 import { locale } from "./Utils/constants/LocalisationStrings.js";
 import { PlayerDB } from "./Utils/data/PlayerDB.js";
 import { savedbCmd } from "./Command/Commands/savedbCommand.js";
-import { MolangNamespaces, molangQueries } from "./Utils/constants/MolangNamespaces.js";
+import { molangQueries } from "./Utils/constants/MolangNamespaces.js";
 export let printStream = new PrintStream(world.getDimension("overworld"));
 export let playerPrevLocDB = new Map();
 export let playerDB = new Map();
@@ -49,7 +49,6 @@ export let commands = [
 export const cmdPrefix = ",";
 world.events.beforeDataDrivenEntityTriggerEvent.subscribe((eventData) => {
     if (eventData.entity.id == "minecraft:player") {
-        printStream.println(eventData.id);
         let namespace = eventData.id.split(':');
         molangQueries.set(namespace.slice(0, 3).join(":"), namespace[3] === 'true');
     }
@@ -141,7 +140,6 @@ world.events.blockPlace.subscribe((eventData) => {
     }
 });
 world.events.beforeChat.subscribe((eventData) => {
-    printStream.println(molangQueries.get(MolangNamespaces.is_in_water_or_rain));
     if (eventData.message[0] === cmdPrefix) {
         eventData.message = eventData.message.substring(1);
         cmdHandler(eventData);
