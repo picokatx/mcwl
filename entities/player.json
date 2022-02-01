@@ -1,0 +1,587 @@
+{
+  "format_version": "1.18.10",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:player",
+      "is_spawnable": false,
+      "is_summonable": false,
+      "is_experimental": false,
+      "animations": {
+        "blocking": "controller.animation.player.mcwl.molangquery.blocking",
+        "can_climb": "controller.animation.player.mcwl.molangquery.can_climb",
+        "can_damage_nearby_mobs": "controller.animation.player.mcwl.molangquery.can_damage_nearby_mobs",
+        "can_fly": "controller.animation.player.mcwl.molangquery.can_fly",
+        "can_power_jump": "controller.animation.player.mcwl.molangquery.can_power_jump",
+        "can_swim": "controller.animation.player.mcwl.molangquery.can_swim",
+        "can_walk": "controller.animation.player.mcwl.molangquery.can_walk",
+        "facing_target_to_range_attack": "controller.animation.player.mcwl.molangquery.facing_target_to_range_attack",
+        "has_cape": "controller.animation.player.mcwl.molangquery.has_cape",
+        "has_collision": "controller.animation.player.mcwl.molangquery.has_collision",
+        "has_gravity": "controller.animation.player.mcwl.molangquery.has_gravity",
+        "has_rider": "controller.animation.player.mcwl.molangquery.has_rider",
+        "has_target": "controller.animation.player.mcwl.molangquery.has_target",
+        "is_admiring": "controller.animation.player.mcwl.molangquery.is_admiring",
+        "is_alive": "controller.animation.player.mcwl.molangquery.is_alive",
+        "is_angry": "controller.animation.player.mcwl.molangquery.is_angry",
+        "is_attached_to_entity": "controller.animation.player.mcwl.molangquery.is_attached_to_entity",
+        "is_avoiding_block": "controller.animation.player.mcwl.molangquery.is_avoiding_block",
+        "is_avoiding_mobs": "controller.animation.player.mcwl.molangquery.is_avoiding_mobs",
+        "is_baby": "controller.animation.player.mcwl.molangquery.is_baby",
+        "is_breathing": "controller.animation.player.mcwl.molangquery.is_breathing",
+        "is_bribed": "controller.animation.player.mcwl.molangquery.is_bribed",
+        "is_carrying_block": "controller.animation.player.mcwl.molangquery.is_carrying_block",
+        "is_casting": "controller.animation.player.mcwl.molangquery.is_casting",
+        "is_celebrating": "controller.animation.player.mcwl.molangquery.is_celebrating",
+        "is_celebrating_special": "controller.animation.player.mcwl.molangquery.is_celebrating_special",
+        "is_charged": "controller.animation.player.mcwl.molangquery.is_charged",
+        "is_charging": "controller.animation.player.mcwl.molangquery.is_charging",
+        "is_chested": "controller.animation.player.mcwl.molangquery.is_chested",
+        "is_critical": "controller.animation.player.mcwl.molangquery.is_critical",
+        "is_croaking": "controller.animation.player.mcwl.molangquery.is_croaking",
+        "is_dancing": "controller.animation.player.mcwl.molangquery.is_dancing",
+        "is_delayed_attacking": "controller.animation.player.mcwl.molangquery.is_delayed_attacking",
+        "is_eating": "controller.animation.player.mcwl.molangquery.is_eating",
+        "is_eating_mob": "controller.animation.player.mcwl.molangquery.is_eating_mob",
+        "is_elder": "controller.animation.player.mcwl.molangquery.is_elder",
+        "is_emoting": "controller.animation.player.mcwl.molangquery.is_emoting",
+        "is_enchanted": "controller.animation.player.mcwl.molangquery.is_enchanted",
+        "is_fire_immune": "controller.animation.player.mcwl.molangquery.is_fire_immune",
+        "is_first_person": "controller.animation.player.mcwl.molangquery.is_first_person",
+        "is_ghost": "controller.animation.player.mcwl.molangquery.is_ghost",
+        "is_gliding": "controller.animation.player.mcwl.molangquery.is_gliding",
+        "is_grazing": "controller.animation.player.mcwl.molangquery.is_grazing",
+        "is_idling": "controller.animation.player.mcwl.molangquery.is_idling",
+        "is_ignited": "controller.animation.player.mcwl.molangquery.is_ignited",
+        "is_illager_captain": "controller.animation.player.mcwl.molangquery.is_illager_captain",
+        "is_in_contact_with_water": "controller.animation.player.mcwl.molangquery.is_in_contact_with_water",
+        "is_in_love": "controller.animation.player.mcwl.molangquery.is_in_love",
+        "is_in_ui": "controller.animation.player.mcwl.molangquery.is_in_ui",
+        "is_in_water": "controller.animation.player.mcwl.molangquery.is_in_water",
+        "is_in_water_or_rain": "controller.animation.player.mcwl.molangquery.is_in_water_or_rain",
+        "is_interested": "controller.animation.player.mcwl.molangquery.is_interested",
+        "is_invisible": "controller.animation.player.mcwl.molangquery.is_invisible",
+        "is_jumping": "controller.animation.player.mcwl.molangquery.is_jumping",
+        "is_laying_down": "controller.animation.player.mcwl.molangquery.is_laying_down",
+        "is_laying_egg": "controller.animation.player.mcwl.molangquery.is_laying_egg",
+        "is_leashed": "controller.animation.player.mcwl.molangquery.is_leashed",
+        "is_levitating": "controller.animation.player.mcwl.molangquery.is_levitating",
+        "is_lingering": "controller.animation.player.mcwl.molangquery.is_lingering",
+        "is_on_fire": "controller.animation.player.mcwl.molangquery.is_on_fire",
+        "is_on_ground": "controller.animation.player.mcwl.molangquery.is_on_ground",
+        "is_on_screen": "controller.animation.player.mcwl.molangquery.is_on_screen",
+        "is_orphaned": "controller.animation.player.mcwl.molangquery.is_orphaned",
+        "is_persona_or_premium_skin": "controller.animation.player.mcwl.molangquery.is_persona_or_premium_skin",
+        "is_playing_dead": "controller.animation.player.mcwl.molangquery.is_playing_dead",
+        "is_powered": "controller.animation.player.mcwl.molangquery.is_powered",
+        "is_pregnant": "controller.animation.player.mcwl.molangquery.is_pregnant",
+        "is_ram_attacking": "controller.animation.player.mcwl.molangquery.is_ram_attacking",
+        "is_resting": "controller.animation.player.mcwl.molangquery.is_resting",
+        "is_riding": "controller.animation.player.mcwl.molangquery.is_riding",
+        "is_roaring": "controller.animation.player.mcwl.molangquery.is_roaring",
+        "is_rolling": "controller.animation.player.mcwl.molangquery.is_rolling",
+        "is_saddled": "controller.animation.player.mcwl.molangquery.is_saddled",
+        "is_scared": "controller.animation.player.mcwl.molangquery.is_scared",
+        "is_selected_item": "controller.animation.player.mcwl.molangquery.is_selected_item",
+        "is_shaking": "controller.animation.player.mcwl.molangquery.is_shaking",
+        "is_shaking_wetness": "controller.animation.player.mcwl.molangquery.is_shaking_wetness",
+        "is_sheared": "controller.animation.player.mcwl.molangquery.is_sheared",
+        "is_shield_powered": "controller.animation.player.mcwl.molangquery.is_shield_powered",
+        "is_silent": "controller.animation.player.mcwl.molangquery.is_silent",
+        "is_sitting": "controller.animation.player.mcwl.molangquery.is_sitting",
+        "is_sleeping": "controller.animation.player.mcwl.molangquery.is_sleeping",
+        "is_sneaking": "controller.animation.player.mcwl.molangquery.is_sneaking",
+        "is_sneezing": "controller.animation.player.mcwl.molangquery.is_sneezing",
+        "is_sprinting": "controller.animation.player.mcwl.molangquery.is_sprinting",
+        "is_stackable": "controller.animation.player.mcwl.molangquery.is_stackable",
+        "is_stalking": "controller.animation.player.mcwl.molangquery.is_stalking",
+        "is_standing": "controller.animation.player.mcwl.molangquery.is_standing",
+        "is_stunned": "controller.animation.player.mcwl.molangquery.is_stunned",
+        "is_swimming": "controller.animation.player.mcwl.molangquery.is_swimming",
+        "is_tamed": "controller.animation.player.mcwl.molangquery.is_tamed",
+        "is_transforming": "controller.animation.player.mcwl.molangquery.is_transforming",
+        "is_using_item": "controller.animation.player.mcwl.molangquery.is_using_item",
+        "is_wall_climbing": "controller.animation.player.mcwl.molangquery.is_wall_climbing",
+        "out_of_control": "controller.animation.player.mcwl.molangquery.out_of_control",
+        "show_bottom": "controller.animation.player.mcwl.molangquery.show_bottom"
+      },
+      "scripts": {
+        "animate": [
+          "blocking",
+          "can_climb",
+          "can_damage_nearby_mobs",
+          "can_fly",
+          "can_power_jump",
+          "can_swim",
+          "can_walk",
+          "facing_target_to_range_attack",
+          "has_cape",
+          "has_collision",
+          "has_gravity",
+          "has_rider",
+          "has_target",
+          "is_admiring",
+          "is_alive",
+          "is_angry",
+          "is_attached_to_entity",
+          "is_avoiding_block",
+          "is_avoiding_mobs",
+          "is_baby",
+          "is_breathing",
+          "is_bribed",
+          "is_carrying_block",
+          "is_casting",
+          "is_celebrating",
+          "is_celebrating_special",
+          "is_charged",
+          "is_charging",
+          "is_chested",
+          "is_critical",
+          "is_croaking",
+          "is_dancing",
+          "is_delayed_attacking",
+          "is_eating",
+          "is_eating_mob",
+          "is_elder",
+          "is_emoting",
+          "is_enchanted",
+          "is_fire_immune",
+          "is_first_person",
+          "is_ghost",
+          "is_gliding",
+          "is_grazing",
+          "is_idling",
+          "is_ignited",
+          "is_illager_captain",
+          "is_in_contact_with_water",
+          "is_in_love",
+          "is_in_ui",
+          "is_in_water",
+          "is_in_water_or_rain",
+          "is_interested",
+          "is_invisible",
+          "is_jumping",
+          "is_laying_down",
+          "is_laying_egg",
+          "is_leashed",
+          "is_levitating",
+          "is_lingering",
+          "is_on_fire",
+          "is_on_ground",
+          "is_on_screen",
+          "is_orphaned",
+          "is_persona_or_premium_skin",
+          "is_playing_dead",
+          "is_powered",
+          "is_pregnant",
+          "is_ram_attacking",
+          "is_resting",
+          "is_riding",
+          "is_roaring",
+          "is_rolling",
+          "is_saddled",
+          "is_scared",
+          "is_selected_item",
+          "is_shaking",
+          "is_shaking_wetness",
+          "is_sheared",
+          "is_shield_powered",
+          "is_silent",
+          "is_sitting",
+          "is_sleeping",
+          "is_sneaking",
+          "is_sneezing",
+          "is_sprinting",
+          "is_stackable",
+          "is_stalking",
+          "is_standing",
+          "is_stunned",
+          "is_swimming",
+          "is_tamed",
+          "is_transforming",
+          "is_using_item",
+          "is_wall_climbing",
+          "out_of_control",
+          "show_bottom"
+        ]
+      }
+    },
+
+    "component_groups": {
+      "minecraft:add_bad_omen": {
+        "minecraft:spell_effects": {
+          "add_effects": [
+            {
+              "effect": "bad_omen",
+              "duration": 6000,
+              "visible": false,
+              "display_on_screen_animation": true
+            }
+          ]
+        },
+        "minecraft:timer": {
+          "time": [ 0.0, 0.0 ],
+          "looping": false,
+          "time_down_event": {
+            "event": "minecraft:clear_add_bad_omen",
+            "target": "self"
+          }
+        }
+      },
+      "minecraft:clear_bad_omen_spell_effect": {
+        "minecraft:spell_effects": {
+        }
+      },
+      "minecraft:raid_trigger": {
+        "minecraft:raid_trigger": {
+          "triggered_event": {
+            "event": "minecraft:remove_raid_trigger",
+            "target": "self"
+          }
+        },
+        "minecraft:spell_effects": {
+          "remove_effects": "bad_omen"
+        }
+      }
+    },
+
+    "components": {
+      "minecraft:experience_reward": {
+        "on_death": "Math.Min(query.player_level * 7, 100)"
+      },
+      "minecraft:type_family": {
+        "family": [ "player" ]
+      },
+      "minecraft:is_hidden_when_invisible": {
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/empty.json"
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.8
+      },
+      "minecraft:can_climb": {
+      },
+      "minecraft:movement": {
+        "value": 0.1
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:attack": {
+        "damage": 1
+      },
+      "minecraft:player.saturation": {
+        "value": 20
+      },
+      "minecraft:player.exhaustion": {
+        "value": 0,
+        "max": 4
+      },
+      "minecraft:player.level": {
+        "value": 0,
+        "max": 24791
+      },
+      "minecraft:player.experience": {
+        "value": 0,
+        "max": 1
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": -1,
+        "inhale_time": 3.75,
+        "generates_bubbles": false
+      },
+      "minecraft:nameable": {
+        "always_show": true,
+        "allow_name_tag_renaming": false
+      },
+      "minecraft:physics": {
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:insomnia": {
+        "days_until_insomnia": 3
+      },
+      "minecraft:rideable": {
+        "seat_count": 2,
+        "family_types": [
+          "parrot_tame"
+        ],
+        "pull_in_entities": true,
+        "seats": [
+          {
+            "position": [ 0.4, -0.2, -0.1 ],
+            "min_rider_count": 0,
+            "max_rider_count": 0,
+            "lock_rider_rotation": 0
+          },
+          {
+            "position": [ -0.4, -0.2, -0.1 ],
+            "min_rider_count": 1,
+            "max_rider_count": 2,
+            "lock_rider_rotation": 0
+          }
+        ]
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
+      "minecraft:block_climber": {},
+      "minecraft:environment_sensor": {
+        "triggers": {
+          "filters": {
+            "all_of": [
+              {
+                "test": "has_mob_effect",
+                "subject": "self",
+                "value": "bad_omen"
+              },
+              {
+                "test": "is_in_village",
+                "subject": "self",
+                "value": true
+              }
+            ]
+          },
+          "event": "minecraft:trigger_raid"
+        }
+      }
+    },
+
+    "events": {
+      "mcwl:molangquery:blocking:true": {},
+      "mcwl:molangquery:blocking:false": {},
+      "mcwl:molangquery:can_climb:true": {},
+      "mcwl:molangquery:can_climb:false": {},
+      "mcwl:molangquery:can_damage_nearby_mobs:true": {},
+      "mcwl:molangquery:can_damage_nearby_mobs:false": {},
+      "mcwl:molangquery:can_fly:true": {},
+      "mcwl:molangquery:can_fly:false": {},
+      "mcwl:molangquery:can_power_jump:true": {},
+      "mcwl:molangquery:can_power_jump:false": {},
+      "mcwl:molangquery:can_swim:true": {},
+      "mcwl:molangquery:can_swim:false": {},
+      "mcwl:molangquery:can_walk:true": {},
+      "mcwl:molangquery:can_walk:false": {},
+      "mcwl:molangquery:facing_target_to_range_attack:true": {},
+      "mcwl:molangquery:facing_target_to_range_attack:false": {},
+      "mcwl:molangquery:has_cape:true": {},
+      "mcwl:molangquery:has_cape:false": {},
+      "mcwl:molangquery:has_collision:true": {},
+      "mcwl:molangquery:has_collision:false": {},
+      "mcwl:molangquery:has_gravity:true": {},
+      "mcwl:molangquery:has_gravity:false": {},
+      "mcwl:molangquery:has_rider:true": {},
+      "mcwl:molangquery:has_rider:false": {},
+      "mcwl:molangquery:has_target:true": {},
+      "mcwl:molangquery:has_target:false": {},
+      "mcwl:molangquery:is_admiring:true": {},
+      "mcwl:molangquery:is_admiring:false": {},
+      "mcwl:molangquery:is_alive:true": {},
+      "mcwl:molangquery:is_alive:false": {},
+      "mcwl:molangquery:is_angry:true": {},
+      "mcwl:molangquery:is_angry:false": {},
+      "mcwl:molangquery:is_attached_to_entity:true": {},
+      "mcwl:molangquery:is_attached_to_entity:false": {},
+      "mcwl:molangquery:is_avoiding_block:true": {},
+      "mcwl:molangquery:is_avoiding_block:false": {},
+      "mcwl:molangquery:is_avoiding_mobs:true": {},
+      "mcwl:molangquery:is_avoiding_mobs:false": {},
+      "mcwl:molangquery:is_baby:true": {},
+      "mcwl:molangquery:is_baby:false": {},
+      "mcwl:molangquery:is_breathing:true": {},
+      "mcwl:molangquery:is_breathing:false": {},
+      "mcwl:molangquery:is_bribed:true": {},
+      "mcwl:molangquery:is_bribed:false": {},
+      "mcwl:molangquery:is_carrying_block:true": {},
+      "mcwl:molangquery:is_carrying_block:false": {},
+      "mcwl:molangquery:is_casting:true": {},
+      "mcwl:molangquery:is_casting:false": {},
+      "mcwl:molangquery:is_celebrating:true": {},
+      "mcwl:molangquery:is_celebrating:false": {},
+      "mcwl:molangquery:is_celebrating_special:true": {},
+      "mcwl:molangquery:is_celebrating_special:false": {},
+      "mcwl:molangquery:is_charged:true": {},
+      "mcwl:molangquery:is_charged:false": {},
+      "mcwl:molangquery:is_charging:true": {},
+      "mcwl:molangquery:is_charging:false": {},
+      "mcwl:molangquery:is_chested:true": {},
+      "mcwl:molangquery:is_chested:false": {},
+      "mcwl:molangquery:is_critical:true": {},
+      "mcwl:molangquery:is_critical:false": {},
+      "mcwl:molangquery:is_croaking:true": {},
+      "mcwl:molangquery:is_croaking:false": {},
+      "mcwl:molangquery:is_dancing:true": {},
+      "mcwl:molangquery:is_dancing:false": {},
+      "mcwl:molangquery:is_delayed_attacking:true": {},
+      "mcwl:molangquery:is_delayed_attacking:false": {},
+      "mcwl:molangquery:is_eating:true": {},
+      "mcwl:molangquery:is_eating:false": {},
+      "mcwl:molangquery:is_eating_mob:true": {},
+      "mcwl:molangquery:is_eating_mob:false": {},
+      "mcwl:molangquery:is_elder:true": {},
+      "mcwl:molangquery:is_elder:false": {},
+      "mcwl:molangquery:is_emoting:true": {},
+      "mcwl:molangquery:is_emoting:false": {},
+      "mcwl:molangquery:is_enchanted:true": {},
+      "mcwl:molangquery:is_enchanted:false": {},
+      "mcwl:molangquery:is_fire_immune:true": {},
+      "mcwl:molangquery:is_fire_immune:false": {},
+      "mcwl:molangquery:is_first_person:true": {},
+      "mcwl:molangquery:is_first_person:false": {},
+      "mcwl:molangquery:is_ghost:true": {},
+      "mcwl:molangquery:is_ghost:false": {},
+      "mcwl:molangquery:is_gliding:true": {},
+      "mcwl:molangquery:is_gliding:false": {},
+      "mcwl:molangquery:is_grazing:true": {},
+      "mcwl:molangquery:is_grazing:false": {},
+      "mcwl:molangquery:is_idling:true": {},
+      "mcwl:molangquery:is_idling:false": {},
+      "mcwl:molangquery:is_ignited:true": {},
+      "mcwl:molangquery:is_ignited:false": {},
+      "mcwl:molangquery:is_illager_captain:true": {},
+      "mcwl:molangquery:is_illager_captain:false": {},
+      "mcwl:molangquery:is_in_contact_with_water:true": {},
+      "mcwl:molangquery:is_in_contact_with_water:false": {},
+      "mcwl:molangquery:is_in_love:true": {},
+      "mcwl:molangquery:is_in_love:false": {},
+      "mcwl:molangquery:is_in_ui:true": {},
+      "mcwl:molangquery:is_in_ui:false": {},
+      "mcwl:molangquery:is_in_water:true": {},
+      "mcwl:molangquery:is_in_water:false": {},
+      "mcwl:molangquery:is_in_water_or_rain:true": {},
+      "mcwl:molangquery:is_in_water_or_rain:false": {},
+      "mcwl:molangquery:is_interested:true": {},
+      "mcwl:molangquery:is_interested:false": {},
+      "mcwl:molangquery:is_invisible:true": {},
+      "mcwl:molangquery:is_invisible:false": {},
+      "mcwl:molangquery:is_jumping:true": {},
+      "mcwl:molangquery:is_jumping:false": {},
+      "mcwl:molangquery:is_laying_down:true": {},
+      "mcwl:molangquery:is_laying_down:false": {},
+      "mcwl:molangquery:is_laying_egg:true": {},
+      "mcwl:molangquery:is_laying_egg:false": {},
+      "mcwl:molangquery:is_leashed:true": {},
+      "mcwl:molangquery:is_leashed:false": {},
+      "mcwl:molangquery:is_levitating:true": {},
+      "mcwl:molangquery:is_levitating:false": {},
+      "mcwl:molangquery:is_lingering:true": {},
+      "mcwl:molangquery:is_lingering:false": {},
+      "mcwl:molangquery:is_on_fire:true": {},
+      "mcwl:molangquery:is_on_fire:false": {},
+      "mcwl:molangquery:is_on_ground:true": {},
+      "mcwl:molangquery:is_on_ground:false": {},
+      "mcwl:molangquery:is_on_screen:true": {},
+      "mcwl:molangquery:is_on_screen:false": {},
+      "mcwl:molangquery:is_orphaned:true": {},
+      "mcwl:molangquery:is_orphaned:false": {},
+      "mcwl:molangquery:is_persona_or_premium_skin:true": {},
+      "mcwl:molangquery:is_persona_or_premium_skin:false": {},
+      "mcwl:molangquery:is_playing_dead:true": {},
+      "mcwl:molangquery:is_playing_dead:false": {},
+      "mcwl:molangquery:is_powered:true": {},
+      "mcwl:molangquery:is_powered:false": {},
+      "mcwl:molangquery:is_pregnant:true": {},
+      "mcwl:molangquery:is_pregnant:false": {},
+      "mcwl:molangquery:is_ram_attacking:true": {},
+      "mcwl:molangquery:is_ram_attacking:false": {},
+      "mcwl:molangquery:is_resting:true": {},
+      "mcwl:molangquery:is_resting:false": {},
+      "mcwl:molangquery:is_riding:true": {},
+      "mcwl:molangquery:is_riding:false": {},
+      "mcwl:molangquery:is_roaring:true": {},
+      "mcwl:molangquery:is_roaring:false": {},
+      "mcwl:molangquery:is_rolling:true": {},
+      "mcwl:molangquery:is_rolling:false": {},
+      "mcwl:molangquery:is_saddled:true": {},
+      "mcwl:molangquery:is_saddled:false": {},
+      "mcwl:molangquery:is_scared:true": {},
+      "mcwl:molangquery:is_scared:false": {},
+      "mcwl:molangquery:is_selected_item:true": {},
+      "mcwl:molangquery:is_selected_item:false": {},
+      "mcwl:molangquery:is_shaking:true": {},
+      "mcwl:molangquery:is_shaking:false": {},
+      "mcwl:molangquery:is_shaking_wetness:true": {},
+      "mcwl:molangquery:is_shaking_wetness:false": {},
+      "mcwl:molangquery:is_sheared:true": {},
+      "mcwl:molangquery:is_sheared:false": {},
+      "mcwl:molangquery:is_shield_powered:true": {},
+      "mcwl:molangquery:is_shield_powered:false": {},
+      "mcwl:molangquery:is_silent:true": {},
+      "mcwl:molangquery:is_silent:false": {},
+      "mcwl:molangquery:is_sitting:true": {},
+      "mcwl:molangquery:is_sitting:false": {},
+      "mcwl:molangquery:is_sleeping:true": {},
+      "mcwl:molangquery:is_sleeping:false": {},
+      "mcwl:molangquery:is_sneaking:true": {},
+      "mcwl:molangquery:is_sneaking:false": {},
+      "mcwl:molangquery:is_sneezing:true": {},
+      "mcwl:molangquery:is_sneezing:false": {},
+      "mcwl:molangquery:is_sprinting:true": {},
+      "mcwl:molangquery:is_sprinting:false": {},
+      "mcwl:molangquery:is_stackable:true": {},
+      "mcwl:molangquery:is_stackable:false": {},
+      "mcwl:molangquery:is_stalking:true": {},
+      "mcwl:molangquery:is_stalking:false": {},
+      "mcwl:molangquery:is_standing:true": {},
+      "mcwl:molangquery:is_standing:false": {},
+      "mcwl:molangquery:is_stunned:true": {},
+      "mcwl:molangquery:is_stunned:false": {},
+      "mcwl:molangquery:is_swimming:true": {},
+      "mcwl:molangquery:is_swimming:false": {},
+      "mcwl:molangquery:is_tamed:true": {},
+      "mcwl:molangquery:is_tamed:false": {},
+      "mcwl:molangquery:is_transforming:true": {},
+      "mcwl:molangquery:is_transforming:false": {},
+      "mcwl:molangquery:is_using_item:true": {},
+      "mcwl:molangquery:is_using_item:false": {},
+      "mcwl:molangquery:is_wall_climbing:true": {},
+      "mcwl:molangquery:is_wall_climbing:false": {},
+      "mcwl:molangquery:out_of_control:true": {},
+      "mcwl:molangquery:out_of_control:false": {},
+      "mcwl:molangquery:show_bottom:true": {},
+      "mcwl:molangquery:show_bottom:false": {},    
+      "minecraft:gain_bad_omen": {
+        "add": {
+          "component_groups": [
+            "minecraft:add_bad_omen"
+          ]
+        }
+      },
+      "minecraft:clear_add_bad_omen": {
+        "remove": {
+          "component_groups": [
+            "minecraft:add_bad_omen"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "minecraft:clear_bad_omen_spell_effect"
+          ]
+        }
+      },
+      "minecraft:trigger_raid": {
+        "add": {
+          "component_groups": [ "minecraft:raid_trigger" ]
+        }
+      },
+      "minecraft:remove_raid_trigger": {
+        "remove": {
+          "component_groups": [ "minecraft:raid_trigger" ]
+        }
+      }
+    }
+  }
+}
+
+
+
+

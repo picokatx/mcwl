@@ -1,4 +1,4 @@
-import { world, BeforeChatEvent, PlayerJoinEvent, ChatEvent, BlockBreakEvent, TickEvent, Location, Player, BeforeItemUseOnEvent, Items, Block, PlayerLeaveEvent, BlockPlaceEvent, EntityIterator } from "mojang-minecraft";
+import { world, BeforeChatEvent, PlayerJoinEvent, ChatEvent, BlockBreakEvent, TickEvent, Location, Player, BeforeItemUseOnEvent, Items, Block, PlayerLeaveEvent, BlockPlaceEvent, EntityIterator, BeforeDataDrivenEntityTriggerEventSignal, BeforeDataDrivenEntityTriggerEvent } from "mojang-minecraft";
 import { Command } from "./Command/Command.js";
 import { sudoCmd } from "./Command/Commands/sudoCommand.js";
 import { PlayerTag } from "./Utils/data/PlayerTag.js";
@@ -26,11 +26,10 @@ import { MCWLCommandReturn } from "./Command/MCWLCmdReturn.js";
 import { locale } from "./Utils/constants/LocalisationStrings.js";
 import { PlayerDB } from "./Utils/data/PlayerDB.js";
 import { savedbCmd } from "./Command/Commands/savedbCommand.js";
+import { MolangNamespaces, molangQueries } from "./Utils/constants/MolangNamespaces.js";
 
 export let printStream: PrintStream = new PrintStream(world.getDimension("overworld"));
-
 export let playerPrevLocDB: Map<string, Location> = new Map<string, Location>();
-
 export let playerDB: Map<string,PlayerDB> = new Map<string,PlayerDB>()
 
 export let commands: Command[] = [
@@ -53,7 +52,12 @@ export let commands: Command[] = [
     sudoCmd
 ];
 export const cmdPrefix = ",";
-
+world.events.beforeDataDrivenEntityTriggerEvent.subscribe((eventData: BeforeDataDrivenEntityTriggerEvent)=> {
+    if (eventData.entity.id=="minecraft:player") {
+        let namespace: string[] = eventData.id.split(':')
+        molangQueries.set(namespace.slice(0,3).join(":"),namespace[3]==='true')
+    }
+})
 world.events.playerLeave.subscribe((eventData: PlayerLeaveEvent) => {
     printStream.println(`Hello! I hope you saved your player statistics, because if you didn't they're gone now.`)
 })
@@ -109,13 +113,11 @@ world.events.beforeItemUseOn.subscribe((eventData: BeforeItemUseOnEvent) => {
         }
     }
 })
-//let s = "actuallyitismybeliefthatthiswillnotduplicate"
 world.events.tick.subscribe((eventData: TickEvent) => {
     printStream.broadcast();
     let pList: EntityIterator = world.getPlayers();
     for (let i of pList) {
         let p:Player = i as Player
-        //p.nameTag = s
         if (!playerPrevLocDB.get(p.name).equals(p.location)) {
             let l: Location = playerPrevLocDB.get(p.name);
             playerDB.get(p.name).distanceTravelled += new Vec3(l.x, l.y, l.z).distanceTo(new Vec3(p.location.x, p.location.y, p.location.z))
@@ -127,6 +129,7 @@ world.events.tick.subscribe((eventData: TickEvent) => {
         playerDB.get(p.name).playtime++
     }
 })
+
 world.events.blockBreak.subscribe((eventData: BlockBreakEvent) => {
     let id: string = eventData.brokenBlockPermutation.type.id;
     for (let i of playerDB.get(eventData.player.name).blockMod) {
@@ -141,7 +144,6 @@ world.events.blockPlace.subscribe((eventData: BlockPlaceEvent) => {
     }
 })
 world.events.beforeChat.subscribe((eventData: BeforeChatEvent) => {
-    //eventData.sender.runCommand(`say ${eventData.sender.nameTag}`)
     if (eventData.message[0] === cmdPrefix) {
         eventData.message = eventData.message.substring(1);
         cmdHandler(eventData);

@@ -1,0 +1,2656 @@
+{
+	"format_version" : "1.10.0",
+	"animation_controllers" : {
+		"controller.animation.player.mcwl.molangquery.blocking": {
+			"initial_state": "blocking_false",
+			"states": {
+				"blocking_true": {
+					"transitions": [
+						{
+							"blocking_false": "!query.blocking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:blocking:true"
+					]
+				},
+				"blocking_false": {
+					"transitions": [
+						{
+							"blocking_true": "query.blocking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:blocking:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.can_climb": {
+			"initial_state": "can_climb_true",
+			"states": {
+				"can_climb_true": {
+					"transitions": [
+						{
+							"can_climb_false": "!query.can_climb"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:can_climb:true"
+					]
+				},
+				"can_climb_false": {
+					"transitions": [
+						{
+							"can_climb_true": "query.can_climb"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:can_climb:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.can_damage_nearby_mobs": {
+			"initial_state": "can_damage_nearby_mobs_true",
+			"states": {
+				"can_damage_nearby_mobs_true": {
+					"transitions": [
+						{
+							"can_damage_nearby_mobs_false": "!query.can_damage_nearby_mobs"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:can_damage_nearby_mobs:true"
+					]
+				},
+				"can_damage_nearby_mobs_false": {
+					"transitions": [
+						{
+							"can_damage_nearby_mobs_true": "query.can_damage_nearby_mobs"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:can_damage_nearby_mobs:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.can_fly": {
+			"initial_state": "can_fly_true",
+			"states": {
+				"can_fly_true": {
+					"transitions": [
+						{
+							"can_fly_false": "!query.can_fly"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:can_fly:true"
+					]
+				},
+				"can_fly_false": {
+					"transitions": [
+						{
+							"can_fly_true": "query.can_fly"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:can_fly:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.can_power_jump": {
+			"initial_state": "can_power_jump_true",
+			"states": {
+				"can_power_jump_true": {
+					"transitions": [
+						{
+							"can_power_jump_false": "!query.can_power_jump"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:can_power_jump:true"
+					]
+				},
+				"can_power_jump_false": {
+					"transitions": [
+						{
+							"can_power_jump_true": "query.can_power_jump"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:can_power_jump:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.can_swim": {
+			"initial_state": "can_swim_true",
+			"states": {
+				"can_swim_true": {
+					"transitions": [
+						{
+							"can_swim_false": "!query.can_swim"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:can_swim:true"
+					]
+				},
+				"can_swim_false": {
+					"transitions": [
+						{
+							"can_swim_true": "query.can_swim"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:can_swim:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.can_walk": {
+			"initial_state": "can_walk_true",
+			"states": {
+				"can_walk_true": {
+					"transitions": [
+						{
+							"can_walk_false": "!query.can_walk"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:can_walk:true"
+					]
+				},
+				"can_walk_false": {
+					"transitions": [
+						{
+							"can_walk_true": "query.can_walk"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:can_walk:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.facing_target_to_range_attack": {
+			"initial_state": "facing_target_to_range_attack_true",
+			"states": {
+				"facing_target_to_range_attack_true": {
+					"transitions": [
+						{
+							"facing_target_to_range_attack_false": "!query.facing_target_to_range_attack"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:facing_target_to_range_attack:true"
+					]
+				},
+				"facing_target_to_range_attack_false": {
+					"transitions": [
+						{
+							"facing_target_to_range_attack_true": "query.facing_target_to_range_attack"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:facing_target_to_range_attack:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.has_cape": {
+			"initial_state": "has_cape_true",
+			"states": {
+				"has_cape_true": {
+					"transitions": [
+						{
+							"has_cape_false": "!query.has_cape"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:has_cape:true"
+					]
+				},
+				"has_cape_false": {
+					"transitions": [
+						{
+							"has_cape_true": "query.has_cape"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:has_cape:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.has_collision": {
+			"initial_state": "has_collision_true",
+			"states": {
+				"has_collision_true": {
+					"transitions": [
+						{
+							"has_collision_false": "!query.has_collision"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:has_collision:true"
+					]
+				},
+				"has_collision_false": {
+					"transitions": [
+						{
+							"has_collision_true": "query.has_collision"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:has_collision:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.has_gravity": {
+			"initial_state": "has_gravity_true",
+			"states": {
+				"has_gravity_true": {
+					"transitions": [
+						{
+							"has_gravity_false": "!query.has_gravity"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:has_gravity:true"
+					]
+				},
+				"has_gravity_false": {
+					"transitions": [
+						{
+							"has_gravity_true": "query.has_gravity"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:has_gravity:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.has_rider": {
+			"initial_state": "has_rider_true",
+			"states": {
+				"has_rider_true": {
+					"transitions": [
+						{
+							"has_rider_false": "!query.has_rider"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:has_rider:true"
+					]
+				},
+				"has_rider_false": {
+					"transitions": [
+						{
+							"has_rider_true": "query.has_rider"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:has_rider:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.has_target": {
+			"initial_state": "has_target_true",
+			"states": {
+				"has_target_true": {
+					"transitions": [
+						{
+							"has_target_false": "!query.has_target"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:has_target:true"
+					]
+				},
+				"has_target_false": {
+					"transitions": [
+						{
+							"has_target_true": "query.has_target"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:has_target:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_admiring": {
+			"initial_state": "is_admiring_false",
+			"states": {
+				"is_admiring_true": {
+					"transitions": [
+						{
+							"is_admiring_false": "!query.is_admiring"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_admiring:true"
+					]
+				},
+				"is_admiring_false": {
+					"transitions": [
+						{
+							"is_admiring_true": "query.is_admiring"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_admiring:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_alive": {
+			"initial_state": "is_alive_false",
+			"states": {
+				"is_alive_true": {
+					"transitions": [
+						{
+							"is_alive_false": "!query.is_alive"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_alive:true"
+					]
+				},
+				"is_alive_false": {
+					"transitions": [
+						{
+							"is_alive_true": "query.is_alive"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_alive:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_angry": {
+			"initial_state": "is_angry_false",
+			"states": {
+				"is_angry_true": {
+					"transitions": [
+						{
+							"is_angry_false": "!query.is_angry"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_angry:true"
+					]
+				},
+				"is_angry_false": {
+					"transitions": [
+						{
+							"is_angry_true": "query.is_angry"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_angry:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_attached_to_entity": {
+			"initial_state": "is_attached_to_entity_false",
+			"states": {
+				"is_attached_to_entity_true": {
+					"transitions": [
+						{
+							"is_attached_to_entity_false": "!query.is_attached_to_entity"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_attached_to_entity:true"
+					]
+				},
+				"is_attached_to_entity_false": {
+					"transitions": [
+						{
+							"is_attached_to_entity_true": "query.is_attached_to_entity"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_attached_to_entity:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_avoiding_block": {
+			"initial_state": "is_avoiding_block_false",
+			"states": {
+				"is_avoiding_block_true": {
+					"transitions": [
+						{
+							"is_avoiding_block_false": "!query.is_avoiding_block"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_avoiding_block:true"
+					]
+				},
+				"is_avoiding_block_false": {
+					"transitions": [
+						{
+							"is_avoiding_block_true": "query.is_avoiding_block"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_avoiding_block:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_avoiding_mobs": {
+			"initial_state": "is_avoiding_mobs_false",
+			"states": {
+				"is_avoiding_mobs_true": {
+					"transitions": [
+						{
+							"is_avoiding_mobs_false": "!query.is_avoiding_mobs"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_avoiding_mobs:true"
+					]
+				},
+				"is_avoiding_mobs_false": {
+					"transitions": [
+						{
+							"is_avoiding_mobs_true": "query.is_avoiding_mobs"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_avoiding_mobs:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_baby": {
+			"initial_state": "is_baby_false",
+			"states": {
+				"is_baby_true": {
+					"transitions": [
+						{
+							"is_baby_false": "!query.is_baby"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_baby:true"
+					]
+				},
+				"is_baby_false": {
+					"transitions": [
+						{
+							"is_baby_true": "query.is_baby"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_baby:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_breathing": {
+			"initial_state": "is_breathing_false",
+			"states": {
+				"is_breathing_true": {
+					"transitions": [
+						{
+							"is_breathing_false": "!query.is_breathing"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_breathing:true"
+					]
+				},
+				"is_breathing_false": {
+					"transitions": [
+						{
+							"is_breathing_true": "query.is_breathing"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_breathing:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_bribed": {
+			"initial_state": "is_bribed_false",
+			"states": {
+				"is_bribed_true": {
+					"transitions": [
+						{
+							"is_bribed_false": "!query.is_bribed"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_bribed:true"
+					]
+				},
+				"is_bribed_false": {
+					"transitions": [
+						{
+							"is_bribed_true": "query.is_bribed"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_bribed:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_carrying_block": {
+			"initial_state": "is_carrying_block_false",
+			"states": {
+				"is_carrying_block_true": {
+					"transitions": [
+						{
+							"is_carrying_block_false": "!query.is_carrying_block"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_carrying_block:true"
+					]
+				},
+				"is_carrying_block_false": {
+					"transitions": [
+						{
+							"is_carrying_block_true": "query.is_carrying_block"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_carrying_block:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_casting": {
+			"initial_state": "is_casting_false",
+			"states": {
+				"is_casting_true": {
+					"transitions": [
+						{
+							"is_casting_false": "!query.is_casting"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_casting:true"
+					]
+				},
+				"is_casting_false": {
+					"transitions": [
+						{
+							"is_casting_true": "query.is_casting"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_casting:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_celebrating": {
+			"initial_state": "is_celebrating_false",
+			"states": {
+				"is_celebrating_true": {
+					"transitions": [
+						{
+							"is_celebrating_false": "!query.is_celebrating"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_celebrating:true"
+					]
+				},
+				"is_celebrating_false": {
+					"transitions": [
+						{
+							"is_celebrating_true": "query.is_celebrating"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_celebrating:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_celebrating_special": {
+			"initial_state": "is_celebrating_special_false",
+			"states": {
+				"is_celebrating_special_true": {
+					"transitions": [
+						{
+							"is_celebrating_special_false": "!query.is_celebrating_special"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_celebrating_special:true"
+					]
+				},
+				"is_celebrating_special_false": {
+					"transitions": [
+						{
+							"is_celebrating_special_true": "query.is_celebrating_special"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_celebrating_special:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_charged": {
+			"initial_state": "is_charged_false",
+			"states": {
+				"is_charged_true": {
+					"transitions": [
+						{
+							"is_charged_false": "!query.is_charged"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_charged:true"
+					]
+				},
+				"is_charged_false": {
+					"transitions": [
+						{
+							"is_charged_true": "query.is_charged"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_charged:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_charging": {
+			"initial_state": "is_charging_false",
+			"states": {
+				"is_charging_true": {
+					"transitions": [
+						{
+							"is_charging_false": "!query.is_charging"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_charging:true"
+					]
+				},
+				"is_charging_false": {
+					"transitions": [
+						{
+							"is_charging_true": "query.is_charging"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_charging:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_chested": {
+			"initial_state": "is_chested_false",
+			"states": {
+				"is_chested_true": {
+					"transitions": [
+						{
+							"is_chested_false": "!query.is_chested"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_chested:true"
+					]
+				},
+				"is_chested_false": {
+					"transitions": [
+						{
+							"is_chested_true": "query.is_chested"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_chested:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_critical": {
+			"initial_state": "is_critical_false",
+			"states": {
+				"is_critical_true": {
+					"transitions": [
+						{
+							"is_critical_false": "!query.is_critical"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_critical:true"
+					]
+				},
+				"is_critical_false": {
+					"transitions": [
+						{
+							"is_critical_true": "query.is_critical"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_critical:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_croaking": {
+			"initial_state": "is_croaking_false",
+			"states": {
+				"is_croaking_true": {
+					"transitions": [
+						{
+							"is_croaking_false": "!query.is_croaking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_croaking:true"
+					]
+				},
+				"is_croaking_false": {
+					"transitions": [
+						{
+							"is_croaking_true": "query.is_croaking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_croaking:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_dancing": {
+			"initial_state": "is_dancing_false",
+			"states": {
+				"is_dancing_true": {
+					"transitions": [
+						{
+							"is_dancing_false": "!query.is_dancing"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_dancing:true"
+					]
+				},
+				"is_dancing_false": {
+					"transitions": [
+						{
+							"is_dancing_true": "query.is_dancing"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_dancing:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_delayed_attacking": {
+			"initial_state": "is_delayed_attacking_false",
+			"states": {
+				"is_delayed_attacking_true": {
+					"transitions": [
+						{
+							"is_delayed_attacking_false": "!query.is_delayed_attacking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_delayed_attacking:true"
+					]
+				},
+				"is_delayed_attacking_false": {
+					"transitions": [
+						{
+							"is_delayed_attacking_true": "query.is_delayed_attacking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_delayed_attacking:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_eating": {
+			"initial_state": "is_eating_false",
+			"states": {
+				"is_eating_true": {
+					"transitions": [
+						{
+							"is_eating_false": "!query.is_eating"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_eating:true"
+					]
+				},
+				"is_eating_false": {
+					"transitions": [
+						{
+							"is_eating_true": "query.is_eating"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_eating:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_eating_mob": {
+			"initial_state": "is_eating_mob_false",
+			"states": {
+				"is_eating_mob_true": {
+					"transitions": [
+						{
+							"is_eating_mob_false": "!query.is_eating_mob"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_eating_mob:true"
+					]
+				},
+				"is_eating_mob_false": {
+					"transitions": [
+						{
+							"is_eating_mob_true": "query.is_eating_mob"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_eating_mob:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_elder": {
+			"initial_state": "is_elder_false",
+			"states": {
+				"is_elder_true": {
+					"transitions": [
+						{
+							"is_elder_false": "!query.is_elder"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_elder:true"
+					]
+				},
+				"is_elder_false": {
+					"transitions": [
+						{
+							"is_elder_true": "query.is_elder"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_elder:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_emoting": {
+			"initial_state": "is_emoting_false",
+			"states": {
+				"is_emoting_true": {
+					"transitions": [
+						{
+							"is_emoting_false": "!query.is_emoting"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_emoting:true"
+					]
+				},
+				"is_emoting_false": {
+					"transitions": [
+						{
+							"is_emoting_true": "query.is_emoting"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_emoting:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_enchanted": {
+			"initial_state": "is_enchanted_false",
+			"states": {
+				"is_enchanted_true": {
+					"transitions": [
+						{
+							"is_enchanted_false": "!query.is_enchanted"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_enchanted:true"
+					]
+				},
+				"is_enchanted_false": {
+					"transitions": [
+						{
+							"is_enchanted_true": "query.is_enchanted"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_enchanted:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_fire_immune": {
+			"initial_state": "is_fire_immune_false",
+			"states": {
+				"is_fire_immune_true": {
+					"transitions": [
+						{
+							"is_fire_immune_false": "!query.is_fire_immune"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_fire_immune:true"
+					]
+				},
+				"is_fire_immune_false": {
+					"transitions": [
+						{
+							"is_fire_immune_true": "query.is_fire_immune"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_fire_immune:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_first_person": {
+			"initial_state": "is_first_person_false",
+			"states": {
+				"is_first_person_true": {
+					"transitions": [
+						{
+							"is_first_person_false": "!query.is_first_person"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_first_person:true"
+					]
+				},
+				"is_first_person_false": {
+					"transitions": [
+						{
+							"is_first_person_true": "query.is_first_person"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_first_person:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_ghost": {
+			"initial_state": "is_ghost_false",
+			"states": {
+				"is_ghost_true": {
+					"transitions": [
+						{
+							"is_ghost_false": "!query.is_ghost"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_ghost:true"
+					]
+				},
+				"is_ghost_false": {
+					"transitions": [
+						{
+							"is_ghost_true": "query.is_ghost"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_ghost:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_gliding": {
+			"initial_state": "is_gliding_false",
+			"states": {
+				"is_gliding_true": {
+					"transitions": [
+						{
+							"is_gliding_false": "!query.is_gliding"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_gliding:true"
+					]
+				},
+				"is_gliding_false": {
+					"transitions": [
+						{
+							"is_gliding_true": "query.is_gliding"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_gliding:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_grazing": {
+			"initial_state": "is_grazing_false",
+			"states": {
+				"is_grazing_true": {
+					"transitions": [
+						{
+							"is_grazing_false": "!query.is_grazing"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_grazing:true"
+					]
+				},
+				"is_grazing_false": {
+					"transitions": [
+						{
+							"is_grazing_true": "query.is_grazing"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_grazing:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_idling": {
+			"initial_state": "is_idling_false",
+			"states": {
+				"is_idling_true": {
+					"transitions": [
+						{
+							"is_idling_false": "!query.is_idling"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_idling:true"
+					]
+				},
+				"is_idling_false": {
+					"transitions": [
+						{
+							"is_idling_true": "query.is_idling"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_idling:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_ignited": {
+			"initial_state": "is_ignited_false",
+			"states": {
+				"is_ignited_true": {
+					"transitions": [
+						{
+							"is_ignited_false": "!query.is_ignited"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_ignited:true"
+					]
+				},
+				"is_ignited_false": {
+					"transitions": [
+						{
+							"is_ignited_true": "query.is_ignited"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_ignited:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_illager_captain": {
+			"initial_state": "is_illager_captain_false",
+			"states": {
+				"is_illager_captain_true": {
+					"transitions": [
+						{
+							"is_illager_captain_false": "!query.is_illager_captain"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_illager_captain:true"
+					]
+				},
+				"is_illager_captain_false": {
+					"transitions": [
+						{
+							"is_illager_captain_true": "query.is_illager_captain"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_illager_captain:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_in_contact_with_water": {
+			"initial_state": "is_in_contact_with_water_false",
+			"states": {
+				"is_in_contact_with_water_true": {
+					"transitions": [
+						{
+							"is_in_contact_with_water_false": "!query.is_in_contact_with_water"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_in_contact_with_water:true"
+					]
+				},
+				"is_in_contact_with_water_false": {
+					"transitions": [
+						{
+							"is_in_contact_with_water_true": "query.is_in_contact_with_water"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_in_contact_with_water:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_in_love": {
+			"initial_state": "is_in_love_false",
+			"states": {
+				"is_in_love_true": {
+					"transitions": [
+						{
+							"is_in_love_false": "!query.is_in_love"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_in_love:true"
+					]
+				},
+				"is_in_love_false": {
+					"transitions": [
+						{
+							"is_in_love_true": "query.is_in_love"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_in_love:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_in_ui": {
+			"initial_state": "is_in_ui_false",
+			"states": {
+				"is_in_ui_true": {
+					"transitions": [
+						{
+							"is_in_ui_false": "!query.is_in_ui"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_in_ui:true"
+					]
+				},
+				"is_in_ui_false": {
+					"transitions": [
+						{
+							"is_in_ui_true": "query.is_in_ui"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_in_ui:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_in_water": {
+			"initial_state": "is_in_water_false",
+			"states": {
+				"is_in_water_true": {
+					"transitions": [
+						{
+							"is_in_water_false": "!query.is_in_water"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_in_water:true"
+					]
+				},
+				"is_in_water_false": {
+					"transitions": [
+						{
+							"is_in_water_true": "query.is_in_water"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_in_water:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_in_water_or_rain": {
+			"initial_state": "is_in_water_or_rain_false",
+			"states": {
+				"is_in_water_or_rain_true": {
+					"transitions": [
+						{
+							"is_in_water_or_rain_false": "!query.is_in_water_or_rain"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_in_water_or_rain:true"
+					]
+				},
+				"is_in_water_or_rain_false": {
+					"transitions": [
+						{
+							"is_in_water_or_rain_true": "query.is_in_water_or_rain"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_in_water_or_rain:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_interested": {
+			"initial_state": "is_interested_false",
+			"states": {
+				"is_interested_true": {
+					"transitions": [
+						{
+							"is_interested_false": "!query.is_interested"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_interested:true"
+					]
+				},
+				"is_interested_false": {
+					"transitions": [
+						{
+							"is_interested_true": "query.is_interested"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_interested:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_invisible": {
+			"initial_state": "is_invisible_false",
+			"states": {
+				"is_invisible_true": {
+					"transitions": [
+						{
+							"is_invisible_false": "!query.is_invisible"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_invisible:true"
+					]
+				},
+				"is_invisible_false": {
+					"transitions": [
+						{
+							"is_invisible_true": "query.is_invisible"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_invisible:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_jumping": {
+			"initial_state": "is_jumping_false",
+			"states": {
+				"is_jumping_true": {
+					"transitions": [
+						{
+							"is_jumping_false": "!query.is_jumping"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_jumping:true"
+					]
+				},
+				"is_jumping_false": {
+					"transitions": [
+						{
+							"is_jumping_true": "query.is_jumping"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_jumping:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_laying_down": {
+			"initial_state": "is_laying_down_false",
+			"states": {
+				"is_laying_down_true": {
+					"transitions": [
+						{
+							"is_laying_down_false": "!query.is_laying_down"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_laying_down:true"
+					]
+				},
+				"is_laying_down_false": {
+					"transitions": [
+						{
+							"is_laying_down_true": "query.is_laying_down"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_laying_down:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_laying_egg": {
+			"initial_state": "is_laying_egg_false",
+			"states": {
+				"is_laying_egg_true": {
+					"transitions": [
+						{
+							"is_laying_egg_false": "!query.is_laying_egg"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_laying_egg:true"
+					]
+				},
+				"is_laying_egg_false": {
+					"transitions": [
+						{
+							"is_laying_egg_true": "query.is_laying_egg"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_laying_egg:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_leashed": {
+			"initial_state": "is_leashed_false",
+			"states": {
+				"is_leashed_true": {
+					"transitions": [
+						{
+							"is_leashed_false": "!query.is_leashed"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_leashed:true"
+					]
+				},
+				"is_leashed_false": {
+					"transitions": [
+						{
+							"is_leashed_true": "query.is_leashed"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_leashed:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_levitating": {
+			"initial_state": "is_levitating_false",
+			"states": {
+				"is_levitating_true": {
+					"transitions": [
+						{
+							"is_levitating_false": "!query.is_levitating"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_levitating:true"
+					]
+				},
+				"is_levitating_false": {
+					"transitions": [
+						{
+							"is_levitating_true": "query.is_levitating"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_levitating:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_lingering": {
+			"initial_state": "is_lingering_false",
+			"states": {
+				"is_lingering_true": {
+					"transitions": [
+						{
+							"is_lingering_false": "!query.is_lingering"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_lingering:true"
+					]
+				},
+				"is_lingering_false": {
+					"transitions": [
+						{
+							"is_lingering_true": "query.is_lingering"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_lingering:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_on_fire": {
+			"initial_state": "is_on_fire_false",
+			"states": {
+				"is_on_fire_true": {
+					"transitions": [
+						{
+							"is_on_fire_false": "!query.is_on_fire"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_on_fire:true"
+					]
+				},
+				"is_on_fire_false": {
+					"transitions": [
+						{
+							"is_on_fire_true": "query.is_on_fire"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_on_fire:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_on_ground": {
+			"initial_state": "is_on_ground_false",
+			"states": {
+				"is_on_ground_true": {
+					"transitions": [
+						{
+							"is_on_ground_false": "!query.is_on_ground"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_on_ground:true"
+					]
+				},
+				"is_on_ground_false": {
+					"transitions": [
+						{
+							"is_on_ground_true": "query.is_on_ground"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_on_ground:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_on_screen": {
+			"initial_state": "is_on_screen_false",
+			"states": {
+				"is_on_screen_true": {
+					"transitions": [
+						{
+							"is_on_screen_false": "!query.is_on_screen"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_on_screen:true"
+					]
+				},
+				"is_on_screen_false": {
+					"transitions": [
+						{
+							"is_on_screen_true": "query.is_on_screen"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_on_screen:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_orphaned": {
+			"initial_state": "is_orphaned_false",
+			"states": {
+				"is_orphaned_true": {
+					"transitions": [
+						{
+							"is_orphaned_false": "!query.is_orphaned"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_orphaned:true"
+					]
+				},
+				"is_orphaned_false": {
+					"transitions": [
+						{
+							"is_orphaned_true": "query.is_orphaned"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_orphaned:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_persona_or_premium_skin": {
+			"initial_state": "is_persona_or_premium_skin_false",
+			"states": {
+				"is_persona_or_premium_skin_true": {
+					"transitions": [
+						{
+							"is_persona_or_premium_skin_false": "!query.is_persona_or_premium_skin"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_persona_or_premium_skin:true"
+					]
+				},
+				"is_persona_or_premium_skin_false": {
+					"transitions": [
+						{
+							"is_persona_or_premium_skin_true": "query.is_persona_or_premium_skin"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_persona_or_premium_skin:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_playing_dead": {
+			"initial_state": "is_playing_dead_false",
+			"states": {
+				"is_playing_dead_true": {
+					"transitions": [
+						{
+							"is_playing_dead_false": "!query.is_playing_dead"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_playing_dead:true"
+					]
+				},
+				"is_playing_dead_false": {
+					"transitions": [
+						{
+							"is_playing_dead_true": "query.is_playing_dead"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_playing_dead:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_powered": {
+			"initial_state": "is_powered_false",
+			"states": {
+				"is_powered_true": {
+					"transitions": [
+						{
+							"is_powered_false": "!query.is_powered"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_powered:true"
+					]
+				},
+				"is_powered_false": {
+					"transitions": [
+						{
+							"is_powered_true": "query.is_powered"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_powered:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_pregnant": {
+			"initial_state": "is_pregnant_false",
+			"states": {
+				"is_pregnant_true": {
+					"transitions": [
+						{
+							"is_pregnant_false": "!query.is_pregnant"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_pregnant:true"
+					]
+				},
+				"is_pregnant_false": {
+					"transitions": [
+						{
+							"is_pregnant_true": "query.is_pregnant"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_pregnant:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_ram_attacking": {
+			"initial_state": "is_ram_attacking_false",
+			"states": {
+				"is_ram_attacking_true": {
+					"transitions": [
+						{
+							"is_ram_attacking_false": "!query.is_ram_attacking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_ram_attacking:true"
+					]
+				},
+				"is_ram_attacking_false": {
+					"transitions": [
+						{
+							"is_ram_attacking_true": "query.is_ram_attacking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_ram_attacking:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_resting": {
+			"initial_state": "is_resting_false",
+			"states": {
+				"is_resting_true": {
+					"transitions": [
+						{
+							"is_resting_false": "!query.is_resting"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_resting:true"
+					]
+				},
+				"is_resting_false": {
+					"transitions": [
+						{
+							"is_resting_true": "query.is_resting"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_resting:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_riding": {
+			"initial_state": "is_riding_false",
+			"states": {
+				"is_riding_true": {
+					"transitions": [
+						{
+							"is_riding_false": "!query.is_riding"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_riding:true"
+					]
+				},
+				"is_riding_false": {
+					"transitions": [
+						{
+							"is_riding_true": "query.is_riding"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_riding:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_roaring": {
+			"initial_state": "is_roaring_false",
+			"states": {
+				"is_roaring_true": {
+					"transitions": [
+						{
+							"is_roaring_false": "!query.is_roaring"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_roaring:true"
+					]
+				},
+				"is_roaring_false": {
+					"transitions": [
+						{
+							"is_roaring_true": "query.is_roaring"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_roaring:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_rolling": {
+			"initial_state": "is_rolling_false",
+			"states": {
+				"is_rolling_true": {
+					"transitions": [
+						{
+							"is_rolling_false": "!query.is_rolling"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_rolling:true"
+					]
+				},
+				"is_rolling_false": {
+					"transitions": [
+						{
+							"is_rolling_true": "query.is_rolling"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_rolling:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_saddled": {
+			"initial_state": "is_saddled_false",
+			"states": {
+				"is_saddled_true": {
+					"transitions": [
+						{
+							"is_saddled_false": "!query.is_saddled"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_saddled:true"
+					]
+				},
+				"is_saddled_false": {
+					"transitions": [
+						{
+							"is_saddled_true": "query.is_saddled"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_saddled:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_scared": {
+			"initial_state": "is_scared_false",
+			"states": {
+				"is_scared_true": {
+					"transitions": [
+						{
+							"is_scared_false": "!query.is_scared"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_scared:true"
+					]
+				},
+				"is_scared_false": {
+					"transitions": [
+						{
+							"is_scared_true": "query.is_scared"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_scared:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_selected_item": {
+			"initial_state": "is_selected_item_false",
+			"states": {
+				"is_selected_item_true": {
+					"transitions": [
+						{
+							"is_selected_item_false": "!query.is_selected_item"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_selected_item:true"
+					]
+				},
+				"is_selected_item_false": {
+					"transitions": [
+						{
+							"is_selected_item_true": "query.is_selected_item"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_selected_item:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_shaking": {
+			"initial_state": "is_shaking_false",
+			"states": {
+				"is_shaking_true": {
+					"transitions": [
+						{
+							"is_shaking_false": "!query.is_shaking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_shaking:true"
+					]
+				},
+				"is_shaking_false": {
+					"transitions": [
+						{
+							"is_shaking_true": "query.is_shaking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_shaking:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_shaking_wetness": {
+			"initial_state": "is_shaking_wetness_false",
+			"states": {
+				"is_shaking_wetness_true": {
+					"transitions": [
+						{
+							"is_shaking_wetness_false": "!query.is_shaking_wetness"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_shaking_wetness:true"
+					]
+				},
+				"is_shaking_wetness_false": {
+					"transitions": [
+						{
+							"is_shaking_wetness_true": "query.is_shaking_wetness"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_shaking_wetness:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_sheared": {
+			"initial_state": "is_sheared_false",
+			"states": {
+				"is_sheared_true": {
+					"transitions": [
+						{
+							"is_sheared_false": "!query.is_sheared"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_sheared:true"
+					]
+				},
+				"is_sheared_false": {
+					"transitions": [
+						{
+							"is_sheared_true": "query.is_sheared"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_sheared:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_shield_powered": {
+			"initial_state": "is_shield_powered_false",
+			"states": {
+				"is_shield_powered_true": {
+					"transitions": [
+						{
+							"is_shield_powered_false": "!query.is_shield_powered"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_shield_powered:true"
+					]
+				},
+				"is_shield_powered_false": {
+					"transitions": [
+						{
+							"is_shield_powered_true": "query.is_shield_powered"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_shield_powered:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_silent": {
+			"initial_state": "is_silent_false",
+			"states": {
+				"is_silent_true": {
+					"transitions": [
+						{
+							"is_silent_false": "!query.is_silent"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_silent:true"
+					]
+				},
+				"is_silent_false": {
+					"transitions": [
+						{
+							"is_silent_true": "query.is_silent"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_silent:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_sitting": {
+			"initial_state": "is_sitting_false",
+			"states": {
+				"is_sitting_true": {
+					"transitions": [
+						{
+							"is_sitting_false": "!query.is_sitting"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_sitting:true"
+					]
+				},
+				"is_sitting_false": {
+					"transitions": [
+						{
+							"is_sitting_true": "query.is_sitting"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_sitting:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_sleeping": {
+			"initial_state": "is_sleeping_false",
+			"states": {
+				"is_sleeping_true": {
+					"transitions": [
+						{
+							"is_sleeping_false": "!query.is_sleeping"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_sleeping:true"
+					]
+				},
+				"is_sleeping_false": {
+					"transitions": [
+						{
+							"is_sleeping_true": "query.is_sleeping"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_sleeping:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_sneaking": {
+			"initial_state": "is_sneaking_false",
+			"states": {
+				"is_sneaking_true": {
+					"transitions": [
+						{
+							"is_sneaking_false": "!query.is_sneaking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_sneaking:true"
+					]
+				},
+				"is_sneaking_false": {
+					"transitions": [
+						{
+							"is_sneaking_true": "query.is_sneaking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_sneaking:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_sneezing": {
+			"initial_state": "is_sneezing_false",
+			"states": {
+				"is_sneezing_true": {
+					"transitions": [
+						{
+							"is_sneezing_false": "!query.is_sneezing"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_sneezing:true"
+					]
+				},
+				"is_sneezing_false": {
+					"transitions": [
+						{
+							"is_sneezing_true": "query.is_sneezing"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_sneezing:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_sprinting": {
+			"initial_state": "is_sprinting_false",
+			"states": {
+				"is_sprinting_true": {
+					"transitions": [
+						{
+							"is_sprinting_false": "!query.is_sprinting"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_sprinting:true"
+					]
+				},
+				"is_sprinting_false": {
+					"transitions": [
+						{
+							"is_sprinting_true": "query.is_sprinting"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_sprinting:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_stackable": {
+			"initial_state": "is_stackable_false",
+			"states": {
+				"is_stackable_true": {
+					"transitions": [
+						{
+							"is_stackable_false": "!query.is_stackable"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_stackable:true"
+					]
+				},
+				"is_stackable_false": {
+					"transitions": [
+						{
+							"is_stackable_true": "query.is_stackable"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_stackable:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_stalking": {
+			"initial_state": "is_stalking_false",
+			"states": {
+				"is_stalking_true": {
+					"transitions": [
+						{
+							"is_stalking_false": "!query.is_stalking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_stalking:true"
+					]
+				},
+				"is_stalking_false": {
+					"transitions": [
+						{
+							"is_stalking_true": "query.is_stalking"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_stalking:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_standing": {
+			"initial_state": "is_standing_false",
+			"states": {
+				"is_standing_true": {
+					"transitions": [
+						{
+							"is_standing_false": "!query.is_standing"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_standing:true"
+					]
+				},
+				"is_standing_false": {
+					"transitions": [
+						{
+							"is_standing_true": "query.is_standing"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_standing:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_stunned": {
+			"initial_state": "is_stunned_false",
+			"states": {
+				"is_stunned_true": {
+					"transitions": [
+						{
+							"is_stunned_false": "!query.is_stunned"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_stunned:true"
+					]
+				},
+				"is_stunned_false": {
+					"transitions": [
+						{
+							"is_stunned_true": "query.is_stunned"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_stunned:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_swimming": {
+			"initial_state": "is_swimming_false",
+			"states": {
+				"is_swimming_true": {
+					"transitions": [
+						{
+							"is_swimming_false": "!query.is_swimming"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_swimming:true"
+					]
+				},
+				"is_swimming_false": {
+					"transitions": [
+						{
+							"is_swimming_true": "query.is_swimming"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_swimming:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_tamed": {
+			"initial_state": "is_tamed_false",
+			"states": {
+				"is_tamed_true": {
+					"transitions": [
+						{
+							"is_tamed_false": "!query.is_tamed"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_tamed:true"
+					]
+				},
+				"is_tamed_false": {
+					"transitions": [
+						{
+							"is_tamed_true": "query.is_tamed"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_tamed:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_transforming": {
+			"initial_state": "is_transforming_false",
+			"states": {
+				"is_transforming_true": {
+					"transitions": [
+						{
+							"is_transforming_false": "!query.is_transforming"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_transforming:true"
+					]
+				},
+				"is_transforming_false": {
+					"transitions": [
+						{
+							"is_transforming_true": "query.is_transforming"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_transforming:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_using_item": {
+			"initial_state": "is_using_item_false",
+			"states": {
+				"is_using_item_true": {
+					"transitions": [
+						{
+							"is_using_item_false": "!query.is_using_item"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_using_item:true"
+					]
+				},
+				"is_using_item_false": {
+					"transitions": [
+						{
+							"is_using_item_true": "query.is_using_item"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_using_item:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.is_wall_climbing": {
+			"initial_state": "is_wall_climbing_false",
+			"states": {
+				"is_wall_climbing_true": {
+					"transitions": [
+						{
+							"is_wall_climbing_false": "!query.is_wall_climbing"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_wall_climbing:true"
+					]
+				},
+				"is_wall_climbing_false": {
+					"transitions": [
+						{
+							"is_wall_climbing_true": "query.is_wall_climbing"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:is_wall_climbing:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.out_of_control": {
+			"initial_state": "out_of_control_true",
+			"states": {
+				"out_of_control_true": {
+					"transitions": [
+						{
+							"out_of_control_false": "!query.out_of_control"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:out_of_control:true"
+					]
+				},
+				"out_of_control_false": {
+					"transitions": [
+						{
+							"out_of_control_true": "query.out_of_control"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:out_of_control:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.show_bottom": {
+			"initial_state": "show_bottom_true",
+			"states": {
+				"show_bottom_true": {
+					"transitions": [
+						{
+							"show_bottom_false": "!query.show_bottom"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:show_bottom:true"
+					]
+				},
+				"show_bottom_false": {
+					"transitions": [
+						{
+							"show_bottom_true": "query.show_bottom"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:show_bottom:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.crossbow" : {
+			"initial_state" : "default",
+			"states" : {
+				"charge" : {
+					"animations" : [ "third_person_crossbow_equipped" ],
+					"transitions" : [
+						{
+							"default" : "query.get_equipped_item_name != 'crossbow' || (query.item_remaining_use_duration <= 0.0 && !query.item_is_charged)"
+						},
+						{
+							"hold" : "query.item_is_charged"
+						}
+					]
+				},
+				"default" : {
+					"transitions" : [
+						{
+							"hold" : "query.item_is_charged"
+						},
+						{
+							"charge" : "query.item_remaining_use_duration > 0.0"
+						}
+					]
+				},
+				"hold" : {
+					"animations" : [ "crossbow_hold" ],
+					"transitions" : [
+						{
+							"default" : "query.get_equipped_item_name != 'crossbow' || (query.item_remaining_use_duration <= 0.0 && !query.item_is_charged)"
+						},
+						{
+							"charge" : "query.item_remaining_use_duration > 0.0"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.player.first_person_attack" : {
+			"initial_state" : "default",
+			"states" : {
+				"default" : {
+					"animations" : [ "first_person_attack_rotation" ],
+					"transitions" : [
+						{
+							"vr_attack" : "variable.is_using_vr"
+						}
+					]
+				},
+				"vr_attack" : {
+					"animations" : [ "first_person_vr_attack_rotation" ],
+					"transitions" : [
+						{
+							"default" : "!variable.is_using_vr"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.player.first_person_map" : {
+			"initial_state" : "default",
+			"states" : {
+				"default" : {
+					"transitions" : [
+						{
+							"one_hand" : "query.get_equipped_item_name('off_hand') == 'map' || query.get_equipped_item_name('off_hand') == 'shield'"
+						},
+						{
+							"two_hand" : "query.get_equipped_item_name('off_hand') != 'map' && query.get_equipped_item_name('off_hand') != 'shield'"
+						}
+					]
+				},
+				"one_hand" : {
+					"animations" : [
+						{
+							"first_person_map_hold_main_hand" : "query.get_equipped_item_name(0, 1) == 'map'"
+						},
+						{
+							"first_person_map_hold_off_hand" : "query.get_equipped_item_name('off_hand') == 'map' && (query.get_equipped_item_name == 'bow' ? !(variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0) : 1.0)"
+						}
+					],
+					"transitions" : [
+						{
+							"default" : "query.get_equipped_item_name(0, 1) != 'map' && query.get_equipped_item_name('off_hand') != 'map'"
+						},
+						{
+							"two_hand" : "query.get_equipped_item_name('off_hand') != 'map' && query.get_equipped_item_name('off_hand') != 'shield'"
+						}
+					]
+				},
+				"two_hand" : {
+					"animations" : [ "first_person_map_hold", "first_person_map_hold_attack" ],
+					"transitions" : [
+						{
+							"default" : "query.get_equipped_item_name(0, 1) != 'map' && query.get_equipped_item_name('off_hand') != 'map'"
+						},
+						{
+							"one_hand" : "query.get_equipped_item_name('off_hand') == 'map' || query.get_equipped_item_name('off_hand') == 'shield'"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.player.root" : {
+			"initial_state" : "first_person",
+			"states" : {
+				"first_person" : {
+					"animations" : [
+						{
+							"first_person_swap_item": "!query.blocking"
+						},
+						{
+							"first_person_shield_block": "query.blocking"
+						},
+						{
+							"first_person_attack_controller" : "variable.attack_time > 0.0f && query.get_equipped_item_name != 'map'"
+						},
+						"first_person_base_pose",
+						{
+							"first_person_empty_hand" : "query.get_equipped_item_name(0, 1) != 'map'"
+						},
+						{
+							"first_person_walk" : "variable.bob_animation"
+						},
+						{
+							"first_person_map_controller" : "(query.get_equipped_item_name(0, 1) == 'map' || query.get_equipped_item_name('off_hand') == 'map')"
+						},
+						{
+							"first_person_crossbow_equipped": "query.get_equipped_item_name == 'crossbow' && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)"
+						},
+						{
+							"first_person_breathing_bob": "variable.attack_time <= 0.0"
+						}
+					],
+					"transitions" : [
+						{
+							"paperdoll" : "variable.is_paperdoll"
+						},
+						{
+							"map_player" : "variable.map_face_icon"
+						},
+						{
+							"third_person" : "!variable.is_first_person"
+						}
+					]
+				},
+				"map_player" : {
+					"transitions" : [
+						{
+							"paperdoll" : "variable.is_paperdoll"
+						},
+						{
+							"first_person" : "variable.is_first_person"
+						},
+						{
+							"third_person" : "!variable.map_face_icon && !variable.is_first_person"
+						}
+					]
+				},
+				"paperdoll" : {
+					"animations" : [ "humanoid_base_pose", "look_at_target_ui", "move.arms", "move.legs", "cape" ],
+					"transitions" : [
+						{
+							"first_person" : "!variable.is_paperdoll && variable.is_first_person"
+						},
+						{
+							"map_player" : "variable.map_face_icon"
+						},
+						{
+							"third_person" : "!variable.is_paperdoll && !variable.is_first_person"
+						}
+					]
+				},
+				"third_person" : {
+					"animations" : [
+						"humanoid_base_pose",
+						{
+							"look_at_target" : "!query.is_sleeping && !query.is_emoting"
+						},
+						"move.arms",
+						"move.legs",
+						"cape",
+						{
+							"riding.arms" : "query.is_riding"
+						},
+						{
+							"riding.legs" : "query.is_riding"
+						},
+						"holding",
+						{
+							"brandish_spear" : "variable.is_brandishing_spear"
+						},
+						{
+							"holding_spyglass": "variable.is_holding_spyglass"
+						},
+						{
+							"charging" : "query.is_charging"
+						},
+						{
+							"sneaking" : "query.is_sneaking && !query.is_sleeping"
+						},
+						{
+							"bob": "!variable.is_holding_spyglass"
+						},
+						{
+							"damage_nearby_mobs" : "variable.damage_nearby_mobs"
+						},
+						{
+							"swimming" : "variable.swim_amount > 0.0"
+						},
+						{
+							"swimming.legs" : "variable.swim_amount > 0.0"
+						},
+						{
+							"use_item_progress": "( variable.use_item_interval_progress > 0.0 ) || ( variable.use_item_startup_progress > 0.0 ) && !variable.is_brandishing_spear && !variable.is_holding_spyglass && !query.is_item_name_any('slot.weapon.mainhand', 'minecraft:bow')"
+						},
+						{
+							"sleeping" : "query.is_sleeping && query.is_alive"
+						},
+						{
+							"attack.positions" : "variable.attack_time >= 0.0"
+						},
+						{
+							"attack.rotations" : "variable.attack_time >= 0.0"
+						},
+						{
+							"shield_block_main_hand" : "query.blocking && query.get_equipped_item_name('off_hand') != 'shield' && query.get_equipped_item_name == 'shield'"
+						},
+						{
+							"shield_block_off_hand" : "query.blocking && query.get_equipped_item_name('off_hand') == 'shield'"
+						},
+						{
+							"crossbow_controller" : "query.get_equipped_item_name == 'crossbow'"
+						},
+						{
+							"third_person_bow_equipped" : "query.get_equipped_item_name == 'bow' && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)"
+						}
+					],
+					"transitions" : [
+						{
+							"paperdoll" : "variable.is_paperdoll"
+						},
+						{
+							"first_person" : "variable.is_first_person"
+						},
+						{
+							"map_player" : "variable.map_face_icon"
+						}
+					]
+				}
+			}
+		}
+	}
+}

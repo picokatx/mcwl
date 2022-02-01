@@ -197,5 +197,5 @@ export class Locale {
         return this.languageMap.get(s);
     }
 }
-export const locale: Locale = new Locale("en_us", LOCALE_ZH_HANS);
+export const locale: Locale = new Locale("en_us", Locale_EN_GB);
 //export const zh_hans: Locale = new Locale("zh_hans",LOCALE_ZH_HANS)

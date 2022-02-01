@@ -134,6 +134,39 @@ export class BeforeChatEventSignal {
    */
   unsubscribe(callback: (arg: BeforeChatEvent) => void): void;
 }
+export class EntityDataDrivenTriggerEventOptions {
+  entities: Entity[];
+  entityTypes: string[];
+  eventTypes: string[];
+}
+export class DefinitionModifier {
+  readonly componentGroupsToAdd: string[];
+  readonly componentGroupsToRemove: string[];
+  triggers: Trigger[];
+}
+export class BeforeDataDrivenEntityTriggerEvent {
+  entity: Entity;
+  id: string;
+  modifiers: DefinitionModifier[];
+  cancel: boolean
+}
+export class BeforeDataDrivenEntityTriggerEventSignal {
+  /**
+   * @remarks
+   * Adds a callback that will be called before new chat messages
+   * are sent.
+   * @param callback
+   */
+  subscribe(callback: (arg: BeforeDataDrivenEntityTriggerEvent) => void, options?: EntityDataDrivenTriggerEventOptions): (arg: BeforeDataDrivenEntityTriggerEvent) => void;
+  /**
+   * @remarks
+   * Removes a callback from being called before new chat
+   * messages are sent.
+   * @param callback
+   * @throws This function can throw errors.
+   */
+  unsubscribe(callback: (arg: BeforeChatEvent) => void): void;
+}
 /**
 * Contains information regarding an explosion that has
 * happened.
@@ -4162,6 +4195,7 @@ export class Events {
    * delivered. The event can be canceled, and the message can
    * also be updated.
    */
+  "beforeDataDrivenEntityTriggerEvent" : BeforeDataDrivenEntityTriggerEventSignal;
   "beforeChat": BeforeChatEventSignal;
   /**
    * This event is fired before an explosion occurs.
