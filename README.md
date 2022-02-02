@@ -9,8 +9,9 @@ Emote Support - Emotes for items with item id 256-380 are added
 ## Requirements
 - 1.18.20.21 MCBE beta and above. Vanilla is not supported
 ## Installing
-- zip compress the repository and rename to .mcpack extension, then double click the pack. Glyph resource pack can be installed similarly
+- zip compress folders mcwl BP and mcwl RP, and rename file extension to mcpack.
 - Player statistics are saved by  using ,savedb \<playername>. Player statistics are not saved automatically by this addon.
+- This addon is still in beta development
 ## Commands
 - ascend
 - blocksint
