@@ -194,4 +194,5 @@ export var MolangNamespaces;
     MolangNamespaces["is_wall_climbing"] = "mcwl:molangquery:is_wall_climbing";
     MolangNamespaces["out_of_control"] = "mcwl:molangquery:out_of_control";
     MolangNamespaces["show_bottom"] = "mcwl:molangquery:show_bottom:true";
+    MolangNamespaces["raid_triggered"] = "mcwl:molangquery:raid_triggered";
 })(MolangNamespaces || (MolangNamespaces = {}));

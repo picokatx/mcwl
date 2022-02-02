@@ -1,5 +1,4 @@
 import { Player } from "mojang-minecraft";
-import { printStream } from "../../Main.js";
 
 import { MCWLNamespaces } from "../constants/MCWLNamespaces.js";
 import { molangQueries } from "../constants/MolangNamespaces.js";
@@ -20,8 +19,10 @@ export class PlayerDB {
     timeSinceDeath: number
     crouchTime: number
     joined: number
+    jump: number
     distanceTravelled: number
     playtime: number
+    raidsTriggered: number
     sudo: SudoEntry
     firstJoined: string
     molangQueries: Map<string,boolean>
@@ -45,6 +46,8 @@ export class PlayerDB {
             this.joined = 0
             this.distanceTravelled = 0
             this.deaths = 0
+            this.raidsTriggered = 0
+            this.jump = 0
             this.timeSinceDeath = 0
             this.playtime = 0
             this.sudo = new SudoEntry(false,"pico","@a")
@@ -85,11 +88,16 @@ export class PlayerDB {
                 case MCWLNamespaces["distanceTravelled"]:
                     this.distanceTravelled = parseInt(data)
                     break
+                case MCWLNamespaces["jump"]:
+                    this.jump = parseInt(data)
+                    break
                 case MCWLNamespaces["playerFirstJoined"]:
                     this.firstJoined = data
                     break
+                case MCWLNamespaces["raidTrigger"]:
+                    this.firstJoined = data
+                    break
                 case MCWLNamespaces["playerJoined"]:
-                    printStream.println(data);
                     this.joined = parseInt(data)
                     break
                 case MCWLNamespaces["playtime"]:
@@ -128,6 +136,8 @@ export class PlayerDB {
 
         ret.push(this.blockInt.toJSONString());
         ret.push(this.sudo.toJSONString());
+        ret.push(this.attrToString(this.raidsTriggered, MCWLNamespaces.raidTrigger));
+        ret.push(this.attrToString(this.jump, MCWLNamespaces.jump));
         ret.push(this.attrToString(this.deaths, MCWLNamespaces.deaths));
         ret.push(this.attrToString(this.timeSinceDeath, MCWLNamespaces.timeSinceDeath));
         ret.push(this.attrToString(this.crouchTime, MCWLNamespaces.sneakDuration));

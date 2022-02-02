@@ -336,27 +336,31 @@
       },
       "minecraft:block_climber": {},
       "minecraft:environment_sensor": {
-        "triggers": {
-          "filters": {
-            "all_of": [
-              {
-                "test": "has_mob_effect",
-                "subject": "self",
-                "value": "bad_omen"
-              },
-              {
-                "test": "is_in_village",
-                "subject": "self",
-                "value": true
-              }
-            ]
-          },
-          "event": "minecraft:trigger_raid"
-        }
+        "triggers": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_mob_effect",
+                  "subject": "self",
+                  "value": "bad_omen"
+                },
+                {
+                  "test": "is_in_village",
+                  "subject": "self",
+                  "value": true
+                }
+              ]
+            },
+            "event": "mcwl:molangquery:raid_triggered"  
+          }
+        ]
       }
     },
 
     "events": {
+      "mcwl:molangquery:raid_triggered": {},
+
       "mcwl:molangquery:blocking:true": {},
       "mcwl:molangquery:blocking:false": {},
       "mcwl:molangquery:can_climb:true": {},

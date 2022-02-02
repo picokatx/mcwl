@@ -7,7 +7,7 @@
 				"blocking_true": {
 					"transitions": [
 						{
-							"blocking_false": "!query.blocking"
+							"blocking_false": "!(query.blocking  && (query.get_equipped_item_name == 'shield' || query.get_equipped_item_name('off_hand') == 'shield'))"
 						}
 					],
 					"on_entry": [
@@ -17,7 +17,7 @@
 				"blocking_false": {
 					"transitions": [
 						{
-							"blocking_true": "query.blocking"
+							"blocking_true": "(query.blocking  && (query.get_equipped_item_name == 'shield' || query.get_equipped_item_name('off_hand') == 'shield'))"
 						}
 					],
 					"on_entry": [

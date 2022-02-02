@@ -23,9 +23,11 @@ Emote Support - Emotes for items with item id 256-380 are added
 - floor
 - goto
 - help
+- jump
 - lastdied
 - playerjoined
 - playtime
+- raidstriggered
 - savedb
 - setblock
 - spawn

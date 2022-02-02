@@ -11,5 +11,20 @@ export enum MCWLNamespaces {
     versionID = "mcwl:version_id",
     storageID = "mcwl:storage_id",
     deaths = "mcwl:deaths",
-    timeSinceDeath = "mcwl:timeSinceDeath"
+    timeSinceDeath = "mcwl:time_since_death",
+    jump = "mcwl:jump",
+    
+    raidTrigger = "mcwl:raid_trigger",
+    timeSinceRest = "mcwl:time_since_rest",
+    sleepInBed = "mcwl:sleep_in_bed",
+    animalsBred = "mcwl:animals_bred",
+    fishCaught = "mcwl:fish_caught",
+    enchantItem = "mcwl:enchant_item",
+    drop = "mcwl:drop",
+    mobKills = "mcwl:mob_kills",
+    playerKills = "mcwl:player_kills",
+    raidWin = "mcwl:raid_win",
+    talkedToVillager = "mcwl:talked_to_villager",
+    targetHit = "mcwl:target_hit",
+    tradedWithVillager = "mcwl:traded_with_villager"
 }

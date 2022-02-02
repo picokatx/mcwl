@@ -13,9 +13,11 @@ export const Locale_EN_GB = new Map([
     ["cmd_name_floor", "floor"],
     ["cmd_name_goto", "goto"],
     ["cmd_name_help", "help"],
+    ["cmd_name_jump", "jump"],
     ["cmd_name_lastdied", "lastdied"],
     ["cmd_name_playerjoined", "playerjoined"],
     ["cmd_name_playtime", "playtime"],
+    ["cmd_name_raidstriggered", "raidstriggered"],
     ["cmd_name_savedb", "savedb"],
     ["cmd_name_setblock", "setblock"],
     ["cmd_name_spawn", "spawn"],
@@ -32,9 +34,11 @@ export const Locale_EN_GB = new Map([
     ["cmd_description_floor", "Teleports player to the highest solid block below them."],
     ["cmd_description_goto", "Teleports player to the nearest block on crosshair."],
     ["cmd_description_help", "Pov you forgot your own command syntax smh."],
+    ["cmd_description_jump", "Displays number of times player has jumped"],
     ["cmd_description_lastdied", "Displays time since player has last died in ticks"],
     ["cmd_description_playerjoined", "Displays number of times player has joined world."],
     ["cmd_description_playtime", "Displays playtime of player."],
+    ["cmd_description_raidstriggered", "Displays number of raids triggered by player."],
     ["cmd_description_savedb", "Manually save your statistics"],
     ["cmd_description_setblock", "Fills a block location with specified block."],
     ["cmd_description_spawn", "Spawns entities."],
@@ -66,10 +70,12 @@ export const Locale_EN_GB = new Map([
     ["cmd_return_goto_0_failure", "Solid Blocks on cursor not found."],
     ["cmd_return_help_0_success", "%s - %s.\nFormat:%s"],
     ["cmd_return_help_0_failure", "Command %s not found, use ,help for a list of all commands."],
-    ["cmd_return_help_1_success", "List of all avaliable commands:\n%s"],
+    ["cmd_return_jump_0_info", "%s has jumped %d times"],
+    ["cmd_return_firstjoined_0_info", "%s first joined this world on %s"],
     ["cmd_return_lastdied_0_info", "%s last died %d ticks ago"],
     ["cmd_return_playerjoined_0_info", "%s has joined this world %d times."],
     ["cmd_return_playtime_0_info", "%s has played for %d ticks."],
+    ["cmd_return_raidstriggered_0_info", "%s has triggered %d raids."],
     ["cmd_return_savedb_0_info", "Database saved."],
     ["cmd_return_setblock_0_success", "%s placed at [%d, %d, %d]."],
     ["cmd_return_spawn_0_success", "Spawned %d %s at [%d, %d, %d]."],
@@ -196,7 +202,8 @@ export class Locale {
         this.languageMap = languageMap;
     }
     get(s) {
-        return this.languageMap.get(s);
+        let ret = this.languageMap.get(s);
+        return (ret == undefined ? s : ret);
     }
 }
 export const locale = new Locale("en_us", Locale_EN_GB);

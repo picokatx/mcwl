@@ -26,6 +26,8 @@ import { savedbCmd } from "./Command/Commands/savedbCommand.js";
 import { MolangNamespaces } from "./Utils/constants/MolangNamespaces.js";
 import { deathsCmd } from "./Command/Commands/deathsCommand.js";
 import { lastdiedCmd } from "./Command/Commands/lastdiedCommand.js";
+import { jumpCmd } from "./Command/Commands/jumpCommand.js";
+import { raidstriggeredCmd } from "./Command/Commands/raidstriggeredCommand.js";
 export let printStream = new PrintStream(world.getDimension("overworld"));
 export let playerPrevLocDB = new Map();
 export let playerDB = new Map();
@@ -41,10 +43,12 @@ export let commands = [
     floorCmd,
     gotoCmd,
     helpCmd,
+    jumpCmd,
     lastdiedCmd,
     playtimeCmd,
     playerjoinedCmd,
     topCmd,
+    raidstriggeredCmd,
     savedbCmd,
     setblockCmd,
     spawnCmd,
@@ -52,14 +56,22 @@ export let commands = [
 ];
 export const cmdPrefix = ",";
 world.events.beforeDataDrivenEntityTriggerEvent.subscribe((eventData) => {
-    if (eventData.entity.id == "minecraft:player") {
+    if (eventData.entity.id == "minecraft:player" && eventData.id.split(':').slice(0, 2).join(":") == "mcwl:molangquery") {
         let namespace = eventData.id.split(':').slice(0, 3).join(":");
         let value = (eventData.id.split(':')[3]) === 'true';
         let thisPlayerDB = playerDB.get(eventData.entity.name);
-        thisPlayerDB.molangQueries.set(namespace, value);
+        if (value != null) {
+            thisPlayerDB.molangQueries.set(namespace, value);
+        }
         if (namespace == MolangNamespaces.is_alive && value == false) {
             thisPlayerDB.timeSinceDeath = 0;
             thisPlayerDB.deaths++;
+        }
+        else if (namespace == MolangNamespaces.is_jumping && value == true) {
+            thisPlayerDB.jump++;
+        }
+        else if (namespace == MolangNamespaces.raid_triggered) {
+            thisPlayerDB.raidsTriggered++;
         }
     }
 });
