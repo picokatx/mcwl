@@ -1,4 +1,8 @@
-/pack_icon.png
-scripts/ts/Utils/data/statsToDo.txt
-scripts/ts/Utils/constants/allcustomchars.txt
-data
+behavior_packs/mcwl/data
+db
+level.dat
+level.dat_old
+levelname.txt
+world_behavior_packs.json
+world_icon.jpeg
+world_resource_packs.json

@@ -3,12 +3,12 @@
 	"tasks": [
 		{
 			"type": "typescript",
-			"tsconfig": "scripts/ts/tsconfig.json",
+			"tsconfig": "behavior_packs/mcwl/scripts/ts/tsconfig.json",
 			"problemMatcher": [
 				"$tsc"
 			],
 			"group": "build",
-			"label": "tsc: build - scripts/ts/tsconfig.json"
+			"label": "tsc: build - behavior_packs/mcwl/scripts/ts/tsconfig.json"
 		}
 	]
 }

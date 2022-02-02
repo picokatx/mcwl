@@ -1,0 +1,18 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "MCWL Resource Pack by picobyte86",
+        "name": "MCWL RP",
+        "uuid": "5d8b1250-ea8a-437c-8cce-2072c9c09353",
+        "version": [0, 0, 1],
+        "min_engine_version": [1, 18, 20]
+    },
+    "modules": [
+        {
+            "description": "MCWL Resource Pack by picobyte86",
+            "type": "resources",
+            "uuid": "1382ffba-61a4-407f-8780-330d848b15d7",
+            "version": [0, 0, 1]
+        }
+    ]
+}
