@@ -1,0 +1,82 @@
+{
+  "format_version": "1.17.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:ender_crystal",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+
+    "component_groups": {
+      "crystal_exploding": {
+        "minecraft:explode": {
+          "fuse_length": 0,
+          "fuse_lit": true,
+          "power": 6,
+          "causes_fire": false,
+          "destroy_affected_by_griefing": true
+        }
+      }
+    },
+
+    "components": {
+      "minecraft:collision_box": {
+        "width": 0.98,
+        "height": 0.98
+      },
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:fire_immune": true,
+      "minecraft:on_hurt": {
+        "event": "minecraft:crystal_explode",
+        "target": "self"
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "on_damage": {
+              "filters": [
+                {
+                  "test": "has_damage",
+                  "subject": "self",
+                  "value": "fatal"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                }
+              ],
+              "event": "mcwl:molangquery:fatal_damage_ender_crystal:void",
+              "target": "other"
+            }
+          }
+        ]
+      },
+	    "minecraft:physics": {
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+      }
+    },
+
+    "events": {
+      "minecraft:crystal_explode": {
+        "remove": {
+        },
+        "add": {
+          "component_groups": [
+            "crystal_exploding"
+          ]
+        }
+      }
+    }
+
+  }
+}

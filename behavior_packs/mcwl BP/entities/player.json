@@ -102,7 +102,13 @@
         "is_using_item": "controller.animation.player.mcwl.molangquery.is_using_item",
         "is_wall_climbing": "controller.animation.player.mcwl.molangquery.is_wall_climbing",
         "out_of_control": "controller.animation.player.mcwl.molangquery.out_of_control",
-        "show_bottom": "controller.animation.player.mcwl.molangquery.show_bottom"
+        "show_bottom": "controller.animation.player.mcwl.molangquery.show_bottom",
+
+        "health_0": "controller.animation.player.mcwl.molangquery.health.0",
+        "health_1": "controller.animation.player.mcwl.molangquery.health.1",
+        "health_2": "controller.animation.player.mcwl.molangquery.health.2",
+        "health_3": "controller.animation.player.mcwl.molangquery.health.3",
+        "health_4": "controller.animation.player.mcwl.molangquery.health.4"
       },
       "scripts": {
         "animate": [
@@ -201,7 +207,13 @@
           "is_using_item",
           "is_wall_climbing",
           "out_of_control",
-          "show_bottom"
+          "show_bottom",
+
+          "health_0",
+          "health_1",
+          "health_2",
+          "health_3",
+          "health_4"
         ]
       }
     },
@@ -219,7 +231,7 @@
           ]
         },
         "minecraft:timer": {
-          "time": [ 0.0, 0.0 ],
+          "time": [0.0, 0.0],
           "looping": false,
           "time_down_event": {
             "event": "minecraft:clear_add_bad_omen",
@@ -228,8 +240,7 @@
         }
       },
       "minecraft:clear_bad_omen_spell_effect": {
-        "minecraft:spell_effects": {
-        }
+        "minecraft:spell_effects": {}
       },
       "minecraft:raid_trigger": {
         "minecraft:raid_trigger": {
@@ -249,10 +260,9 @@
         "on_death": "Math.Min(query.player_level * 7, 100)"
       },
       "minecraft:type_family": {
-        "family": [ "player" ]
+        "family": ["player"]
       },
-      "minecraft:is_hidden_when_invisible": {
-      },
+      "minecraft:is_hidden_when_invisible": {},
       "minecraft:loot": {
         "table": "loot_tables/empty.json"
       },
@@ -260,15 +270,19 @@
         "width": 0.6,
         "height": 1.8
       },
-      "minecraft:can_climb": {
-      },
+      "minecraft:can_climb": {},
       "minecraft:movement": {
         "value": 0.1
       },
       "minecraft:hurt_on_condition": {
         "damage_conditions": [
           {
-            "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+            "filters": {
+              "test": "in_lava",
+              "subject": "self",
+              "operator": "==",
+              "value": true
+            },
             "cause": "lava",
             "damage_per_tick": 4
           }
@@ -302,8 +316,7 @@
         "always_show": true,
         "allow_name_tag_renaming": false
       },
-      "minecraft:physics": {
-      },
+      "minecraft:physics": {},
       "minecraft:pushable": {
         "is_pushable": false,
         "is_pushable_by_piston": true
@@ -313,28 +326,330 @@
       },
       "minecraft:rideable": {
         "seat_count": 2,
-        "family_types": [
-          "parrot_tame"
-        ],
+        "family_types": ["parrot_tame"],
         "pull_in_entities": true,
         "seats": [
           {
-            "position": [ 0.4, -0.2, -0.1 ],
+            "position": [0.4, -0.2, -0.1],
             "min_rider_count": 0,
             "max_rider_count": 0,
             "lock_rider_rotation": 0
           },
           {
-            "position": [ -0.4, -0.2, -0.1 ],
+            "position": [-0.4, -0.2, -0.1],
             "min_rider_count": 1,
             "max_rider_count": 2,
             "lock_rider_rotation": 0
           }
         ]
       },
-      "minecraft:conditional_bandwidth_optimization": {
-      },
+      "minecraft:conditional_bandwidth_optimization": {},
       "minecraft:block_climber": {},
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "anvil",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:anvil_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "block_explosion",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:block_explosion_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "contact",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:contact_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "drowning",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:drowning_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "entity_explosion",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:entity_explosion_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "fall",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:fall_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "falling_block",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:falling_block_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "fire",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:fire_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "fire_tick",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:fire_tick_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "fly_into_wall",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:fly_into_wall_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "lava",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:lava_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "magic",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:magic_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "override",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:override_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "piston",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:piston_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "projectile",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:projectile_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "stalactite",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:stalactite_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "stalagmite",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:stalagmite_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "starve",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:starve_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "suffocation",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:suffocation_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "suicide",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:suicide_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "thorns",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:thorns_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "void",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:void_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "wither",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:wither_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "attack",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:attack_damage_self:void",
+              "target": "self"
+            }
+          },
+          {
+            "cause": "none",
+            "on_damage": {
+              "filters": {
+                "test": "has_damage",
+                "subject": "self",
+                "value": "fatal"
+              },
+              "event": "mcwl:molangquery:none_damage_self:void",
+              "target": "self"
+            }
+          }
+        ]
+      },
+
       "minecraft:environment_sensor": {
         "triggers": [
           {
@@ -352,240 +667,354 @@
                 }
               ]
             },
-            "event": "mcwl:molangquery:raid_triggered"  
+            "event": "mcwl:molangquery:raid_triggered:void"
           }
         ]
       }
     },
 
     "events": {
-      "mcwl:molangquery:raid_triggered": {},
+      "mcwl:molangquery:fatal_damage_armor_stand:void": {},
+      "mcwl:molangquery:fatal_damage_axolotl:void": {},
+      "mcwl:molangquery:fatal_damage_bat:void": {},
+      "mcwl:molangquery:fatal_damage_bee:void": {},
+      "mcwl:molangquery:fatal_damage_blaze:void": {},
+      "mcwl:molangquery:fatal_damage_boat:void": {},
+      "mcwl:molangquery:fatal_damage_cat:void": {},
+      "mcwl:molangquery:fatal_damage_cave_spider:void": {},
+      "mcwl:molangquery:fatal_damage_chest_minecart:void": {},
+      "mcwl:molangquery:fatal_damage_chicken:void": {},
+      "mcwl:molangquery:fatal_damage_command_block_minecart:void": {},
+      "mcwl:molangquery:fatal_damage_cow:void": {},
+      "mcwl:molangquery:fatal_damage_creeper:void": {},
+      "mcwl:molangquery:fatal_damage_dolphin:void": {},
+      "mcwl:molangquery:fatal_damage_donkey:void": {},
+      "mcwl:molangquery:fatal_damage_drowned:void": {},
+      "mcwl:molangquery:fatal_damage_elder_guardian:void": {},
+      "mcwl:molangquery:fatal_damage_enderman:void": {},
+      "mcwl:molangquery:fatal_damage_endermite:void": {},
+      "mcwl:molangquery:fatal_damage_ender_crystal:void": {},
+      "mcwl:molangquery:fatal_damage_ender_dragon:void": {},
+      "mcwl:molangquery:fatal_damage_evocation_illager:void": {},
+      "mcwl:molangquery:fatal_damage_fish:void": {},
+      "mcwl:molangquery:fatal_damage_fox:void": {},
+      "mcwl:molangquery:fatal_damage_ghast:void": {},
+      "mcwl:molangquery:fatal_damage_glow_squid:void": {},
+      "mcwl:molangquery:fatal_damage_goat:void": {},
+      "mcwl:molangquery:fatal_damage_guardian:void": {},
+      "mcwl:molangquery:fatal_damage_hoglin:void": {},
+      "mcwl:molangquery:fatal_damage_hopper_minecart:void": {},
+      "mcwl:molangquery:fatal_damage_horse:void": {},
+      "mcwl:molangquery:fatal_damage_husk:void": {},
+      "mcwl:molangquery:fatal_damage_iron_golem:void": {},
+      "mcwl:molangquery:fatal_damage_llama:void": {},
+      "mcwl:molangquery:fatal_damage_magma_cube:void": {},
+      "mcwl:molangquery:fatal_damage_minecart:void": {},
+      "mcwl:molangquery:fatal_damage_mooshroom:void": {},
+      "mcwl:molangquery:fatal_damage_mule:void": {},
+      "mcwl:molangquery:fatal_damage_npc:void": {},
+      "mcwl:molangquery:fatal_damage_ocelot:void": {},
+      "mcwl:molangquery:fatal_damage_panda:void": {},
+      "mcwl:molangquery:fatal_damage_parrot:void": {},
+      "mcwl:molangquery:fatal_damage_phantom:void": {},
+      "mcwl:molangquery:fatal_damage_pig:void": {},
+      "mcwl:molangquery:fatal_damage_piglin:void": {},
+      "mcwl:molangquery:fatal_damage_piglin_brute:void": {},
+      "mcwl:molangquery:fatal_damage_pillager:void": {},
+      "mcwl:molangquery:fatal_damage_pillager_captain:void": {},
+      "mcwl:molangquery:fatal_damage_player:void": {},
+      "mcwl:molangquery:fatal_damage_polar_bear:void": {},
+      "mcwl:molangquery:fatal_damage_pufferfish:void": {},
+      "mcwl:molangquery:fatal_damage_rabbit:void": {},
+      "mcwl:molangquery:fatal_damage_ravager:void": {},
+      "mcwl:molangquery:fatal_damage_salmon:void": {},
+      "mcwl:molangquery:fatal_damage_sheep:void": {},
+      "mcwl:molangquery:fatal_damage_shulker:void": {},
+      "mcwl:molangquery:fatal_damage_shulker_bullet:void": {},
+      "mcwl:molangquery:fatal_damage_silverfish:void": {},
+      "mcwl:molangquery:fatal_damage_skeleton:void": {},
+      "mcwl:molangquery:fatal_damage_skeleton_horse:void": {},
+      "mcwl:molangquery:fatal_damage_slime:void": {},
+      "mcwl:molangquery:fatal_damage_snow_golem:void": {},
+      "mcwl:molangquery:fatal_damage_spider:void": {},
+      "mcwl:molangquery:fatal_damage_squid:void": {},
+      "mcwl:molangquery:fatal_damage_stray:void": {},
+      "mcwl:molangquery:fatal_damage_strider:void": {},
+      "mcwl:molangquery:fatal_damage_tnt_minecart:void": {},
+      "mcwl:molangquery:fatal_damage_tripod_camera:void": {},
+      "mcwl:molangquery:fatal_damage_tropicalfish:void": {},
+      "mcwl:molangquery:fatal_damage_turtle:void": {},
+      "mcwl:molangquery:fatal_damage_vex:void": {},
+      "mcwl:molangquery:fatal_damage_villager:void": {},
+      "mcwl:molangquery:fatal_damage_villager_v2:void": {},
+      "mcwl:molangquery:fatal_damage_vindicator:void": {},
+      "mcwl:molangquery:fatal_damage_wandering_trader:void": {},
+      "mcwl:molangquery:fatal_damage_witch:void": {},
+      "mcwl:molangquery:fatal_damage_wither:void": {},
+      "mcwl:molangquery:fatal_damage_wither_skeleton:void": {},
+      "mcwl:molangquery:fatal_damage_wolf:void": {},
+      "mcwl:molangquery:fatal_damage_zoglin:void": {},
+      "mcwl:molangquery:fatal_damage_zombie:void": {},
+      "mcwl:molangquery:fatal_damage_zombie_horse:void": {},
+      "mcwl:molangquery:fatal_damage_zombie_pigman:void": {},
+      "mcwl:molangquery:fatal_damage_zombie_villager:void": {},
+      "mcwl:molangquery:fatal_damage_zombie_villager_v2:void": {},
 
-      "mcwl:molangquery:blocking:true": {},
-      "mcwl:molangquery:blocking:false": {},
-      "mcwl:molangquery:can_climb:true": {},
-      "mcwl:molangquery:can_climb:false": {},
-      "mcwl:molangquery:can_damage_nearby_mobs:true": {},
-      "mcwl:molangquery:can_damage_nearby_mobs:false": {},
-      "mcwl:molangquery:can_fly:true": {},
-      "mcwl:molangquery:can_fly:false": {},
-      "mcwl:molangquery:can_power_jump:true": {},
-      "mcwl:molangquery:can_power_jump:false": {},
-      "mcwl:molangquery:can_swim:true": {},
-      "mcwl:molangquery:can_swim:false": {},
-      "mcwl:molangquery:can_walk:true": {},
-      "mcwl:molangquery:can_walk:false": {},
-      "mcwl:molangquery:facing_target_to_range_attack:true": {},
-      "mcwl:molangquery:facing_target_to_range_attack:false": {},
-      "mcwl:molangquery:has_cape:true": {},
-      "mcwl:molangquery:has_cape:false": {},
-      "mcwl:molangquery:has_collision:true": {},
-      "mcwl:molangquery:has_collision:false": {},
-      "mcwl:molangquery:has_gravity:true": {},
-      "mcwl:molangquery:has_gravity:false": {},
-      "mcwl:molangquery:has_rider:true": {},
-      "mcwl:molangquery:has_rider:false": {},
-      "mcwl:molangquery:has_target:true": {},
-      "mcwl:molangquery:has_target:false": {},
-      "mcwl:molangquery:is_admiring:true": {},
-      "mcwl:molangquery:is_admiring:false": {},
-      "mcwl:molangquery:is_alive:true": {},
-      "mcwl:molangquery:is_alive:false": {},
-      "mcwl:molangquery:is_angry:true": {},
-      "mcwl:molangquery:is_angry:false": {},
-      "mcwl:molangquery:is_attached_to_entity:true": {},
-      "mcwl:molangquery:is_attached_to_entity:false": {},
-      "mcwl:molangquery:is_avoiding_block:true": {},
-      "mcwl:molangquery:is_avoiding_block:false": {},
-      "mcwl:molangquery:is_avoiding_mobs:true": {},
-      "mcwl:molangquery:is_avoiding_mobs:false": {},
-      "mcwl:molangquery:is_baby:true": {},
-      "mcwl:molangquery:is_baby:false": {},
-      "mcwl:molangquery:is_breathing:true": {},
-      "mcwl:molangquery:is_breathing:false": {},
-      "mcwl:molangquery:is_bribed:true": {},
-      "mcwl:molangquery:is_bribed:false": {},
-      "mcwl:molangquery:is_carrying_block:true": {},
-      "mcwl:molangquery:is_carrying_block:false": {},
-      "mcwl:molangquery:is_casting:true": {},
-      "mcwl:molangquery:is_casting:false": {},
-      "mcwl:molangquery:is_celebrating:true": {},
-      "mcwl:molangquery:is_celebrating:false": {},
-      "mcwl:molangquery:is_celebrating_special:true": {},
-      "mcwl:molangquery:is_celebrating_special:false": {},
-      "mcwl:molangquery:is_charged:true": {},
-      "mcwl:molangquery:is_charged:false": {},
-      "mcwl:molangquery:is_charging:true": {},
-      "mcwl:molangquery:is_charging:false": {},
-      "mcwl:molangquery:is_chested:true": {},
-      "mcwl:molangquery:is_chested:false": {},
-      "mcwl:molangquery:is_critical:true": {},
-      "mcwl:molangquery:is_critical:false": {},
-      "mcwl:molangquery:is_croaking:true": {},
-      "mcwl:molangquery:is_croaking:false": {},
-      "mcwl:molangquery:is_dancing:true": {},
-      "mcwl:molangquery:is_dancing:false": {},
-      "mcwl:molangquery:is_delayed_attacking:true": {},
-      "mcwl:molangquery:is_delayed_attacking:false": {},
-      "mcwl:molangquery:is_eating:true": {},
-      "mcwl:molangquery:is_eating:false": {},
-      "mcwl:molangquery:is_eating_mob:true": {},
-      "mcwl:molangquery:is_eating_mob:false": {},
-      "mcwl:molangquery:is_elder:true": {},
-      "mcwl:molangquery:is_elder:false": {},
-      "mcwl:molangquery:is_emoting:true": {},
-      "mcwl:molangquery:is_emoting:false": {},
-      "mcwl:molangquery:is_enchanted:true": {},
-      "mcwl:molangquery:is_enchanted:false": {},
-      "mcwl:molangquery:is_fire_immune:true": {},
-      "mcwl:molangquery:is_fire_immune:false": {},
-      "mcwl:molangquery:is_first_person:true": {},
-      "mcwl:molangquery:is_first_person:false": {},
-      "mcwl:molangquery:is_ghost:true": {},
-      "mcwl:molangquery:is_ghost:false": {},
-      "mcwl:molangquery:is_gliding:true": {},
-      "mcwl:molangquery:is_gliding:false": {},
-      "mcwl:molangquery:is_grazing:true": {},
-      "mcwl:molangquery:is_grazing:false": {},
-      "mcwl:molangquery:is_idling:true": {},
-      "mcwl:molangquery:is_idling:false": {},
-      "mcwl:molangquery:is_ignited:true": {},
-      "mcwl:molangquery:is_ignited:false": {},
-      "mcwl:molangquery:is_illager_captain:true": {},
-      "mcwl:molangquery:is_illager_captain:false": {},
-      "mcwl:molangquery:is_in_contact_with_water:true": {},
-      "mcwl:molangquery:is_in_contact_with_water:false": {},
-      "mcwl:molangquery:is_in_love:true": {},
-      "mcwl:molangquery:is_in_love:false": {},
-      "mcwl:molangquery:is_in_ui:true": {},
-      "mcwl:molangquery:is_in_ui:false": {},
-      "mcwl:molangquery:is_in_water:true": {},
-      "mcwl:molangquery:is_in_water:false": {},
-      "mcwl:molangquery:is_in_water_or_rain:true": {},
-      "mcwl:molangquery:is_in_water_or_rain:false": {},
-      "mcwl:molangquery:is_interested:true": {},
-      "mcwl:molangquery:is_interested:false": {},
-      "mcwl:molangquery:is_invisible:true": {},
-      "mcwl:molangquery:is_invisible:false": {},
-      "mcwl:molangquery:is_jumping:true": {},
-      "mcwl:molangquery:is_jumping:false": {},
-      "mcwl:molangquery:is_laying_down:true": {},
-      "mcwl:molangquery:is_laying_down:false": {},
-      "mcwl:molangquery:is_laying_egg:true": {},
-      "mcwl:molangquery:is_laying_egg:false": {},
-      "mcwl:molangquery:is_leashed:true": {},
-      "mcwl:molangquery:is_leashed:false": {},
-      "mcwl:molangquery:is_levitating:true": {},
-      "mcwl:molangquery:is_levitating:false": {},
-      "mcwl:molangquery:is_lingering:true": {},
-      "mcwl:molangquery:is_lingering:false": {},
-      "mcwl:molangquery:is_on_fire:true": {},
-      "mcwl:molangquery:is_on_fire:false": {},
-      "mcwl:molangquery:is_on_ground:true": {},
-      "mcwl:molangquery:is_on_ground:false": {},
-      "mcwl:molangquery:is_on_screen:true": {},
-      "mcwl:molangquery:is_on_screen:false": {},
-      "mcwl:molangquery:is_orphaned:true": {},
-      "mcwl:molangquery:is_orphaned:false": {},
-      "mcwl:molangquery:is_persona_or_premium_skin:true": {},
-      "mcwl:molangquery:is_persona_or_premium_skin:false": {},
-      "mcwl:molangquery:is_playing_dead:true": {},
-      "mcwl:molangquery:is_playing_dead:false": {},
-      "mcwl:molangquery:is_powered:true": {},
-      "mcwl:molangquery:is_powered:false": {},
-      "mcwl:molangquery:is_pregnant:true": {},
-      "mcwl:molangquery:is_pregnant:false": {},
-      "mcwl:molangquery:is_ram_attacking:true": {},
-      "mcwl:molangquery:is_ram_attacking:false": {},
-      "mcwl:molangquery:is_resting:true": {},
-      "mcwl:molangquery:is_resting:false": {},
-      "mcwl:molangquery:is_riding:true": {},
-      "mcwl:molangquery:is_riding:false": {},
-      "mcwl:molangquery:is_roaring:true": {},
-      "mcwl:molangquery:is_roaring:false": {},
-      "mcwl:molangquery:is_rolling:true": {},
-      "mcwl:molangquery:is_rolling:false": {},
-      "mcwl:molangquery:is_saddled:true": {},
-      "mcwl:molangquery:is_saddled:false": {},
-      "mcwl:molangquery:is_scared:true": {},
-      "mcwl:molangquery:is_scared:false": {},
-      "mcwl:molangquery:is_selected_item:true": {},
-      "mcwl:molangquery:is_selected_item:false": {},
-      "mcwl:molangquery:is_shaking:true": {},
-      "mcwl:molangquery:is_shaking:false": {},
-      "mcwl:molangquery:is_shaking_wetness:true": {},
-      "mcwl:molangquery:is_shaking_wetness:false": {},
-      "mcwl:molangquery:is_sheared:true": {},
-      "mcwl:molangquery:is_sheared:false": {},
-      "mcwl:molangquery:is_shield_powered:true": {},
-      "mcwl:molangquery:is_shield_powered:false": {},
-      "mcwl:molangquery:is_silent:true": {},
-      "mcwl:molangquery:is_silent:false": {},
-      "mcwl:molangquery:is_sitting:true": {},
-      "mcwl:molangquery:is_sitting:false": {},
-      "mcwl:molangquery:is_sleeping:true": {},
-      "mcwl:molangquery:is_sleeping:false": {},
-      "mcwl:molangquery:is_sneaking:true": {},
-      "mcwl:molangquery:is_sneaking:false": {},
-      "mcwl:molangquery:is_sneezing:true": {},
-      "mcwl:molangquery:is_sneezing:false": {},
-      "mcwl:molangquery:is_sprinting:true": {},
-      "mcwl:molangquery:is_sprinting:false": {},
-      "mcwl:molangquery:is_stackable:true": {},
-      "mcwl:molangquery:is_stackable:false": {},
-      "mcwl:molangquery:is_stalking:true": {},
-      "mcwl:molangquery:is_stalking:false": {},
-      "mcwl:molangquery:is_standing:true": {},
-      "mcwl:molangquery:is_standing:false": {},
-      "mcwl:molangquery:is_stunned:true": {},
-      "mcwl:molangquery:is_stunned:false": {},
-      "mcwl:molangquery:is_swimming:true": {},
-      "mcwl:molangquery:is_swimming:false": {},
-      "mcwl:molangquery:is_tamed:true": {},
-      "mcwl:molangquery:is_tamed:false": {},
-      "mcwl:molangquery:is_transforming:true": {},
-      "mcwl:molangquery:is_transforming:false": {},
-      "mcwl:molangquery:is_using_item:true": {},
-      "mcwl:molangquery:is_using_item:false": {},
-      "mcwl:molangquery:is_wall_climbing:true": {},
-      "mcwl:molangquery:is_wall_climbing:false": {},
-      "mcwl:molangquery:out_of_control:true": {},
-      "mcwl:molangquery:out_of_control:false": {},
-      "mcwl:molangquery:show_bottom:true": {},
-      "mcwl:molangquery:show_bottom:false": {},    
+      "mcwl:molangquery:anvil_damage_self:void": {},
+      "mcwl:molangquery:attack_damage_self:void": {},
+      "mcwl:molangquery:block_explosion_damage_self:void": {},
+      "mcwl:molangquery:contact_damage_self:void": {},
+      "mcwl:molangquery:drowning_damage_self:void": {},
+      "mcwl:molangquery:entity_explosion_damage_self:void": {},
+      "mcwl:molangquery:fall_damage_self:void": {},
+      "mcwl:molangquery:falling_block_damage_self:void": {},
+      "mcwl:molangquery:fatal_damage_self:void": {},
+      "mcwl:molangquery:fire_damage_self:void": {},
+      "mcwl:molangquery:fire_tick_damage_self:void": {},
+      "mcwl:molangquery:fly_into_wall_damage_self:void": {},
+      "mcwl:molangquery:lava_damage_self:void": {},
+      "mcwl:molangquery:magic_damage_self:void": {},
+      "mcwl:molangquery:none_damage_self:void": {},
+      "mcwl:molangquery:override_damage_self:void": {},
+      "mcwl:molangquery:piston_damage_self:void": {},
+      "mcwl:molangquery:projectile_damage_self:void": {},
+      "mcwl:molangquery:stalactite_damage_self:void": {},
+      "mcwl:molangquery:stalagmite_damage_self:void": {},
+      "mcwl:molangquery:starve_damage_self:void": {},
+      "mcwl:molangquery:suffocation_damage_self:void": {},
+      "mcwl:molangquery:suicide_damage_self:void": {},
+      "mcwl:molangquery:thorns_damage_self:void": {},
+      "mcwl:molangquery:void_damage_self:void": {},
+      "mcwl:molangquery:wither_damage_self:void": {},
+
+      "mcwl:molangquery:raid_triggered:void": {},
+      "mcwl:molangquery:blocking:bool:true": {},
+      "mcwl:molangquery:blocking:bool:false": {},
+      "mcwl:molangquery:can_climb:bool:true": {},
+      "mcwl:molangquery:can_climb:bool:false": {},
+      "mcwl:molangquery:can_damage_nearby_mobs:bool:true": {},
+      "mcwl:molangquery:can_damage_nearby_mobs:bool:false": {},
+      "mcwl:molangquery:can_fly:bool:true": {},
+      "mcwl:molangquery:can_fly:bool:false": {},
+      "mcwl:molangquery:can_power_jump:bool:true": {},
+      "mcwl:molangquery:can_power_jump:bool:false": {},
+      "mcwl:molangquery:can_swim:bool:true": {},
+      "mcwl:molangquery:can_swim:bool:false": {},
+      "mcwl:molangquery:can_walk:bool:true": {},
+      "mcwl:molangquery:can_walk:bool:false": {},
+      "mcwl:molangquery:facing_target_to_range_attack:bool:true": {},
+      "mcwl:molangquery:facing_target_to_range_attack:bool:false": {},
+      "mcwl:molangquery:has_cape:bool:true": {},
+      "mcwl:molangquery:has_cape:bool:false": {},
+      "mcwl:molangquery:has_collision:bool:true": {},
+      "mcwl:molangquery:has_collision:bool:false": {},
+      "mcwl:molangquery:has_gravity:bool:true": {},
+      "mcwl:molangquery:has_gravity:bool:false": {},
+      "mcwl:molangquery:has_rider:bool:true": {},
+      "mcwl:molangquery:has_rider:bool:false": {},
+      "mcwl:molangquery:has_target:bool:true": {},
+      "mcwl:molangquery:has_target:bool:false": {},
+      "mcwl:molangquery:is_admiring:bool:true": {},
+      "mcwl:molangquery:is_admiring:bool:false": {},
+      "mcwl:molangquery:is_alive:bool:true": {},
+      "mcwl:molangquery:is_alive:bool:false": {},
+      "mcwl:molangquery:is_angry:bool:true": {},
+      "mcwl:molangquery:is_angry:bool:false": {},
+      "mcwl:molangquery:is_attached_to_entity:bool:true": {},
+      "mcwl:molangquery:is_attached_to_entity:bool:false": {},
+      "mcwl:molangquery:is_avoiding_block:bool:true": {},
+      "mcwl:molangquery:is_avoiding_block:bool:false": {},
+      "mcwl:molangquery:is_avoiding_mobs:bool:true": {},
+      "mcwl:molangquery:is_avoiding_mobs:bool:false": {},
+      "mcwl:molangquery:is_baby:bool:true": {},
+      "mcwl:molangquery:is_baby:bool:false": {},
+      "mcwl:molangquery:is_breathing:bool:true": {},
+      "mcwl:molangquery:is_breathing:bool:false": {},
+      "mcwl:molangquery:is_bribed:bool:true": {},
+      "mcwl:molangquery:is_bribed:bool:false": {},
+      "mcwl:molangquery:is_carrying_block:bool:true": {},
+      "mcwl:molangquery:is_carrying_block:bool:false": {},
+      "mcwl:molangquery:is_casting:bool:true": {},
+      "mcwl:molangquery:is_casting:bool:false": {},
+      "mcwl:molangquery:is_celebrating:bool:true": {},
+      "mcwl:molangquery:is_celebrating:bool:false": {},
+      "mcwl:molangquery:is_celebrating_special:bool:true": {},
+      "mcwl:molangquery:is_celebrating_special:bool:false": {},
+      "mcwl:molangquery:is_charged:bool:true": {},
+      "mcwl:molangquery:is_charged:bool:false": {},
+      "mcwl:molangquery:is_charging:bool:true": {},
+      "mcwl:molangquery:is_charging:bool:false": {},
+      "mcwl:molangquery:is_chested:bool:true": {},
+      "mcwl:molangquery:is_chested:bool:false": {},
+      "mcwl:molangquery:is_critical:bool:true": {},
+      "mcwl:molangquery:is_critical:bool:false": {},
+      "mcwl:molangquery:is_croaking:bool:true": {},
+      "mcwl:molangquery:is_croaking:bool:false": {},
+      "mcwl:molangquery:is_dancing:bool:true": {},
+      "mcwl:molangquery:is_dancing:bool:false": {},
+      "mcwl:molangquery:is_delayed_attacking:bool:true": {},
+      "mcwl:molangquery:is_delayed_attacking:bool:false": {},
+      "mcwl:molangquery:is_eating:bool:true": {},
+      "mcwl:molangquery:is_eating:bool:false": {},
+      "mcwl:molangquery:is_eating_mob:bool:true": {},
+      "mcwl:molangquery:is_eating_mob:bool:false": {},
+      "mcwl:molangquery:is_elder:bool:true": {},
+      "mcwl:molangquery:is_elder:bool:false": {},
+      "mcwl:molangquery:is_emoting:bool:true": {},
+      "mcwl:molangquery:is_emoting:bool:false": {},
+      "mcwl:molangquery:is_enchanted:bool:true": {},
+      "mcwl:molangquery:is_enchanted:bool:false": {},
+      "mcwl:molangquery:is_fire_immune:bool:true": {},
+      "mcwl:molangquery:is_fire_immune:bool:false": {},
+      "mcwl:molangquery:is_first_person:bool:true": {},
+      "mcwl:molangquery:is_first_person:bool:false": {},
+      "mcwl:molangquery:is_ghost:bool:true": {},
+      "mcwl:molangquery:is_ghost:bool:false": {},
+      "mcwl:molangquery:is_gliding:bool:true": {},
+      "mcwl:molangquery:is_gliding:bool:false": {},
+      "mcwl:molangquery:is_grazing:bool:true": {},
+      "mcwl:molangquery:is_grazing:bool:false": {},
+      "mcwl:molangquery:is_idling:bool:true": {},
+      "mcwl:molangquery:is_idling:bool:false": {},
+      "mcwl:molangquery:is_ignited:bool:true": {},
+      "mcwl:molangquery:is_ignited:bool:false": {},
+      "mcwl:molangquery:is_illager_captain:bool:true": {},
+      "mcwl:molangquery:is_illager_captain:bool:false": {},
+      "mcwl:molangquery:is_in_contact_with_water:bool:true": {},
+      "mcwl:molangquery:is_in_contact_with_water:bool:false": {},
+      "mcwl:molangquery:is_in_love:bool:true": {},
+      "mcwl:molangquery:is_in_love:bool:false": {},
+      "mcwl:molangquery:is_in_ui:bool:true": {},
+      "mcwl:molangquery:is_in_ui:bool:false": {},
+      "mcwl:molangquery:is_in_water:bool:true": {},
+      "mcwl:molangquery:is_in_water:bool:false": {},
+      "mcwl:molangquery:is_in_water_or_rain:bool:true": {},
+      "mcwl:molangquery:is_in_water_or_rain:bool:false": {},
+      "mcwl:molangquery:is_interested:bool:true": {},
+      "mcwl:molangquery:is_interested:bool:false": {},
+      "mcwl:molangquery:is_invisible:bool:true": {},
+      "mcwl:molangquery:is_invisible:bool:false": {},
+      "mcwl:molangquery:is_jumping:bool:true": {},
+      "mcwl:molangquery:is_jumping:bool:false": {},
+      "mcwl:molangquery:is_laying_down:bool:true": {},
+      "mcwl:molangquery:is_laying_down:bool:false": {},
+      "mcwl:molangquery:is_laying_egg:bool:true": {},
+      "mcwl:molangquery:is_laying_egg:bool:false": {},
+      "mcwl:molangquery:is_leashed:bool:true": {},
+      "mcwl:molangquery:is_leashed:bool:false": {},
+      "mcwl:molangquery:is_levitating:bool:true": {},
+      "mcwl:molangquery:is_levitating:bool:false": {},
+      "mcwl:molangquery:is_lingering:bool:true": {},
+      "mcwl:molangquery:is_lingering:bool:false": {},
+      "mcwl:molangquery:is_on_fire:bool:true": {},
+      "mcwl:molangquery:is_on_fire:bool:false": {},
+      "mcwl:molangquery:is_on_ground:bool:true": {},
+      "mcwl:molangquery:is_on_ground:bool:false": {},
+      "mcwl:molangquery:is_on_screen:bool:true": {},
+      "mcwl:molangquery:is_on_screen:bool:false": {},
+      "mcwl:molangquery:is_orphaned:bool:true": {},
+      "mcwl:molangquery:is_orphaned:bool:false": {},
+      "mcwl:molangquery:is_persona_or_premium_skin:bool:true": {},
+      "mcwl:molangquery:is_persona_or_premium_skin:bool:false": {},
+      "mcwl:molangquery:is_playing_dead:bool:true": {},
+      "mcwl:molangquery:is_playing_dead:bool:false": {},
+      "mcwl:molangquery:is_powered:bool:true": {},
+      "mcwl:molangquery:is_powered:bool:false": {},
+      "mcwl:molangquery:is_pregnant:bool:true": {},
+      "mcwl:molangquery:is_pregnant:bool:false": {},
+      "mcwl:molangquery:is_ram_attacking:bool:true": {},
+      "mcwl:molangquery:is_ram_attacking:bool:false": {},
+      "mcwl:molangquery:is_resting:bool:true": {},
+      "mcwl:molangquery:is_resting:bool:false": {},
+      "mcwl:molangquery:is_riding:bool:true": {},
+      "mcwl:molangquery:is_riding:bool:false": {},
+      "mcwl:molangquery:is_roaring:bool:true": {},
+      "mcwl:molangquery:is_roaring:bool:false": {},
+      "mcwl:molangquery:is_rolling:bool:true": {},
+      "mcwl:molangquery:is_rolling:bool:false": {},
+      "mcwl:molangquery:is_saddled:bool:true": {},
+      "mcwl:molangquery:is_saddled:bool:false": {},
+      "mcwl:molangquery:is_scared:bool:true": {},
+      "mcwl:molangquery:is_scared:bool:false": {},
+      "mcwl:molangquery:is_selected_item:bool:true": {},
+      "mcwl:molangquery:is_selected_item:bool:false": {},
+      "mcwl:molangquery:is_shaking:bool:true": {},
+      "mcwl:molangquery:is_shaking:bool:false": {},
+      "mcwl:molangquery:is_shaking_wetness:bool:true": {},
+      "mcwl:molangquery:is_shaking_wetness:bool:false": {},
+      "mcwl:molangquery:is_sheared:bool:true": {},
+      "mcwl:molangquery:is_sheared:bool:false": {},
+      "mcwl:molangquery:is_shield_powered:bool:true": {},
+      "mcwl:molangquery:is_shield_powered:bool:false": {},
+      "mcwl:molangquery:is_silent:bool:true": {},
+      "mcwl:molangquery:is_silent:bool:false": {},
+      "mcwl:molangquery:is_sitting:bool:true": {},
+      "mcwl:molangquery:is_sitting:bool:false": {},
+      "mcwl:molangquery:is_sleeping:bool:true": {},
+      "mcwl:molangquery:is_sleeping:bool:false": {},
+      "mcwl:molangquery:is_sneaking:bool:true": {},
+      "mcwl:molangquery:is_sneaking:bool:false": {},
+      "mcwl:molangquery:is_sneezing:bool:true": {},
+      "mcwl:molangquery:is_sneezing:bool:false": {},
+      "mcwl:molangquery:is_sprinting:bool:true": {},
+      "mcwl:molangquery:is_sprinting:bool:false": {},
+      "mcwl:molangquery:is_stackable:bool:true": {},
+      "mcwl:molangquery:is_stackable:bool:false": {},
+      "mcwl:molangquery:is_stalking:bool:true": {},
+      "mcwl:molangquery:is_stalking:bool:false": {},
+      "mcwl:molangquery:is_standing:bool:true": {},
+      "mcwl:molangquery:is_standing:bool:false": {},
+      "mcwl:molangquery:is_stunned:bool:true": {},
+      "mcwl:molangquery:is_stunned:bool:false": {},
+      "mcwl:molangquery:is_swimming:bool:true": {},
+      "mcwl:molangquery:is_swimming:bool:false": {},
+      "mcwl:molangquery:is_tamed:bool:true": {},
+      "mcwl:molangquery:is_tamed:bool:false": {},
+      "mcwl:molangquery:is_transforming:bool:true": {},
+      "mcwl:molangquery:is_transforming:bool:false": {},
+      "mcwl:molangquery:is_using_item:bool:true": {},
+      "mcwl:molangquery:is_using_item:bool:false": {},
+      "mcwl:molangquery:is_wall_climbing:bool:true": {},
+      "mcwl:molangquery:is_wall_climbing:bool:false": {},
+      "mcwl:molangquery:out_of_control:bool:true": {},
+      "mcwl:molangquery:out_of_control:bool:false": {},
+      "mcwl:molangquery:show_bottom:bool:true": {},
+      "mcwl:molangquery:show_bottom:bool:false": {},
+
+      "mcwl:molangquery:health:int:0:true": {},
+      "mcwl:molangquery:health:int:0:false": {},
+      "mcwl:molangquery:health:int:1:true": {},
+      "mcwl:molangquery:health:int:1:false": {},
+      "mcwl:molangquery:health:int:2:true": {},
+      "mcwl:molangquery:health:int:2:false": {},
+      "mcwl:molangquery:health:int:3:true": {},
+      "mcwl:molangquery:health:int:3:false": {},
+      "mcwl:molangquery:health:int:4:true": {},
+      "mcwl:molangquery:health:int:4:false": {},
+
       "minecraft:gain_bad_omen": {
         "add": {
-          "component_groups": [
-            "minecraft:add_bad_omen"
-          ]
+          "component_groups": ["minecraft:add_bad_omen"]
         }
       },
       "minecraft:clear_add_bad_omen": {
         "remove": {
-          "component_groups": [
-            "minecraft:add_bad_omen"
-          ]
+          "component_groups": ["minecraft:add_bad_omen"]
         },
         "add": {
-          "component_groups": [
-            "minecraft:clear_bad_omen_spell_effect"
-          ]
+          "component_groups": ["minecraft:clear_bad_omen_spell_effect"]
         }
       },
       "minecraft:trigger_raid": {
         "add": {
-          "component_groups": [ "minecraft:raid_trigger" ]
+          "component_groups": ["minecraft:raid_trigger"]
         }
       },
       "minecraft:remove_raid_trigger": {
         "remove": {
-          "component_groups": [ "minecraft:raid_trigger" ]
+          "component_groups": ["minecraft:raid_trigger"]
         }
       }
     }
   }
 }
-
-
-
-

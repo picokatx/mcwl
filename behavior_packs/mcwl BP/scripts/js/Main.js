@@ -1,4 +1,6 @@
 import { world, Items } from "mojang-minecraft";
+import { ModalFormData } from "mojang-minecraft-ui";
+import * as GameTest from "mojang-gametest";
 import { sudoCmd } from "./Command/Commands/sudoCommand.js";
 import { PlayerTag } from "./Utils/data/PlayerTag.js";
 import { PrintStream } from "./Utils/logging/PrintStream.js";
@@ -28,15 +30,21 @@ import { deathsCmd } from "./Command/Commands/deathsCommand.js";
 import { lastdiedCmd } from "./Command/Commands/lastdiedCommand.js";
 import { jumpCmd } from "./Command/Commands/jumpCommand.js";
 import { raidstriggeredCmd } from "./Command/Commands/raidstriggeredCommand.js";
+import { timesincerestCmd } from "./Command/Commands/timesincerestCommand.js";
+import { sleepinbedCmd } from "./Command/Commands/sleepinbedCommand.js";
+import { spawnplayerCmd } from "./Command/Commands/spawnplayerCommand.js";
+import { debugCmd } from "./Command/Commands/debugCommand.js";
 export let printStream = new PrintStream(world.getDimension("overworld"));
 export let playerPrevLocDB = new Map();
 export let playerDB = new Map();
+export let playerPrevHealthDB = new Map();
 export let commands = [
     ascendCmd,
     blocksintCmd,
     blocksmodifiedCmd,
     crouchtimeCmd,
     deathsCmd,
+    debugCmd,
     descendCmd,
     distancemovedCmd,
     firstjoinedCmd,
@@ -47,31 +55,79 @@ export let commands = [
     lastdiedCmd,
     playtimeCmd,
     playerjoinedCmd,
-    topCmd,
     raidstriggeredCmd,
     savedbCmd,
     setblockCmd,
+    sleepinbedCmd,
     spawnCmd,
-    sudoCmd
+    spawnplayerCmd,
+    sudoCmd,
+    timesincerestCmd,
+    topCmd,
 ];
 export const cmdPrefix = ",";
+export let simPlayer;
+export function setSimPlayer(p) {
+    simPlayer = p;
+}
+export let gameTestProto;
+GameTest.register("mcwl", "proto", (test) => {
+    gameTestProto = test;
+}).structureName("ComponentTests:platform").maxTicks(9999999);
+world.events.beforeItemDefinitionEvent.subscribe((eventData) => {
+    if (eventData.source.id == "minecraft:player" && eventData.source.nameTag.charAt(0) != '_') {
+        if (eventData.eventName == MCWLNamespaces.menuWand_open) {
+            let a = new ModalFormData();
+            a.title("MCWL GUI");
+            a.textField("Please Review our addon", "Review");
+            a.show(eventData.source).then(a => {
+                for (let i of a.formValues) {
+                    printStream.println(i);
+                }
+            });
+        }
+    }
+});
+function getNamespaceToken(s, start, end) {
+    return s.split(":").slice(start, end + 1).join(":");
+}
+var NamespaceTypes;
+(function (NamespaceTypes) {
+    NamespaceTypes["bool"] = "bool";
+    NamespaceTypes["int"] = "int";
+    NamespaceTypes["void"] = "void";
+})(NamespaceTypes || (NamespaceTypes = {}));
 world.events.beforeDataDrivenEntityTriggerEvent.subscribe((eventData) => {
-    if (eventData.entity.id == "minecraft:player" && eventData.id.split(':').slice(0, 2).join(":") == "mcwl:molangquery") {
-        let namespace = eventData.id.split(':').slice(0, 3).join(":");
-        let value = (eventData.id.split(':')[3]) === 'true';
+    if (eventData.entity.id == "minecraft:player" && getNamespaceToken(eventData.id, 0, 1) == "mcwl:molangquery" && eventData.entity.nameTag.charAt(0) != '_') {
+        let namespace = getNamespaceToken(eventData.id, 0, 2);
+        let type = getNamespaceToken(eventData.id, 3, 3);
         let thisPlayerDB = playerDB.get(eventData.entity.name);
-        if (value != null) {
-            thisPlayerDB.molangQueries.set(namespace, value);
-        }
-        if (namespace == MolangNamespaces.is_alive && value == false) {
-            thisPlayerDB.timeSinceDeath = 0;
-            thisPlayerDB.deaths++;
-        }
-        else if (namespace == MolangNamespaces.is_jumping && value == true) {
-            thisPlayerDB.jump++;
-        }
-        else if (namespace == MolangNamespaces.raid_triggered) {
-            thisPlayerDB.raidsTriggered++;
+        switch (type) {
+            case NamespaceTypes["bool"]:
+                let boolValue = getNamespaceToken(eventData.id, 4, 4) == 'true';
+                if (boolValue != null) {
+                    thisPlayerDB.molangQueries.set(namespace, boolValue);
+                }
+                if (namespace == MolangNamespaces.is_alive && boolValue == false) {
+                    thisPlayerDB.timeSinceDeath = 0;
+                    thisPlayerDB.deaths++;
+                }
+                else if (namespace == MolangNamespaces.is_jumping && boolValue == true) {
+                    thisPlayerDB.jump++;
+                }
+                else if (namespace == MolangNamespaces.raid_triggered) {
+                    thisPlayerDB.raidsTriggered++;
+                }
+                else if (namespace == MolangNamespaces.is_sleeping) {
+                    thisPlayerDB.sleepInBed++;
+                    thisPlayerDB.timeSinceRest = 0;
+                }
+                break;
+            case NamespaceTypes["int"]:
+                let idx = parseInt(getNamespaceToken(eventData.id, 4, 4));
+                let value = getNamespaceToken(eventData.id, 5, 5) == 'true';
+                thisPlayerDB.health[idx] = value;
+                break;
         }
     }
 });
@@ -79,6 +135,9 @@ world.events.playerLeave.subscribe((eventData) => {
     printStream.println(`Hello! I hope you saved your player statistics, because if you didn't they're gone now.`);
 });
 world.events.playerJoin.subscribe((eventData) => {
+    if (eventData.player == undefined) {
+        return;
+    }
     PlayerTag.clearTags(eventData.player);
     if (!PlayerTag.hasTag(eventData.player, MCWLNamespaces.playerFirstJoined)) {
         printStream.info(locale.get('player_welcome'), [eventData.player.name]);
@@ -91,7 +150,7 @@ world.events.playerJoin.subscribe((eventData) => {
     playerDB.get(eventData.player.name).joined += 1;
 });
 world.events.beforeItemUseOn.subscribe((eventData) => {
-    if (eventData.source.id == "minecraft:player") {
+    if (eventData.source.id == "minecraft:player" && eventData.source.nameTag.charAt(0) != '_') {
         let block = eventData.source.dimension.getBlock(eventData.blockLocation);
         for (let i of blockIntNamespaces.entries()) {
             let blockEquals = false;
@@ -134,11 +193,21 @@ world.events.beforeItemUseOn.subscribe((eventData) => {
         }
     }
 });
+function boolArrayToInt(b) {
+    let ret = 0;
+    for (let i = 0; i < b.length; i++) {
+        ret += (b[i] ? 1 : 0) * Math.pow(2, i);
+    }
+    return ret;
+}
 world.events.tick.subscribe((eventData) => {
     printStream.broadcast();
     let pList = world.getPlayers();
     for (let i of pList) {
         let p = i;
+        if (p.name.charAt(0) == '_') {
+            continue;
+        }
         if (!playerPrevLocDB.get(p.name).equals(p.location)) {
             let l = playerPrevLocDB.get(p.name);
             playerDB.get(p.name).distanceTravelled += new Vec3(l.x, l.y, l.z).distanceTo(new Vec3(p.location.x, p.location.y, p.location.z));
@@ -149,17 +218,26 @@ world.events.tick.subscribe((eventData) => {
         }
         playerDB.get(p.name).playtime++;
         playerDB.get(p.name).timeSinceDeath++;
+        playerDB.get(p.name).timeSinceRest++;
+        playerDB.get(p.name).healthVal = boolArrayToInt(playerDB.get(p.name).health);
+        playerPrevHealthDB.set(p.name, playerDB.get(p.name).healthVal);
     }
 });
 world.events.blockBreak.subscribe((eventData) => {
     let id = eventData.brokenBlockPermutation.type.id;
     for (let i of playerDB.get(eventData.player.name).blockMod) {
+        if (eventData.player.name.charAt(0) == '_') {
+            continue;
+        }
         i.add(id, locale.get("cmd_args_blocksBroken"));
     }
 });
 world.events.blockPlace.subscribe((eventData) => {
     let id = eventData.block.id;
     for (let i of playerDB.get(eventData.player.name).blockMod) {
+        if (eventData.player.name.charAt(0) == '_') {
+            continue;
+        }
         i.add(id, locale.get("cmd_args_blocksPlaced"));
     }
 });

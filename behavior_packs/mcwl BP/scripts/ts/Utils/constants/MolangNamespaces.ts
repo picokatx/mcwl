@@ -94,7 +94,9 @@ export let molangQueries: Map<string, boolean> = new Map<string, boolean>([
     ["mcwl:molangquery:is_using_item",undefined],
     ["mcwl:molangquery:is_wall_climbing",undefined],
     ["mcwl:molangquery:out_of_control",undefined],
-    ["mcwl:molangquery:show_bottom",undefined]
+    ["mcwl:molangquery:show_bottom",undefined],
+
+    ["mcwl:molangquery:health",undefined]
 ])
 export enum MolangNamespaces {
     blocking = "mcwl:molangquery:blocking",
@@ -192,7 +194,9 @@ export enum MolangNamespaces {
     is_using_item = "mcwl:molangquery:is_using_item",
     is_wall_climbing = "mcwl:molangquery:is_wall_climbing",
     out_of_control = "mcwl:molangquery:out_of_control",
-    show_bottom = "mcwl:molangquery:show_bottom:true",
+    show_bottom = "mcwl:molangquery:show_bottom",
 
-    raid_triggered = "mcwl:molangquery:raid_triggered"
+    raid_triggered = "mcwl:molangquery:raid_triggered",
+
+    health = "mcwl:molangquery:health"
 }

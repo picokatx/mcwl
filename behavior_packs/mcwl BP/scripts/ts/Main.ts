@@ -1,4 +1,6 @@
-import { world, BeforeChatEvent, PlayerJoinEvent, ChatEvent, BlockBreakEvent, TickEvent, Location, Player, BeforeItemUseOnEvent, Items, Block, PlayerLeaveEvent, BlockPlaceEvent, EntityIterator, BeforeDataDrivenEntityTriggerEvent } from "mojang-minecraft";
+import { world, BeforeChatEvent, PlayerJoinEvent, ChatEvent, BlockBreakEvent, TickEvent, Location, Player, BeforeItemUseOnEvent, Items, Block, PlayerLeaveEvent, BlockPlaceEvent, EntityIterator, BeforeDataDrivenEntityTriggerEvent, BeforeItemDefinitionEventSignal, BeforeItemDefinitionTriggeredEvent, ItemStack, BlockLocation, BeforeItemUseEvent, EntityInventoryComponent } from "mojang-minecraft";
+import { ModalFormData } from "mojang-minecraft-ui";
+import * as GameTest from "mojang-gametest"
 import { Command } from "./Command/Command.js";
 import { sudoCmd } from "./Command/Commands/sudoCommand.js";
 import { PlayerTag } from "./Utils/data/PlayerTag.js";
@@ -31,9 +33,14 @@ import { deathsCmd } from "./Command/Commands/deathsCommand.js";
 import { lastdiedCmd } from "./Command/Commands/lastdiedCommand.js";
 import { jumpCmd } from "./Command/Commands/jumpCommand.js";
 import { raidstriggeredCmd } from "./Command/Commands/raidstriggeredCommand.js";
+import { timesincerestCmd } from "./Command/Commands/timesincerestCommand.js";
+import { sleepinbedCmd } from "./Command/Commands/sleepinbedCommand.js";
+import { spawnplayerCmd } from "./Command/Commands/spawnplayerCommand.js";
+import { debugCmd } from "./Command/Commands/debugCommand.js";
 export let printStream: PrintStream = new PrintStream(world.getDimension("overworld"));
 export let playerPrevLocDB: Map<string, Location> = new Map<string, Location>();
-export let playerDB: Map<string,PlayerDB> = new Map<string,PlayerDB>()
+export let playerDB: Map<string, PlayerDB> = new Map<string, PlayerDB>()
+export let playerPrevHealthDB: Map<string, number> = new Map<string, number>();
 
 export let commands: Command[] = [
     ascendCmd,
@@ -41,6 +48,7 @@ export let commands: Command[] = [
     blocksmodifiedCmd,
     crouchtimeCmd,
     deathsCmd,
+    debugCmd,
     descendCmd,
     distancemovedCmd,
     firstjoinedCmd,
@@ -51,50 +59,103 @@ export let commands: Command[] = [
     lastdiedCmd,
     playtimeCmd,
     playerjoinedCmd,
-    topCmd,
     raidstriggeredCmd,
     savedbCmd,
     setblockCmd,
+    sleepinbedCmd,
     spawnCmd,
-    sudoCmd
+    spawnplayerCmd,
+    sudoCmd,
+    timesincerestCmd,
+    topCmd,
 ];
 export const cmdPrefix = ",";
-world.events.beforeDataDrivenEntityTriggerEvent.subscribe((eventData: BeforeDataDrivenEntityTriggerEvent)=> {
-    if (eventData.entity.id=="minecraft:player" && eventData.id.split(':').slice(0,2).join(":")=="mcwl:molangquery") {
-        let namespace: string = eventData.id.split(':').slice(0,3).join(":")
-        let value: boolean = (eventData.id.split(':')[3])==='true'
-
+export let simPlayer: GameTest.SimulatedPlayer
+export function setSimPlayer(p: GameTest.SimulatedPlayer) {
+    simPlayer = p
+}
+export let gameTestProto: GameTest.Test;
+GameTest.register("mcwl", "proto", (test) => {
+    gameTestProto = test
+}).structureName("ComponentTests:platform").maxTicks(9999999)
+world.events.beforeItemDefinitionEvent.subscribe((eventData: BeforeItemDefinitionTriggeredEvent) => {
+    //printStream.println(eventData.eventName);
+    if (eventData.source.id == "minecraft:player" && eventData.source.nameTag.charAt(0) != '_') {
+        if (eventData.eventName == MCWLNamespaces.menuWand_open) {
+            let a: ModalFormData = new ModalFormData();
+            a.title("MCWL GUI")
+            a.textField("Please Review our addon", "Review")
+            a.show(eventData.source as Player).then(a => {
+                for (let i of a.formValues) {
+                    printStream.println(i)
+                }
+            })
+        }
+    }
+})
+function getNamespaceToken(s: String, start: number, end: number): string {
+    return s.split(":").slice(start, end + 1).join(":")
+}
+enum NamespaceTypes {
+    bool = "bool",
+    int = "int",
+    void = "void"
+}
+world.events.beforeDataDrivenEntityTriggerEvent.subscribe((eventData: BeforeDataDrivenEntityTriggerEvent) => {
+    //printStream.println(eventData.id)
+    if (eventData.entity.id == "minecraft:player" && getNamespaceToken(eventData.id, 0, 1) == "mcwl:molangquery" && eventData.entity.nameTag.charAt(0) != '_') {
+        let namespace: string = getNamespaceToken(eventData.id, 0, 2)
+        let type: string = getNamespaceToken(eventData.id, 3, 3)
         let thisPlayerDB: PlayerDB = playerDB.get((eventData.entity as Player).name)
-        if (value!=null) {
-            thisPlayerDB.molangQueries.set(namespace,value)
+
+        switch (type) {
+            case NamespaceTypes["bool"]:
+                let boolValue: boolean = getNamespaceToken(eventData.id, 4, 4) == 'true'
+                if (boolValue != null) {
+                    thisPlayerDB.molangQueries.set(namespace, boolValue)
+                }
+                if (namespace == MolangNamespaces.is_alive && boolValue == false) {
+                    thisPlayerDB.timeSinceDeath = 0
+                    thisPlayerDB.deaths++;
+                }
+                else if (namespace == MolangNamespaces.is_jumping && boolValue == true) {
+                    thisPlayerDB.jump++;
+                } else if (namespace == MolangNamespaces.raid_triggered) {
+                    thisPlayerDB.raidsTriggered++;
+                } else if (namespace == MolangNamespaces.is_sleeping) {
+                    thisPlayerDB.sleepInBed++
+                    thisPlayerDB.timeSinceRest = 0;
+                }
+                break
+            case NamespaceTypes["int"]:
+                let idx: number = parseInt(getNamespaceToken(eventData.id, 4, 4))
+                let value: boolean = getNamespaceToken(eventData.id, 5, 5) == 'true'
+                thisPlayerDB.health[idx] = value
+                break
         }
-        if (namespace==MolangNamespaces.is_alive && value==false) {
-            thisPlayerDB.timeSinceDeath = 0
-            thisPlayerDB.deaths++;
-        }
-        else if (namespace==MolangNamespaces.is_jumping && value==true) {
-            thisPlayerDB.jump++;
-        } else if (namespace==MolangNamespaces.raid_triggered) {
-            thisPlayerDB.raidsTriggered++;
-        }
+
     }
 })
 world.events.playerLeave.subscribe((eventData: PlayerLeaveEvent) => {
     printStream.println(`Hello! I hope you saved your player statistics, because if you didn't they're gone now.`)
 })
 world.events.playerJoin.subscribe((eventData: PlayerJoinEvent) => {
+    if (eventData.player == undefined) {
+        return
+    }
     PlayerTag.clearTags(eventData.player);
     if (!PlayerTag.hasTag(eventData.player, MCWLNamespaces.playerFirstJoined)) {
         printStream.info(locale.get('player_welcome'), [eventData.player.name])
-        playerDB.set(eventData.player.name,new PlayerDB(eventData.player,true))
+        playerDB.set(eventData.player.name, new PlayerDB(eventData.player, true))
     } else {
-        playerDB.set(eventData.player.name,new PlayerDB(eventData.player,false))
+        playerDB.set(eventData.player.name, new PlayerDB(eventData.player, false))
     }
     playerPrevLocDB.set(eventData.player.name, eventData.player.location);
     playerDB.get(eventData.player.name).joined += 1;
 })
+
 world.events.beforeItemUseOn.subscribe((eventData: BeforeItemUseOnEvent) => {
-    if (eventData.source.id == "minecraft:player") {
+    if (eventData.source.id == "minecraft:player" && eventData.source.nameTag.charAt(0) != '_') {
         let block: Block = eventData.source.dimension.getBlock(eventData.blockLocation);
         for (let i of blockIntNamespaces.entries()) {
             let blockEquals = false;
@@ -135,12 +196,21 @@ world.events.beforeItemUseOn.subscribe((eventData: BeforeItemUseOnEvent) => {
         }
     }
 })
+function boolArrayToInt(b: boolean[]): number {
+    let ret: number = 0;
+    for (let i = 0; i < b.length; i++) {
+        ret += (b[i] ? 1 : 0) * Math.pow(2, i)
+    }
+    return ret
+}
 world.events.tick.subscribe((eventData: TickEvent) => {
     printStream.broadcast();
     let pList: EntityIterator = world.getPlayers();
     for (let i of pList) {
-        let p:Player = i as Player
-        
+        let p: Player = i as Player
+        if (p.name.charAt(0) == '_') {
+            continue
+        }
         if (!playerPrevLocDB.get(p.name).equals(p.location)) {
             let l: Location = playerPrevLocDB.get(p.name);
             playerDB.get(p.name).distanceTravelled += new Vec3(l.x, l.y, l.z).distanceTo(new Vec3(p.location.x, p.location.y, p.location.z))
@@ -154,23 +224,34 @@ world.events.tick.subscribe((eventData: TickEvent) => {
         playerDB.get(p.name).playtime++
 
         playerDB.get(p.name).timeSinceDeath++;
+
+        playerDB.get(p.name).timeSinceRest++
+
+        playerDB.get(p.name).healthVal = boolArrayToInt(playerDB.get(p.name).health)
+        playerPrevHealthDB.set(p.name, playerDB.get(p.name).healthVal)
     }
 })
 
 world.events.blockBreak.subscribe((eventData: BlockBreakEvent) => {
     let id: string = eventData.brokenBlockPermutation.type.id;
     for (let i of playerDB.get(eventData.player.name).blockMod) {
+        if (eventData.player.name.charAt(0) == '_') {
+            continue
+        }
         i.add(id, locale.get("cmd_args_blocksBroken") as any);
     }
 })
-
 world.events.blockPlace.subscribe((eventData: BlockPlaceEvent) => {
     let id: string = eventData.block.id;
     for (let i of playerDB.get(eventData.player.name).blockMod) {
+        if (eventData.player.name.charAt(0) == '_') {
+            continue
+        }
         i.add(id, locale.get("cmd_args_blocksPlaced") as any);
     }
 })
 world.events.beforeChat.subscribe((eventData: BeforeChatEvent) => {
+
     if (eventData.message[0] === cmdPrefix) {
         eventData.message = eventData.message.substring(1);
         cmdHandler(eventData);

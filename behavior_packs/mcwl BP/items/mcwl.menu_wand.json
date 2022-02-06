@@ -1,0 +1,27 @@
+{
+    "format_version": "1.17.10",
+    "minecraft:item": {
+        "description": {
+            "identifier": "mcwl:menu_wand",
+            "category" : "items"
+        },
+        "components": {
+            "minecraft:use_duration": 0.5,
+            "minecraft:food": {
+                "nutrition": 0,
+                "saturation_modifier": "low",
+                "can_always_eat": true,
+                "on_consume": {
+                    "event": "mcwl.menu_wand.open",
+                    "target": "self"
+                }      
+            },
+            "minecraft:icon": {
+                "texture": "blaze_powder"
+            }
+        },
+        "events": {
+            "mcwl.menu_wand.open": {}
+        }
+    }
+}

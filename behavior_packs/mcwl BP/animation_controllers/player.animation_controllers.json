@@ -11,7 +11,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:blocking:true"
+						"@s mcwl:molangquery:blocking:bool:true"
 					]
 				},
 				"blocking_false": {
@@ -21,7 +21,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:blocking:false"
+						"@s mcwl:molangquery:blocking:bool:false"
 					]
 				}
 			}
@@ -36,7 +36,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:can_climb:true"
+						"@s mcwl:molangquery:can_climb:bool:true"
 					]
 				},
 				"can_climb_false": {
@@ -46,7 +46,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:can_climb:false"
+						"@s mcwl:molangquery:can_climb:bool:false"
 					]
 				}
 			}
@@ -61,7 +61,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:can_damage_nearby_mobs:true"
+						"@s mcwl:molangquery:can_damage_nearby_mobs:bool:true"
 					]
 				},
 				"can_damage_nearby_mobs_false": {
@@ -71,7 +71,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:can_damage_nearby_mobs:false"
+						"@s mcwl:molangquery:can_damage_nearby_mobs:bool:false"
 					]
 				}
 			}
@@ -86,7 +86,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:can_fly:true"
+						"@s mcwl:molangquery:can_fly:bool:true"
 					]
 				},
 				"can_fly_false": {
@@ -96,7 +96,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:can_fly:false"
+						"@s mcwl:molangquery:can_fly:bool:false"
 					]
 				}
 			}
@@ -111,7 +111,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:can_power_jump:true"
+						"@s mcwl:molangquery:can_power_jump:bool:true"
 					]
 				},
 				"can_power_jump_false": {
@@ -121,7 +121,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:can_power_jump:false"
+						"@s mcwl:molangquery:can_power_jump:bool:false"
 					]
 				}
 			}
@@ -136,7 +136,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:can_swim:true"
+						"@s mcwl:molangquery:can_swim:bool:true"
 					]
 				},
 				"can_swim_false": {
@@ -146,7 +146,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:can_swim:false"
+						"@s mcwl:molangquery:can_swim:bool:false"
 					]
 				}
 			}
@@ -161,7 +161,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:can_walk:true"
+						"@s mcwl:molangquery:can_walk:bool:true"
 					]
 				},
 				"can_walk_false": {
@@ -171,7 +171,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:can_walk:false"
+						"@s mcwl:molangquery:can_walk:bool:false"
 					]
 				}
 			}
@@ -186,7 +186,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:facing_target_to_range_attack:true"
+						"@s mcwl:molangquery:facing_target_to_range_attack:bool:true"
 					]
 				},
 				"facing_target_to_range_attack_false": {
@@ -196,7 +196,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:facing_target_to_range_attack:false"
+						"@s mcwl:molangquery:facing_target_to_range_attack:bool:false"
 					]
 				}
 			}
@@ -211,7 +211,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:has_cape:true"
+						"@s mcwl:molangquery:has_cape:bool:true"
 					]
 				},
 				"has_cape_false": {
@@ -221,7 +221,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:has_cape:false"
+						"@s mcwl:molangquery:has_cape:bool:false"
 					]
 				}
 			}
@@ -236,7 +236,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:has_collision:true"
+						"@s mcwl:molangquery:has_collision:bool:true"
 					]
 				},
 				"has_collision_false": {
@@ -246,7 +246,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:has_collision:false"
+						"@s mcwl:molangquery:has_collision:bool:false"
 					]
 				}
 			}
@@ -261,7 +261,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:has_gravity:true"
+						"@s mcwl:molangquery:has_gravity:bool:true"
 					]
 				},
 				"has_gravity_false": {
@@ -271,7 +271,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:has_gravity:false"
+						"@s mcwl:molangquery:has_gravity:bool:false"
 					]
 				}
 			}
@@ -286,7 +286,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:has_rider:true"
+						"@s mcwl:molangquery:has_rider:bool:true"
 					]
 				},
 				"has_rider_false": {
@@ -296,7 +296,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:has_rider:false"
+						"@s mcwl:molangquery:has_rider:bool:false"
 					]
 				}
 			}
@@ -311,7 +311,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:has_target:true"
+						"@s mcwl:molangquery:has_target:bool:true"
 					]
 				},
 				"has_target_false": {
@@ -321,7 +321,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:has_target:false"
+						"@s mcwl:molangquery:has_target:bool:false"
 					]
 				}
 			}
@@ -336,7 +336,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_admiring:true"
+						"@s mcwl:molangquery:is_admiring:bool:true"
 					]
 				},
 				"is_admiring_false": {
@@ -346,7 +346,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_admiring:false"
+						"@s mcwl:molangquery:is_admiring:bool:false"
 					]
 				}
 			}
@@ -361,7 +361,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_alive:true"
+						"@s mcwl:molangquery:is_alive:bool:true"
 					]
 				},
 				"is_alive_false": {
@@ -371,7 +371,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_alive:false"
+						"@s mcwl:molangquery:is_alive:bool:false"
 					]
 				}
 			}
@@ -386,7 +386,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_angry:true"
+						"@s mcwl:molangquery:is_angry:bool:true"
 					]
 				},
 				"is_angry_false": {
@@ -396,7 +396,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_angry:false"
+						"@s mcwl:molangquery:is_angry:bool:false"
 					]
 				}
 			}
@@ -411,7 +411,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_attached_to_entity:true"
+						"@s mcwl:molangquery:is_attached_to_entity:bool:true"
 					]
 				},
 				"is_attached_to_entity_false": {
@@ -421,7 +421,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_attached_to_entity:false"
+						"@s mcwl:molangquery:is_attached_to_entity:bool:false"
 					]
 				}
 			}
@@ -436,7 +436,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_avoiding_block:true"
+						"@s mcwl:molangquery:is_avoiding_block:bool:true"
 					]
 				},
 				"is_avoiding_block_false": {
@@ -446,7 +446,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_avoiding_block:false"
+						"@s mcwl:molangquery:is_avoiding_block:bool:false"
 					]
 				}
 			}
@@ -461,7 +461,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_avoiding_mobs:true"
+						"@s mcwl:molangquery:is_avoiding_mobs:bool:true"
 					]
 				},
 				"is_avoiding_mobs_false": {
@@ -471,7 +471,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_avoiding_mobs:false"
+						"@s mcwl:molangquery:is_avoiding_mobs:bool:false"
 					]
 				}
 			}
@@ -486,7 +486,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_baby:true"
+						"@s mcwl:molangquery:is_baby:bool:true"
 					]
 				},
 				"is_baby_false": {
@@ -496,7 +496,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_baby:false"
+						"@s mcwl:molangquery:is_baby:bool:false"
 					]
 				}
 			}
@@ -511,7 +511,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_breathing:true"
+						"@s mcwl:molangquery:is_breathing:bool:true"
 					]
 				},
 				"is_breathing_false": {
@@ -521,7 +521,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_breathing:false"
+						"@s mcwl:molangquery:is_breathing:bool:false"
 					]
 				}
 			}
@@ -536,7 +536,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_bribed:true"
+						"@s mcwl:molangquery:is_bribed:bool:true"
 					]
 				},
 				"is_bribed_false": {
@@ -546,7 +546,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_bribed:false"
+						"@s mcwl:molangquery:is_bribed:bool:false"
 					]
 				}
 			}
@@ -561,7 +561,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_carrying_block:true"
+						"@s mcwl:molangquery:is_carrying_block:bool:true"
 					]
 				},
 				"is_carrying_block_false": {
@@ -571,7 +571,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_carrying_block:false"
+						"@s mcwl:molangquery:is_carrying_block:bool:false"
 					]
 				}
 			}
@@ -586,7 +586,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_casting:true"
+						"@s mcwl:molangquery:is_casting:bool:true"
 					]
 				},
 				"is_casting_false": {
@@ -596,7 +596,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_casting:false"
+						"@s mcwl:molangquery:is_casting:bool:false"
 					]
 				}
 			}
@@ -611,7 +611,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_celebrating:true"
+						"@s mcwl:molangquery:is_celebrating:bool:true"
 					]
 				},
 				"is_celebrating_false": {
@@ -621,7 +621,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_celebrating:false"
+						"@s mcwl:molangquery:is_celebrating:bool:false"
 					]
 				}
 			}
@@ -636,7 +636,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_celebrating_special:true"
+						"@s mcwl:molangquery:is_celebrating_special:bool:true"
 					]
 				},
 				"is_celebrating_special_false": {
@@ -646,7 +646,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_celebrating_special:false"
+						"@s mcwl:molangquery:is_celebrating_special:bool:false"
 					]
 				}
 			}
@@ -661,7 +661,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_charged:true"
+						"@s mcwl:molangquery:is_charged:bool:true"
 					]
 				},
 				"is_charged_false": {
@@ -671,7 +671,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_charged:false"
+						"@s mcwl:molangquery:is_charged:bool:false"
 					]
 				}
 			}
@@ -686,7 +686,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_charging:true"
+						"@s mcwl:molangquery:is_charging:bool:true"
 					]
 				},
 				"is_charging_false": {
@@ -696,7 +696,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_charging:false"
+						"@s mcwl:molangquery:is_charging:bool:false"
 					]
 				}
 			}
@@ -711,7 +711,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_chested:true"
+						"@s mcwl:molangquery:is_chested:bool:true"
 					]
 				},
 				"is_chested_false": {
@@ -721,7 +721,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_chested:false"
+						"@s mcwl:molangquery:is_chested:bool:false"
 					]
 				}
 			}
@@ -736,7 +736,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_critical:true"
+						"@s mcwl:molangquery:is_critical:bool:true"
 					]
 				},
 				"is_critical_false": {
@@ -746,7 +746,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_critical:false"
+						"@s mcwl:molangquery:is_critical:bool:false"
 					]
 				}
 			}
@@ -761,7 +761,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_croaking:true"
+						"@s mcwl:molangquery:is_croaking:bool:true"
 					]
 				},
 				"is_croaking_false": {
@@ -771,7 +771,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_croaking:false"
+						"@s mcwl:molangquery:is_croaking:bool:false"
 					]
 				}
 			}
@@ -786,7 +786,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_dancing:true"
+						"@s mcwl:molangquery:is_dancing:bool:true"
 					]
 				},
 				"is_dancing_false": {
@@ -796,7 +796,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_dancing:false"
+						"@s mcwl:molangquery:is_dancing:bool:false"
 					]
 				}
 			}
@@ -811,7 +811,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_delayed_attacking:true"
+						"@s mcwl:molangquery:is_delayed_attacking:bool:true"
 					]
 				},
 				"is_delayed_attacking_false": {
@@ -821,7 +821,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_delayed_attacking:false"
+						"@s mcwl:molangquery:is_delayed_attacking:bool:false"
 					]
 				}
 			}
@@ -836,7 +836,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_eating:true"
+						"@s mcwl:molangquery:is_eating:bool:true"
 					]
 				},
 				"is_eating_false": {
@@ -846,7 +846,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_eating:false"
+						"@s mcwl:molangquery:is_eating:bool:false"
 					]
 				}
 			}
@@ -861,7 +861,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_eating_mob:true"
+						"@s mcwl:molangquery:is_eating_mob:bool:true"
 					]
 				},
 				"is_eating_mob_false": {
@@ -871,7 +871,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_eating_mob:false"
+						"@s mcwl:molangquery:is_eating_mob:bool:false"
 					]
 				}
 			}
@@ -886,7 +886,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_elder:true"
+						"@s mcwl:molangquery:is_elder:bool:true"
 					]
 				},
 				"is_elder_false": {
@@ -896,7 +896,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_elder:false"
+						"@s mcwl:molangquery:is_elder:bool:false"
 					]
 				}
 			}
@@ -911,7 +911,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_emoting:true"
+						"@s mcwl:molangquery:is_emoting:bool:true"
 					]
 				},
 				"is_emoting_false": {
@@ -921,7 +921,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_emoting:false"
+						"@s mcwl:molangquery:is_emoting:bool:false"
 					]
 				}
 			}
@@ -936,7 +936,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_enchanted:true"
+						"@s mcwl:molangquery:is_enchanted:bool:true"
 					]
 				},
 				"is_enchanted_false": {
@@ -946,7 +946,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_enchanted:false"
+						"@s mcwl:molangquery:is_enchanted:bool:false"
 					]
 				}
 			}
@@ -961,7 +961,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_fire_immune:true"
+						"@s mcwl:molangquery:is_fire_immune:bool:true"
 					]
 				},
 				"is_fire_immune_false": {
@@ -971,7 +971,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_fire_immune:false"
+						"@s mcwl:molangquery:is_fire_immune:bool:false"
 					]
 				}
 			}
@@ -986,7 +986,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_first_person:true"
+						"@s mcwl:molangquery:is_first_person:bool:true"
 					]
 				},
 				"is_first_person_false": {
@@ -996,7 +996,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_first_person:false"
+						"@s mcwl:molangquery:is_first_person:bool:false"
 					]
 				}
 			}
@@ -1011,7 +1011,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_ghost:true"
+						"@s mcwl:molangquery:is_ghost:bool:true"
 					]
 				},
 				"is_ghost_false": {
@@ -1021,7 +1021,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_ghost:false"
+						"@s mcwl:molangquery:is_ghost:bool:false"
 					]
 				}
 			}
@@ -1036,7 +1036,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_gliding:true"
+						"@s mcwl:molangquery:is_gliding:bool:true"
 					]
 				},
 				"is_gliding_false": {
@@ -1046,7 +1046,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_gliding:false"
+						"@s mcwl:molangquery:is_gliding:bool:false"
 					]
 				}
 			}
@@ -1061,7 +1061,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_grazing:true"
+						"@s mcwl:molangquery:is_grazing:bool:true"
 					]
 				},
 				"is_grazing_false": {
@@ -1071,7 +1071,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_grazing:false"
+						"@s mcwl:molangquery:is_grazing:bool:false"
 					]
 				}
 			}
@@ -1086,7 +1086,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_idling:true"
+						"@s mcwl:molangquery:is_idling:bool:true"
 					]
 				},
 				"is_idling_false": {
@@ -1096,7 +1096,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_idling:false"
+						"@s mcwl:molangquery:is_idling:bool:false"
 					]
 				}
 			}
@@ -1111,7 +1111,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_ignited:true"
+						"@s mcwl:molangquery:is_ignited:bool:true"
 					]
 				},
 				"is_ignited_false": {
@@ -1121,7 +1121,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_ignited:false"
+						"@s mcwl:molangquery:is_ignited:bool:false"
 					]
 				}
 			}
@@ -1136,7 +1136,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_illager_captain:true"
+						"@s mcwl:molangquery:is_illager_captain:bool:true"
 					]
 				},
 				"is_illager_captain_false": {
@@ -1146,7 +1146,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_illager_captain:false"
+						"@s mcwl:molangquery:is_illager_captain:bool:false"
 					]
 				}
 			}
@@ -1161,7 +1161,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_in_contact_with_water:true"
+						"@s mcwl:molangquery:is_in_contact_with_water:bool:true"
 					]
 				},
 				"is_in_contact_with_water_false": {
@@ -1171,7 +1171,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_in_contact_with_water:false"
+						"@s mcwl:molangquery:is_in_contact_with_water:bool:false"
 					]
 				}
 			}
@@ -1186,7 +1186,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_in_love:true"
+						"@s mcwl:molangquery:is_in_love:bool:true"
 					]
 				},
 				"is_in_love_false": {
@@ -1196,7 +1196,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_in_love:false"
+						"@s mcwl:molangquery:is_in_love:bool:false"
 					]
 				}
 			}
@@ -1211,7 +1211,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_in_ui:true"
+						"@s mcwl:molangquery:is_in_ui:bool:true"
 					]
 				},
 				"is_in_ui_false": {
@@ -1221,7 +1221,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_in_ui:false"
+						"@s mcwl:molangquery:is_in_ui:bool:false"
 					]
 				}
 			}
@@ -1236,7 +1236,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_in_water:true"
+						"@s mcwl:molangquery:is_in_water:bool:true"
 					]
 				},
 				"is_in_water_false": {
@@ -1246,7 +1246,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_in_water:false"
+						"@s mcwl:molangquery:is_in_water:bool:false"
 					]
 				}
 			}
@@ -1261,7 +1261,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_in_water_or_rain:true"
+						"@s mcwl:molangquery:is_in_water_or_rain:bool:true"
 					]
 				},
 				"is_in_water_or_rain_false": {
@@ -1271,7 +1271,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_in_water_or_rain:false"
+						"@s mcwl:molangquery:is_in_water_or_rain:bool:false"
 					]
 				}
 			}
@@ -1286,7 +1286,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_interested:true"
+						"@s mcwl:molangquery:is_interested:bool:true"
 					]
 				},
 				"is_interested_false": {
@@ -1296,7 +1296,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_interested:false"
+						"@s mcwl:molangquery:is_interested:bool:false"
 					]
 				}
 			}
@@ -1311,7 +1311,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_invisible:true"
+						"@s mcwl:molangquery:is_invisible:bool:true"
 					]
 				},
 				"is_invisible_false": {
@@ -1321,7 +1321,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_invisible:false"
+						"@s mcwl:molangquery:is_invisible:bool:false"
 					]
 				}
 			}
@@ -1336,7 +1336,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_jumping:true"
+						"@s mcwl:molangquery:is_jumping:bool:true"
 					]
 				},
 				"is_jumping_false": {
@@ -1346,7 +1346,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_jumping:false"
+						"@s mcwl:molangquery:is_jumping:bool:false"
 					]
 				}
 			}
@@ -1361,7 +1361,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_laying_down:true"
+						"@s mcwl:molangquery:is_laying_down:bool:true"
 					]
 				},
 				"is_laying_down_false": {
@@ -1371,7 +1371,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_laying_down:false"
+						"@s mcwl:molangquery:is_laying_down:bool:false"
 					]
 				}
 			}
@@ -1386,7 +1386,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_laying_egg:true"
+						"@s mcwl:molangquery:is_laying_egg:bool:true"
 					]
 				},
 				"is_laying_egg_false": {
@@ -1396,7 +1396,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_laying_egg:false"
+						"@s mcwl:molangquery:is_laying_egg:bool:false"
 					]
 				}
 			}
@@ -1411,7 +1411,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_leashed:true"
+						"@s mcwl:molangquery:is_leashed:bool:true"
 					]
 				},
 				"is_leashed_false": {
@@ -1421,7 +1421,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_leashed:false"
+						"@s mcwl:molangquery:is_leashed:bool:false"
 					]
 				}
 			}
@@ -1436,7 +1436,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_levitating:true"
+						"@s mcwl:molangquery:is_levitating:bool:true"
 					]
 				},
 				"is_levitating_false": {
@@ -1446,7 +1446,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_levitating:false"
+						"@s mcwl:molangquery:is_levitating:bool:false"
 					]
 				}
 			}
@@ -1461,7 +1461,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_lingering:true"
+						"@s mcwl:molangquery:is_lingering:bool:true"
 					]
 				},
 				"is_lingering_false": {
@@ -1471,7 +1471,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_lingering:false"
+						"@s mcwl:molangquery:is_lingering:bool:false"
 					]
 				}
 			}
@@ -1486,7 +1486,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_on_fire:true"
+						"@s mcwl:molangquery:is_on_fire:bool:true"
 					]
 				},
 				"is_on_fire_false": {
@@ -1496,7 +1496,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_on_fire:false"
+						"@s mcwl:molangquery:is_on_fire:bool:false"
 					]
 				}
 			}
@@ -1511,7 +1511,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_on_ground:true"
+						"@s mcwl:molangquery:is_on_ground:bool:true"
 					]
 				},
 				"is_on_ground_false": {
@@ -1521,7 +1521,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_on_ground:false"
+						"@s mcwl:molangquery:is_on_ground:bool:false"
 					]
 				}
 			}
@@ -1536,7 +1536,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_on_screen:true"
+						"@s mcwl:molangquery:is_on_screen:bool:true"
 					]
 				},
 				"is_on_screen_false": {
@@ -1546,7 +1546,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_on_screen:false"
+						"@s mcwl:molangquery:is_on_screen:bool:false"
 					]
 				}
 			}
@@ -1561,7 +1561,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_orphaned:true"
+						"@s mcwl:molangquery:is_orphaned:bool:true"
 					]
 				},
 				"is_orphaned_false": {
@@ -1571,7 +1571,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_orphaned:false"
+						"@s mcwl:molangquery:is_orphaned:bool:false"
 					]
 				}
 			}
@@ -1586,7 +1586,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_persona_or_premium_skin:true"
+						"@s mcwl:molangquery:is_persona_or_premium_skin:bool:true"
 					]
 				},
 				"is_persona_or_premium_skin_false": {
@@ -1596,7 +1596,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_persona_or_premium_skin:false"
+						"@s mcwl:molangquery:is_persona_or_premium_skin:bool:false"
 					]
 				}
 			}
@@ -1611,7 +1611,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_playing_dead:true"
+						"@s mcwl:molangquery:is_playing_dead:bool:true"
 					]
 				},
 				"is_playing_dead_false": {
@@ -1621,7 +1621,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_playing_dead:false"
+						"@s mcwl:molangquery:is_playing_dead:bool:false"
 					]
 				}
 			}
@@ -1636,7 +1636,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_powered:true"
+						"@s mcwl:molangquery:is_powered:bool:true"
 					]
 				},
 				"is_powered_false": {
@@ -1646,7 +1646,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_powered:false"
+						"@s mcwl:molangquery:is_powered:bool:false"
 					]
 				}
 			}
@@ -1661,7 +1661,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_pregnant:true"
+						"@s mcwl:molangquery:is_pregnant:bool:true"
 					]
 				},
 				"is_pregnant_false": {
@@ -1671,7 +1671,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_pregnant:false"
+						"@s mcwl:molangquery:is_pregnant:bool:false"
 					]
 				}
 			}
@@ -1686,7 +1686,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_ram_attacking:true"
+						"@s mcwl:molangquery:is_ram_attacking:bool:true"
 					]
 				},
 				"is_ram_attacking_false": {
@@ -1696,7 +1696,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_ram_attacking:false"
+						"@s mcwl:molangquery:is_ram_attacking:bool:false"
 					]
 				}
 			}
@@ -1711,7 +1711,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_resting:true"
+						"@s mcwl:molangquery:is_resting:bool:true"
 					]
 				},
 				"is_resting_false": {
@@ -1721,7 +1721,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_resting:false"
+						"@s mcwl:molangquery:is_resting:bool:false"
 					]
 				}
 			}
@@ -1736,7 +1736,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_riding:true"
+						"@s mcwl:molangquery:is_riding:bool:true"
 					]
 				},
 				"is_riding_false": {
@@ -1746,7 +1746,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_riding:false"
+						"@s mcwl:molangquery:is_riding:bool:false"
 					]
 				}
 			}
@@ -1761,7 +1761,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_roaring:true"
+						"@s mcwl:molangquery:is_roaring:bool:true"
 					]
 				},
 				"is_roaring_false": {
@@ -1771,7 +1771,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_roaring:false"
+						"@s mcwl:molangquery:is_roaring:bool:false"
 					]
 				}
 			}
@@ -1786,7 +1786,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_rolling:true"
+						"@s mcwl:molangquery:is_rolling:bool:true"
 					]
 				},
 				"is_rolling_false": {
@@ -1796,7 +1796,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_rolling:false"
+						"@s mcwl:molangquery:is_rolling:bool:false"
 					]
 				}
 			}
@@ -1811,7 +1811,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_saddled:true"
+						"@s mcwl:molangquery:is_saddled:bool:true"
 					]
 				},
 				"is_saddled_false": {
@@ -1821,7 +1821,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_saddled:false"
+						"@s mcwl:molangquery:is_saddled:bool:false"
 					]
 				}
 			}
@@ -1836,7 +1836,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_scared:true"
+						"@s mcwl:molangquery:is_scared:bool:true"
 					]
 				},
 				"is_scared_false": {
@@ -1846,7 +1846,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_scared:false"
+						"@s mcwl:molangquery:is_scared:bool:false"
 					]
 				}
 			}
@@ -1861,7 +1861,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_selected_item:true"
+						"@s mcwl:molangquery:is_selected_item:bool:true"
 					]
 				},
 				"is_selected_item_false": {
@@ -1871,7 +1871,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_selected_item:false"
+						"@s mcwl:molangquery:is_selected_item:bool:false"
 					]
 				}
 			}
@@ -1886,7 +1886,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_shaking:true"
+						"@s mcwl:molangquery:is_shaking:bool:true"
 					]
 				},
 				"is_shaking_false": {
@@ -1896,7 +1896,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_shaking:false"
+						"@s mcwl:molangquery:is_shaking:bool:false"
 					]
 				}
 			}
@@ -1911,7 +1911,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_shaking_wetness:true"
+						"@s mcwl:molangquery:is_shaking_wetness:bool:true"
 					]
 				},
 				"is_shaking_wetness_false": {
@@ -1921,7 +1921,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_shaking_wetness:false"
+						"@s mcwl:molangquery:is_shaking_wetness:bool:false"
 					]
 				}
 			}
@@ -1936,7 +1936,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_sheared:true"
+						"@s mcwl:molangquery:is_sheared:bool:true"
 					]
 				},
 				"is_sheared_false": {
@@ -1946,7 +1946,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_sheared:false"
+						"@s mcwl:molangquery:is_sheared:bool:false"
 					]
 				}
 			}
@@ -1961,7 +1961,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_shield_powered:true"
+						"@s mcwl:molangquery:is_shield_powered:bool:true"
 					]
 				},
 				"is_shield_powered_false": {
@@ -1971,7 +1971,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_shield_powered:false"
+						"@s mcwl:molangquery:is_shield_powered:bool:false"
 					]
 				}
 			}
@@ -1986,7 +1986,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_silent:true"
+						"@s mcwl:molangquery:is_silent:bool:true"
 					]
 				},
 				"is_silent_false": {
@@ -1996,7 +1996,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_silent:false"
+						"@s mcwl:molangquery:is_silent:bool:false"
 					]
 				}
 			}
@@ -2011,7 +2011,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_sitting:true"
+						"@s mcwl:molangquery:is_sitting:bool:true"
 					]
 				},
 				"is_sitting_false": {
@@ -2021,7 +2021,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_sitting:false"
+						"@s mcwl:molangquery:is_sitting:bool:false"
 					]
 				}
 			}
@@ -2036,7 +2036,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_sleeping:true"
+						"@s mcwl:molangquery:is_sleeping:bool:true"
 					]
 				},
 				"is_sleeping_false": {
@@ -2046,7 +2046,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_sleeping:false"
+						"@s mcwl:molangquery:is_sleeping:bool:false"
 					]
 				}
 			}
@@ -2061,7 +2061,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_sneaking:true"
+						"@s mcwl:molangquery:is_sneaking:bool:true"
 					]
 				},
 				"is_sneaking_false": {
@@ -2071,7 +2071,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_sneaking:false"
+						"@s mcwl:molangquery:is_sneaking:bool:false"
 					]
 				}
 			}
@@ -2086,7 +2086,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_sneezing:true"
+						"@s mcwl:molangquery:is_sneezing:bool:true"
 					]
 				},
 				"is_sneezing_false": {
@@ -2096,7 +2096,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_sneezing:false"
+						"@s mcwl:molangquery:is_sneezing:bool:false"
 					]
 				}
 			}
@@ -2111,7 +2111,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_sprinting:true"
+						"@s mcwl:molangquery:is_sprinting:bool:true"
 					]
 				},
 				"is_sprinting_false": {
@@ -2121,7 +2121,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_sprinting:false"
+						"@s mcwl:molangquery:is_sprinting:bool:false"
 					]
 				}
 			}
@@ -2136,7 +2136,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_stackable:true"
+						"@s mcwl:molangquery:is_stackable:bool:true"
 					]
 				},
 				"is_stackable_false": {
@@ -2146,7 +2146,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_stackable:false"
+						"@s mcwl:molangquery:is_stackable:bool:false"
 					]
 				}
 			}
@@ -2161,7 +2161,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_stalking:true"
+						"@s mcwl:molangquery:is_stalking:bool:true"
 					]
 				},
 				"is_stalking_false": {
@@ -2171,7 +2171,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_stalking:false"
+						"@s mcwl:molangquery:is_stalking:bool:false"
 					]
 				}
 			}
@@ -2186,7 +2186,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_standing:true"
+						"@s mcwl:molangquery:is_standing:bool:true"
 					]
 				},
 				"is_standing_false": {
@@ -2196,7 +2196,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_standing:false"
+						"@s mcwl:molangquery:is_standing:bool:false"
 					]
 				}
 			}
@@ -2211,7 +2211,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_stunned:true"
+						"@s mcwl:molangquery:is_stunned:bool:true"
 					]
 				},
 				"is_stunned_false": {
@@ -2221,7 +2221,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_stunned:false"
+						"@s mcwl:molangquery:is_stunned:bool:false"
 					]
 				}
 			}
@@ -2236,7 +2236,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_swimming:true"
+						"@s mcwl:molangquery:is_swimming:bool:true"
 					]
 				},
 				"is_swimming_false": {
@@ -2246,7 +2246,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_swimming:false"
+						"@s mcwl:molangquery:is_swimming:bool:false"
 					]
 				}
 			}
@@ -2261,7 +2261,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_tamed:true"
+						"@s mcwl:molangquery:is_tamed:bool:true"
 					]
 				},
 				"is_tamed_false": {
@@ -2271,7 +2271,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_tamed:false"
+						"@s mcwl:molangquery:is_tamed:bool:false"
 					]
 				}
 			}
@@ -2286,7 +2286,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_transforming:true"
+						"@s mcwl:molangquery:is_transforming:bool:true"
 					]
 				},
 				"is_transforming_false": {
@@ -2296,7 +2296,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_transforming:false"
+						"@s mcwl:molangquery:is_transforming:bool:false"
 					]
 				}
 			}
@@ -2311,7 +2311,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_using_item:true"
+						"@s mcwl:molangquery:is_using_item:bool:true"
 					]
 				},
 				"is_using_item_false": {
@@ -2321,7 +2321,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_using_item:false"
+						"@s mcwl:molangquery:is_using_item:bool:false"
 					]
 				}
 			}
@@ -2336,7 +2336,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_wall_climbing:true"
+						"@s mcwl:molangquery:is_wall_climbing:bool:true"
 					]
 				},
 				"is_wall_climbing_false": {
@@ -2346,7 +2346,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:is_wall_climbing:false"
+						"@s mcwl:molangquery:is_wall_climbing:bool:false"
 					]
 				}
 			}
@@ -2361,7 +2361,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:out_of_control:true"
+						"@s mcwl:molangquery:out_of_control:bool:true"
 					]
 				},
 				"out_of_control_false": {
@@ -2371,7 +2371,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:out_of_control:false"
+						"@s mcwl:molangquery:out_of_control:bool:false"
 					]
 				}
 			}
@@ -2386,7 +2386,7 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:show_bottom:true"
+						"@s mcwl:molangquery:show_bottom:bool:true"
 					]
 				},
 				"show_bottom_false": {
@@ -2396,11 +2396,137 @@
 						}
 					],
 					"on_entry": [
-						"@s mcwl:molangquery:show_bottom:false"
+						"@s mcwl:molangquery:show_bottom:bool:false"
 					]
 				}
 			}
 		},
+		"controller.animation.player.mcwl.molangquery.health.0": {
+			"initial_state": "is_bit_true",
+			"states": {
+				"is_bit_true": {
+					"transitions": [
+						{
+							"is_bit_false": "math.mod(math.ceil(query.health),2)<1"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:health:int:0:true"
+					]
+				},
+				"is_bit_false": {
+					"transitions": [
+						{
+							"is_bit_true": "math.mod(math.ceil(query.health),2)>=1"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:health:int:0:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.health.1": {
+			"initial_state": "is_bit_true",
+			"states": {
+				"is_bit_true": {
+					"transitions": [
+						{
+							"is_bit_false": "math.mod(math.ceil(query.health),4)<2"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:health:int:1:true"
+					]
+				},
+				"is_bit_false": {
+					"transitions": [
+						{
+							"is_bit_true": "math.mod(math.ceil(query.health),4)>=2"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:health:int:1:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.health.2": {
+			"initial_state": "is_bit_true",
+			"states": {
+				"is_bit_true": {
+					"transitions": [
+						{
+							"is_bit_false": "math.mod(math.ceil(query.health),8)<4"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:health:int:2:true"
+					]
+				},
+				"is_bit_false": {
+					"transitions": [
+						{
+							"is_bit_true": "math.mod(math.ceil(query.health),8)>=4"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:health:int:2:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.health.3": {
+			"initial_state": "is_bit_true",
+			"states": {
+				"is_bit_true": {
+					"transitions": [
+						{
+							"is_bit_false": "math.mod(math.ceil(query.health),16)<8"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:health:int:3:true"
+					]
+				},
+				"is_bit_false": {
+					"transitions": [
+						{
+							"is_bit_true": "math.mod(math.ceil(query.health),16)>=8"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:health:int:3:false"
+					]
+				}
+			}
+		},
+		"controller.animation.player.mcwl.molangquery.health.4": {
+			"initial_state": "is_bit_true",
+			"states": {
+				"is_bit_true": {
+					"transitions": [
+						{
+							"is_bit_false": "math.mod(math.ceil(query.health),32)<16"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:health:int:4:true"
+					]
+				},
+				"is_bit_false": {
+					"transitions": [
+						{
+							"is_bit_true": "math.mod(math.ceil(query.health),32)>=16"
+						}
+					],
+					"on_entry": [
+						"@s mcwl:molangquery:health:int:4:false"
+					]
+				}
+			}
+		},
+
 		"controller.animation.player.crossbow" : {
 			"initial_state" : "default",
 			"states" : {

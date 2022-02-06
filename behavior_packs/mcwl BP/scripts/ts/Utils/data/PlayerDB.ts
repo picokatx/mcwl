@@ -29,7 +29,10 @@ export class PlayerDB {
     player: Player
     playerName: string
     versionID: number
-
+    timeSinceRest: number
+    sleepInBed: number
+    health: boolean[]
+    healthVal: number
     constructor(player: Player, createNew: boolean) {
         this.playerName = player.name
         this.player = player
@@ -46,6 +49,8 @@ export class PlayerDB {
             this.joined = 0
             this.distanceTravelled = 0
             this.deaths = 0
+            this.sleepInBed = 0
+            this.timeSinceRest = 0
             this.raidsTriggered = 0
             this.jump = 0
             this.timeSinceDeath = 0
@@ -53,6 +58,8 @@ export class PlayerDB {
             this.sudo = new SudoEntry(false,"pico","@a")
             this.firstJoined = new Date().toString()
             this.versionID = 1
+            this.health = [false,false,false,false,false]
+            this.healthVal = 0
             this.write()
         } else {
             this.read()
@@ -79,6 +86,9 @@ export class PlayerDB {
             let data: any = parsedDB.data;
             let switchStr = parsedDB.name
             switch (switchStr) {
+                case MCWLNamespaces["health"]:
+                    this.health = data
+                    break
                 case MCWLNamespaces["blockInteractions"]:
                     this.blockInt = new BlocksIntDB(data)
                     break
@@ -95,7 +105,13 @@ export class PlayerDB {
                     this.firstJoined = data
                     break
                 case MCWLNamespaces["raidTrigger"]:
-                    this.firstJoined = data
+                    this.raidsTriggered = parseInt(data)
+                    break
+                case MCWLNamespaces["timeSinceRest"]:
+                    this.timeSinceRest = parseInt(data)
+                    break
+                case MCWLNamespaces["sleepInBed"]:
+                    this.sleepInBed = parseInt(data)
                     break
                 case MCWLNamespaces["playerJoined"]:
                     this.joined = parseInt(data)
@@ -133,10 +149,12 @@ export class PlayerDB {
         })
         ret.push(this.attrToString(this.playerName,MCWLNamespaces.playerName))
         ret.push(this.attrToString(this.versionID,MCWLNamespaces.versionID))
-
+        ret.push(this.attrToString(this.health,MCWLNamespaces.health))
         ret.push(this.blockInt.toJSONString());
         ret.push(this.sudo.toJSONString());
         ret.push(this.attrToString(this.raidsTriggered, MCWLNamespaces.raidTrigger));
+        ret.push(this.attrToString(this.sleepInBed, MCWLNamespaces.sleepInBed));
+        ret.push(this.attrToString(this.timeSinceRest, MCWLNamespaces.timeSinceRest));
         ret.push(this.attrToString(this.jump, MCWLNamespaces.jump));
         ret.push(this.attrToString(this.deaths, MCWLNamespaces.deaths));
         ret.push(this.attrToString(this.timeSinceDeath, MCWLNamespaces.timeSinceDeath));

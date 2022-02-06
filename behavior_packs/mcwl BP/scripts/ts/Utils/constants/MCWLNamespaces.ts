@@ -13,10 +13,10 @@ export enum MCWLNamespaces {
     deaths = "mcwl:deaths",
     timeSinceDeath = "mcwl:time_since_death",
     jump = "mcwl:jump",
-    
     raidTrigger = "mcwl:raid_trigger",
     timeSinceRest = "mcwl:time_since_rest",
     sleepInBed = "mcwl:sleep_in_bed",
+    health = "mcwl:health",
     animalsBred = "mcwl:animals_bred",
     fishCaught = "mcwl:fish_caught",
     enchantItem = "mcwl:enchant_item",
@@ -26,5 +26,7 @@ export enum MCWLNamespaces {
     raidWin = "mcwl:raid_win",
     talkedToVillager = "mcwl:talked_to_villager",
     targetHit = "mcwl:target_hit",
-    tradedWithVillager = "mcwl:traded_with_villager"
+    tradedWithVillager = "mcwl:traded_with_villager",
+
+    menuWand_open = "mcwl.menu_wand.open"
 }

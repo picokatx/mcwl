@@ -94,7 +94,8 @@ export let molangQueries = new Map([
     ["mcwl:molangquery:is_using_item", undefined],
     ["mcwl:molangquery:is_wall_climbing", undefined],
     ["mcwl:molangquery:out_of_control", undefined],
-    ["mcwl:molangquery:show_bottom", undefined]
+    ["mcwl:molangquery:show_bottom", undefined],
+    ["mcwl:molangquery:health", undefined]
 ]);
 export var MolangNamespaces;
 (function (MolangNamespaces) {
@@ -193,6 +194,7 @@ export var MolangNamespaces;
     MolangNamespaces["is_using_item"] = "mcwl:molangquery:is_using_item";
     MolangNamespaces["is_wall_climbing"] = "mcwl:molangquery:is_wall_climbing";
     MolangNamespaces["out_of_control"] = "mcwl:molangquery:out_of_control";
-    MolangNamespaces["show_bottom"] = "mcwl:molangquery:show_bottom:true";
+    MolangNamespaces["show_bottom"] = "mcwl:molangquery:show_bottom";
     MolangNamespaces["raid_triggered"] = "mcwl:molangquery:raid_triggered";
+    MolangNamespaces["health"] = "mcwl:molangquery:health";
 })(MolangNamespaces || (MolangNamespaces = {}));
