@@ -18,7 +18,7 @@ import { floorCmd } from "./Command/Commands/floorCommand.js";
 import { blockIntNamespaces } from "./Utils/stats/BlocksIntDB.js";
 import { blocksintCmd } from "./Command/Commands/blocksintCommand.js";
 import { SudoEntry } from "./Utils/stats/SudoEntry.js";
-import { MCWLNamespaces } from "./Utils/constants/MCWLNamespaces.js";
+import { DamageEntityTypes, DamagePlayerTypes, MCWLNamespaces } from "./Utils/constants/MCWLNamespaces.js";
 import { playtimeCmd } from "./Command/Commands/playtimeCommand.js";
 import { topCmd } from "./Command/Commands/topCommand.js";
 import { helpCmd } from "./Command/Commands/helpCommand.js";
@@ -79,7 +79,7 @@ GameTest.register("mcwl", "proto", (test) => {
     gameTestProto = test
 }).structureName("ComponentTests:platform").maxTicks(9999999)
 world.events.beforeItemDefinitionEvent.subscribe((eventData: BeforeItemDefinitionTriggeredEvent) => {
-    //printStream.println(eventData.eventName);
+    printStream.println(eventData.eventName);
     if (eventData.source.id == "minecraft:player" && eventData.source.nameTag.charAt(0) != '_') {
         if (eventData.eventName == MCWLNamespaces.menuWand_open) {
             let a: ModalFormData = new ModalFormData();
@@ -102,7 +102,8 @@ enum NamespaceTypes {
     void = "void"
 }
 world.events.beforeDataDrivenEntityTriggerEvent.subscribe((eventData: BeforeDataDrivenEntityTriggerEvent) => {
-    //printStream.println(eventData.id)
+    printStream.println(eventData.id)
+
     if (eventData.entity.id == "minecraft:player" && getNamespaceToken(eventData.id, 0, 1) == "mcwl:molangquery" && eventData.entity.nameTag.charAt(0) != '_') {
         let namespace: string = getNamespaceToken(eventData.id, 0, 2)
         let type: string = getNamespaceToken(eventData.id, 3, 3)
@@ -132,6 +133,17 @@ world.events.beforeDataDrivenEntityTriggerEvent.subscribe((eventData: BeforeData
                 let value: boolean = getNamespaceToken(eventData.id, 5, 5) == 'true'
                 thisPlayerDB.health[idx] = value
                 break
+            case NamespaceTypes["void"]:
+                for (let i of Object.values(DamageEntityTypes)) {
+                    if (namespace==i) {
+                        thisPlayerDB.entitiesKilled.getEntryById(i).count++
+                    }
+                }
+                for (let i of Object.values(DamagePlayerTypes)) {
+                    if (namespace==i) {
+                        
+                    }
+                }
         }
 
     }
@@ -155,6 +167,7 @@ world.events.playerJoin.subscribe((eventData: PlayerJoinEvent) => {
 })
 
 world.events.beforeItemUseOn.subscribe((eventData: BeforeItemUseOnEvent) => {
+    
     if (eventData.source.id == "minecraft:player" && eventData.source.nameTag.charAt(0) != '_') {
         let block: Block = eventData.source.dimension.getBlock(eventData.blockLocation);
         for (let i of blockIntNamespaces.entries()) {

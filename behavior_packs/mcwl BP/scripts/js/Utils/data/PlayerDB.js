@@ -2,6 +2,7 @@ import { MCWLNamespaces } from "../constants/MCWLNamespaces.js";
 import { molangQueries } from "../constants/MolangNamespaces.js";
 import { BlocksIntDB } from "../stats/BlocksIntDB.js";
 import { BlockStatDB } from "../stats/BlockStatDB.js";
+import { EntityKilledDB } from "../stats/EntityKilledDB.js";
 import { SudoEntry } from "../stats/SudoEntry.js";
 import { DataHelper } from "./DataHelper.js";
 import { PlayerData } from "./PlayerData.js";
@@ -21,6 +22,7 @@ export class PlayerDB {
             this.blockMod.push(new BlockStatDB(3, 5));
             this.blockMod.push(new BlockStatDB(4, 5));
             this.blockInt = new BlocksIntDB();
+            this.entitiesKilled = new EntityKilledDB();
             this.crouchTime = 0;
             this.joined = 0;
             this.distanceTravelled = 0;
@@ -63,6 +65,8 @@ export class PlayerDB {
             let data = parsedDB.data;
             let switchStr = parsedDB.name;
             switch (switchStr) {
+                case MCWLNamespaces["entityKilled"]:
+                    this.entitiesKilled = new EntityKilledDB(data);
                 case MCWLNamespaces["health"]:
                     this.health = data;
                     break;
@@ -128,6 +132,7 @@ export class PlayerDB {
         ret.push(this.attrToString(this.health, MCWLNamespaces.health));
         ret.push(this.blockInt.toJSONString());
         ret.push(this.sudo.toJSONString());
+        ret.push(this.entitiesKilled.toJSONString());
         ret.push(this.attrToString(this.raidsTriggered, MCWLNamespaces.raidTrigger));
         ret.push(this.attrToString(this.sleepInBed, MCWLNamespaces.sleepInBed));
         ret.push(this.attrToString(this.timeSinceRest, MCWLNamespaces.timeSinceRest));
