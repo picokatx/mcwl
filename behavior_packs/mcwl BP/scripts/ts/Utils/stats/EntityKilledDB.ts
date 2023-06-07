@@ -4,12 +4,13 @@ import { DamageEntityTypes, MCWLNamespaces } from "../constants/MCWLNamespaces.j
 import { PlayerData } from "../data/PlayerData.js";
 import { PlayerTag } from "../data/PlayerTag.js";
 import { BaseTagDB } from "./BaseTagDB.js";
+import { printStream } from "../../Main.js";
 export class EntityKilledDB implements BaseTagDB {
-    db: EntityKilledEntry[];
+    db: EntityKilledEntry[] = [];
     constructor(db?: EntityKilledEntry[]) {
         if (db == null) {
             for (let i of Object.values(DamageEntityTypes)) {
-                db.push(new EntityKilledEntry(i,0))
+                this.db.push(new EntityKilledEntry(i,0))
             }
         } else {
             this.db = db;

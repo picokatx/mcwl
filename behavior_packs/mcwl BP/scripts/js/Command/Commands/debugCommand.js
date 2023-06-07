@@ -4,13 +4,14 @@ import { printStream, playerDB } from "../../Main.js";
 import { world } from "mojang-minecraft";
 import { MCWLCommandReturn } from "../MCWLCmdReturn.js";
 import { locale } from "../../Utils/constants/LocalisationStrings.js";
+import { DamageEntityTypes } from "../../Utils/constants/MCWLNamespaces.js";
 function debug(player, args, subCmd) {
     switch (subCmd) {
         case 0:
             let players = world.getPlayers();
             for (let i of players) {
                 if (i.name == args.get(locale.get("cmd_args_target"))) {
-                    let health = playerDB.get(i.name).healthVal;
+                    let health = playerDB.get(i.name).entitiesKilled.getEntryById(DamageEntityTypes.fatal_damage_chicken).count;
                     return new MCWLCommandReturn(0, locale.get("cmd_return_debug_0_success"), args.get(locale.get("cmd_args_target")), health);
                 }
             }

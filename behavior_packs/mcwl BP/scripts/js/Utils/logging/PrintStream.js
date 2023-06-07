@@ -1,7 +1,7 @@
 import { ColorCodes } from "../constants/ColorCodes.js";
 import { CustomCharID } from "../constants/CustomCharID.js";
 import { Console } from "./Console.js";
-import { getAttributes, getMethods } from "./stringifyObject.js";
+import { getAttributes, getMethods } from "./StringifyObject.js";
 export const filter = RegExp(/[^\w\d\s]/);
 export const notifPrefix = `${ColorCodes.grey}[${ColorCodes.darkgreen}${ColorCodes.bold}MCWL${ColorCodes.reset}${ColorCodes.grey}]`;
 export class PrintStream {

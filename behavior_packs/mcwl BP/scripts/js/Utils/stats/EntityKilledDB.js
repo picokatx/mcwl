@@ -4,9 +4,10 @@ import { PlayerData } from "../data/PlayerData.js";
 import { PlayerTag } from "../data/PlayerTag.js";
 export class EntityKilledDB {
     constructor(db) {
+        this.db = [];
         if (db == null) {
             for (let i of Object.values(DamageEntityTypes)) {
-                db.push(new EntityKilledEntry(i, 0));
+                this.db.push(new EntityKilledEntry(i, 0));
             }
         }
         else {

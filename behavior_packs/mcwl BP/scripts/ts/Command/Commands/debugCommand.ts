@@ -4,6 +4,7 @@ import { printStream, playerDB} from "../../Main.js"
 import { EntityIterator, Player, world } from "mojang-minecraft"
 import { MCWLCommandReturn } from "../MCWLCmdReturn.js"
 import { locale } from "../../Utils/constants/LocalisationStrings.js"
+import { DamageEntityTypes } from "../../Utils/constants/MCWLNamespaces.js"
 
 function debug(
     player: Player,
@@ -14,7 +15,7 @@ function debug(
             let players: EntityIterator = world.getPlayers()
             for (let i of players) {
                 if ((i as Player).name == args.get(locale.get("cmd_args_target"))) {
-                    let health: number = playerDB.get((i as Player).name).healthVal
+                    let health: number = playerDB.get((i as Player).name).entitiesKilled.getEntryById(DamageEntityTypes.fatal_damage_chicken).count
                     return new MCWLCommandReturn(0, locale.get("cmd_return_debug_0_success"), args.get(locale.get("cmd_args_target")), health)
                 }
             }

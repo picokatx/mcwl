@@ -1,8 +1,9 @@
-import { Dimension, EntityIterator, Player } from "mojang-minecraft";
+import { CommandReturn, Dimension, EntityIterator, Player } from "mojang-minecraft";
+import { printStream } from "../../Main.js";
 import { ColorCodes } from "../constants/ColorCodes.js";
 import { CustomCharID } from "../constants/CustomCharID.js";
 import { Console } from "./Console.js";
-import { getAttributes, getMethods } from "./stringifyObject.js";
+import { getAttributes, getMethods } from "./StringifyObject.js";
 export const filter: RegExp = RegExp(/[^\w\d\s]/);
 export const notifPrefix: string = `${ColorCodes.grey}[${ColorCodes.darkgreen}${ColorCodes.bold}MCWL${ColorCodes.reset}${ColorCodes.grey}]`
 export class PrintStream {
@@ -17,7 +18,7 @@ export class PrintStream {
     broadcast() {
         if (this.queued.length > 0) {
             try {
-                this.printable.runCommand(this.queued[0]);
+                this.printable.runCommand(this.queued[0])
                 this.queued.shift();
             } catch {
 

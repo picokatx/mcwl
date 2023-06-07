@@ -17,6 +17,9 @@ export class DataHelper {
             i.data == PotionData.mundane_extended ||
             i.data == PotionData.thick);
     }
+    static getTopBlock() {
+        
+    }
     static campfireIsLit(p: Block) {
         return !((p.permutation.getProperty(BlockProperties.extinguished) as BoolBlockProperty).value)
     }

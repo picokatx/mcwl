@@ -34,6 +34,10 @@ import { timesincerestCmd } from "./Command/Commands/timesincerestCommand.js";
 import { sleepinbedCmd } from "./Command/Commands/sleepinbedCommand.js";
 import { spawnplayerCmd } from "./Command/Commands/spawnplayerCommand.js";
 import { debugCmd } from "./Command/Commands/debugCommand.js";
+import { entitykilledCmd } from "./Command/Commands/entityKilledCommand.js";
+import { damagetakenCmd } from "./Command/Commands/damageTakenCommand.js";
+import { lineCmd } from "./Command/Commands/lineCommand.js";
+import { drainCmd } from "./Command/Commands/drainCommand.js";
 export let printStream = new PrintStream(world.getDimension("overworld"));
 export let playerPrevLocDB = new Map();
 export let playerDB = new Map();
@@ -47,10 +51,14 @@ export let commands = [
     debugCmd,
     descendCmd,
     distancemovedCmd,
+    drainCmd,
+    damagetakenCmd,
+    entitykilledCmd,
     firstjoinedCmd,
     floorCmd,
     gotoCmd,
     helpCmd,
+    lineCmd,
     jumpCmd,
     lastdiedCmd,
     playtimeCmd,
@@ -75,7 +83,6 @@ GameTest.register("mcwl", "proto", (test) => {
     gameTestProto = test;
 }).structureName("ComponentTests:platform").maxTicks(9999999);
 world.events.beforeItemDefinitionEvent.subscribe((eventData) => {
-    printStream.println(eventData.eventName);
     if (eventData.source.id == "minecraft:player" && eventData.source.nameTag.charAt(0) != '_') {
         if (eventData.eventName == MCWLNamespaces.menuWand_open) {
             let a = new ModalFormData();
@@ -99,7 +106,6 @@ var NamespaceTypes;
     NamespaceTypes["void"] = "void";
 })(NamespaceTypes || (NamespaceTypes = {}));
 world.events.beforeDataDrivenEntityTriggerEvent.subscribe((eventData) => {
-    printStream.println(eventData.id);
     if (eventData.entity.id == "minecraft:player" && getNamespaceToken(eventData.id, 0, 1) == "mcwl:molangquery" && eventData.entity.nameTag.charAt(0) != '_') {
         let namespace = getNamespaceToken(eventData.id, 0, 2);
         let type = getNamespaceToken(eventData.id, 3, 3);
@@ -150,7 +156,6 @@ world.events.playerJoin.subscribe((eventData) => {
     if (eventData.player == undefined) {
         return;
     }
-    PlayerTag.clearTags(eventData.player);
     if (!PlayerTag.hasTag(eventData.player, MCWLNamespaces.playerFirstJoined)) {
         printStream.info(locale.get('player_welcome'), [eventData.player.name]);
         playerDB.set(eventData.player.name, new PlayerDB(eventData.player, true));

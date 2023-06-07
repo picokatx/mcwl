@@ -20,8 +20,8 @@ function setblock(
             }
             try {
                 pointMaterial.apply(
-                    new Map().set("position", new Vec3(coords[0], coords[1], coords[2])),
-                    new Map().set("block", args.get(locale.get("cmd_args_block")))
+                    new Map().set("position", new Vec3(coords[0], coords[1], coords[2])).set("dimension", player.dimension),
+                    new Map().set("block", args.get(locale.get("cmd_args_block"))).set("dimension", player.dimension)
                 )
             } catch {
                 return new MCWLCommandReturn(1, locale.get("cmd_return_default"), setblockCmd.name)
@@ -31,8 +31,8 @@ function setblock(
             let loc = new Vec3(player.location.x, player.location.y, player.location.z).floor()
             try {
                 pointMaterial.apply(
-                    new Map().set("position", loc),
-                    new Map().set("block", args.get(locale.get("cmd_args_block")))
+                    new Map().set("position", loc).set("dimension", player.dimension),
+                    new Map().set("block", args.get(locale.get("cmd_args_block"))).set("dimension", player.dimension)
                 )
             } catch {
                 return new MCWLCommandReturn(1, locale.get("cmd_return_default"), setblockCmd.name)

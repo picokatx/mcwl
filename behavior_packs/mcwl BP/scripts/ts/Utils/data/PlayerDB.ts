@@ -1,5 +1,4 @@
 import { Player } from "mojang-minecraft";
-
 import { MCWLNamespaces } from "../constants/MCWLNamespaces.js";
 import { molangQueries } from "../constants/MolangNamespaces.js";
 import { BlocksIntDB } from "../stats/BlocksIntDB.js";

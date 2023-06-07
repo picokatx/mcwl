@@ -180,5 +180,6 @@ export class UnweightedBlockDistFragment extends Shader {
     }
 }
 export let pointMaterial = new Material("point", new PointVertex("point_vertex"), new BaseFragment("point_fragment"));
+export let lineMaterial = new Material("line", new LineVertex("line_vertex"), new BaseFragment("line_fragment"));
 export let cuboidMaterial = new Material("cuboid", new CuboidVertex("cuboid_vertex"), new BaseFragment("cuboid_fragment"));
 export let testMaterial = new Material("cuboid", new CuboidVertex("cuboid_vertex"), new UnweightedBlockDistFragment("cuboid_fragment"));

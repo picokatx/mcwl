@@ -16,7 +16,6 @@ export function getAttributes(obj: any) {
     }
     return [...properties.keys()].filter((item: string) => typeof obj[item] !== 'function')
 }
-
 export function getPrototype(obj: any) {
     let properties = new Set()
     let objProto = obj

@@ -14,7 +14,7 @@ function damagetaken(
             let players: EntityIterator = world.getPlayers()
             for (let i of players) {
                 if ((i as Player).name == args.get(locale.get("cmd_args_target"))) {
-                    let health: number = playerDB.get((i as Player).name).healthVal
+                    let health: string = playerDB.get((i as Player).name).health.toString()
                     return new MCWLCommandReturn(0, locale.get("cmd_return_damagetaken_0_success"), args.get(locale.get("cmd_args_target")), health)
                 }
             }
